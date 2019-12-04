@@ -2,7 +2,7 @@
 using UnityEngine;
 using SystemInfo = FiroozehGameService.Models.Internal.SystemInfo;
 
-namespace GameService.Utils
+namespace Plugins.GameService.Utils
 {
     public class GameServiceInitializer : MonoBehaviour
     {
