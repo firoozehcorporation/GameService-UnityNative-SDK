@@ -30,3 +30,8 @@
 ### راه اندازی گیم سرویس :
 
 برای استفاده از گیم سرویس به [مستندات](https://gamesservice.ir/docs) مراجعه کنید
+
+
+
+### کتابخانه های استفاده شده :
+- [Async Await Support](https://assetstore.unity.com/packages/tools/integration/async-await-support-101056)
