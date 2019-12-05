@@ -9,6 +9,7 @@
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
             <e p="Core" t="Include">
+              <e p="FiroozehGameService.xml" t="Include" />
               <e p="Newtonsoft.Json.xml" t="Include" />
             </e>
             <e p="Tools" t="Include">
@@ -43,7 +44,9 @@
       <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>
