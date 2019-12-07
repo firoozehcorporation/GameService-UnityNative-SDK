@@ -8,9 +8,9 @@ namespace Plugins.GameService.Utils
     {
         public string ClientId;
         public string ClientSecret;
-        
-        void Start()
-        {        
+
+        void OnEnable()
+        {
             var systemInfo = new SystemInfo
             {
                 DeviceModel = UnityEngine.SystemInfo.deviceModel,
@@ -27,6 +27,5 @@ namespace Plugins.GameService.Utils
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
         }
-       
     }
 }
