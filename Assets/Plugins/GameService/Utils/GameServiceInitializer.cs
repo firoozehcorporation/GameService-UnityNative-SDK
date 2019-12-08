@@ -11,6 +11,7 @@ namespace Plugins.GameService.Utils
 
         void OnEnable()
         {
+            if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
             var systemInfo = new SystemInfo
             {
                 DeviceModel = UnityEngine.SystemInfo.deviceModel,
