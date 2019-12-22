@@ -9,8 +9,34 @@
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
             <e p="Core" t="Include">
+              <e p="Crc32.NET.xml" t="Include" />
               <e p="FiroozehGameService.xml" t="Include" />
               <e p="Newtonsoft.Json.xml" t="Include" />
+            </e>
+            <e p="Extra" t="Include">
+              <e p="AndroidSupport" t="Include">
+                <e p="Core" t="Include">
+                  <e p="DelegateCore.cs" t="Include" />
+                </e>
+                <e p="GameServiceAndroid.cs" t="Include" />
+                <e p="Handlers" t="Include">
+                  <e p="DownloadHandler.cs" t="Include" />
+                  <e p="LoginHandlers.cs" t="Include" />
+                  <e p="NativePluginHandler.cs" t="Include" />
+                </e>
+                <e p="Interfaces" t="Include">
+                  <e p="IGameServiceCallback.cs" t="Include" />
+                </e>
+                <e p="Models" t="Include">
+                  <e p="DownloadEvent.cs" t="Include" />
+                  <e p="UserDataEvent.cs" t="Include" />
+                </e>
+                <e p="Utils" t="Include">
+                  <e p="DialogUtil.cs" t="Include" />
+                  <e p="FileUtil.cs" t="Include" />
+                  <e p="NativePluginProvider.cs" t="Include" />
+                </e>
+              </e>
             </e>
             <e p="Tools" t="Include">
               <e p="AsyncAwaitUtil" t="Include">
@@ -44,7 +70,9 @@
       <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>
