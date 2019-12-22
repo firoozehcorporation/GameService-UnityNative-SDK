@@ -78,7 +78,13 @@
             <summary>
             With this command you can get information about the current player is playing
             </summary>
-            <value> return GetCurrentPlayer </value>
+            <value> return CurrentPlayer Data </value>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)">
+            <summary>
+            With this command you can Edit information about the current player is playing
+            </summary>
+            <value> return CurrentPlayer Data </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.RemoveLastSave">
             <summary>
@@ -486,6 +492,41 @@
             Gets the Bucket Object.
             </summary>
             <value>the Bucket Object</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.EditUserProfile">
+            <summary>
+            Represents EditUserProfile In Game Service Basic API
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.NickName">
+            <summary>
+            Set New NickName For CurrentPlayer.
+            </summary>
+            <value> New NickName For CurrentPlayer</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.Logo">
+            <summary>
+            Set New ProfileLogo(BytesBuffer) For CurrentPlayer.
+            </summary>
+            <value> New ProfileLogo For CurrentPlayer</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.AllowAutoAddToGame">
+            <summary>
+            Set Allow Auto Add To Game For CurrentPlayer.
+            </summary>
+            <value> Allow Auto Add To Game For CurrentPlayer</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowPublicActivity">
+            <summary>
+            Set Show Public Activity For CurrentPlayer.
+            </summary>
+            <value> Allow Show Public Activity For CurrentPlayer</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowGroupActivity">
+            <summary>
+            Set Show Group Activity For CurrentPlayer.
+            </summary>
+            <value> Allow Show Group Activity For CurrentPlayer</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.LeaderBoard">
             <summary>
