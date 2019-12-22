@@ -153,11 +153,11 @@
             Normal Login (InFirstOnly) To Game Service
             It May Throw Exception
             </summary>
-            <value> return PlayToken if Login Successfully </value>
+            <value> return UserToken if Login Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login(System.String)">
             <summary>
-            Normal Login With PlayToken To Game Service
+            Normal Login With UserToken To Game Service
             It May Throw Exception
             </summary>
         </member>
@@ -172,7 +172,7 @@
             Normal SignUp To Game Service
             It May Throw Exception
             </summary>
-            <value> return PlayToken if SignUp Successfully </value>
+            <value> return UserToken if SignUp Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.IsAuthenticated">
             <summary>
