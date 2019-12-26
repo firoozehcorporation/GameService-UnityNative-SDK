@@ -188,7 +188,7 @@
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Logout">
             <summary>
-            Logout To Game Service
+            Logout From Game Service
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLive">
@@ -386,6 +386,11 @@
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetRoomMembersDetail">
             <summary>
             Get Room Members Details 
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetCurrentTurnMember">
+            <summary>
+            Get Current Turn Member Details 
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetInviteInbox">
