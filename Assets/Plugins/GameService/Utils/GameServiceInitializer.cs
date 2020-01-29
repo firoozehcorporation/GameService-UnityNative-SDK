@@ -1,4 +1,5 @@
 ﻿using FiroozehGameService.Builder;
+using FiroozehGameService.Models.BasicApi;
 using UnityEngine;
 using SystemInfo = FiroozehGameService.Models.Internal.SystemInfo;
 

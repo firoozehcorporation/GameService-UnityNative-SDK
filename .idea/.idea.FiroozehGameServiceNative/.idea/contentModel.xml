@@ -5,6 +5,7 @@
     <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_FiroozehGameServiceNative.-1469830139.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
@@ -65,6 +66,7 @@
             </e>
           </e>
         </e>
+        <e p="Test.cs" t="Include" />
       </e>
       <e p="FiroozehGameServiceNative.sln" t="IncludeFlat" />
       <e p="Library" t="ExcludeRecursive" />
