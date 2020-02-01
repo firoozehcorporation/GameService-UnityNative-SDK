@@ -806,6 +806,107 @@
             </summary>
             <value>the Join Data</value>
         </member>
+        <member name="T:FiroozehGameService.Models.Command.Notification">
+            <summary>
+            Represents Notification Model In Game Service Command
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.Notification.Title">
+            <summary>
+            Gets the Notification Title
+            </summary>
+            <value>the Notification Title</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.Notification.Description">
+            <summary>
+            Gets the Notification Description
+            </summary>
+            <value>the Notification Description</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.Command.Notification.TapActionType">
+            <summary>
+            Gets the Notification Action Type
+            </summary>
+            <value>the Notification Action Type</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.Notification.ActionData">
+            <summary>
+            Gets the Notification Action Data
+            </summary>
+            <value>the Notification Action Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.Notification.JsonData">
+            <summary>
+            Gets the Notification Json Data
+            </summary>
+            <value>the Notification Json Data</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.Command.NotificationActionData">
+            <summary>
+            Represents NotificationActionData Model In Game Service Command
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.PackageName">
+            <summary>
+            Gets the PackageName Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the PackageName Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.MarketType">
+            <summary>
+            Gets the MarketType Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the MarketType Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.LinkAddress">
+            <summary>
+            Gets the LinkAddress Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the LinkAddress Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailAddress">
+            <summary>
+            Gets the EmailAddress Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailAddress Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailTitle">
+            <summary>
+            Gets the EmailTitle Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailTitle Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailBody">
+            <summary>
+            Gets the EmailBody Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailBody Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.TelegramChannel">
+            <summary>
+            Gets the TelegramChannel Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the TelegramChannel Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.IntentAction">
+            <summary>
+            Gets the IntentAction Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the IntentAction Data</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.Command.MarketType">
+            <summary>
+            Represents MarketType Model In Notification
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.Enums.GameServiceType">
             <summary>
             Represents GameServiceType Of Game Service 

@@ -19,6 +19,7 @@ namespace Plugins.GameService.Utils
                 DeviceName = UnityEngine.SystemInfo.deviceName,
                 DeviceType = UnityEngine.SystemInfo.deviceType.ToString(),
                 OperatingSystem = UnityEngine.SystemInfo.operatingSystem,
+                NetworkType = Application.internetReachability.ToString(),
                 ProcessorCount = UnityEngine.SystemInfo.processorCount,
                 ProcessorFrequency = UnityEngine.SystemInfo.processorFrequency,
                 ProcessorType = UnityEngine.SystemInfo.processorType,
@@ -26,6 +27,7 @@ namespace Plugins.GameService.Utils
                 GraphicsDeviceVendor = UnityEngine.SystemInfo.graphicsDeviceVendor,
                 GraphicsMemorySize = UnityEngine.SystemInfo.graphicsMemorySize
             };
+            
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
         }
