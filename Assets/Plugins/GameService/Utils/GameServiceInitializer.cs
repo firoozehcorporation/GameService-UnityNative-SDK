@@ -12,7 +12,10 @@ namespace Plugins.GameService.Utils
         private void OnEnable()
         {
             if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
+            
             Debug.Log("GameService Initializing...");
+            DontDestroyOnLoad(this);
+
             var systemInfo = new SystemInfo
             {
                 DeviceModel = UnityEngine.SystemInfo.deviceModel,
