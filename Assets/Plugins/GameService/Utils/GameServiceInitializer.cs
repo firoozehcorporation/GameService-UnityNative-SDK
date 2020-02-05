@@ -1,5 +1,4 @@
 ﻿using FiroozehGameService.Builder;
-using FiroozehGameService.Models.BasicApi;
 using UnityEngine;
 using SystemInfo = FiroozehGameService.Models.Internal.SystemInfo;
 
@@ -10,9 +9,10 @@ namespace Plugins.GameService.Utils
         public string ClientId;
         public string ClientSecret;
 
-        void OnEnable()
+        private void OnEnable()
         {
             if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
+            Debug.Log("GameService Initializing...");
             var systemInfo = new SystemInfo
             {
                 DeviceModel = UnityEngine.SystemInfo.deviceModel,
@@ -30,6 +30,13 @@ namespace Plugins.GameService.Utils
             
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
+        }
+
+
+        private void OnDestroy()
+        {
+            Debug.Log("GameService Logout Called");
+            FiroozehGameService.Core.GameService.Logout();
         }
     }
 }
