@@ -34,12 +34,11 @@
             </summary>
             <value> GetAchievements List </value>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.SaveGame(System.String,System.String,System.Object)">
+        <member name="M:FiroozehGameService.Core.GameService.SaveGame(System.String,System.Object)">
             <summary>
             With this command you can save your Current Status in Game
             </summary>
             <param name="saveGameName">saveGameName</param>
-            <param name="saveGameDescription">saveGameDescription</param>
             <param name="saveGameObj">the Object that you Want To Save it</param>
             <value> return SaveDetails </value>
         </member>
@@ -48,7 +47,7 @@
             This command allows you to Submit Player Score with the ID of the leaderBoard
             you have Registered in the Developer panel
             </summary>
-            <param name="leaderBoardId">leaderBoardId</param>
+            <param name="leaderBoardId">(Not NULL)leaderBoardId</param>
             <param name="scoreValue">scoreValue(The value must not exceed the maximum value Registered in the Developer Panel)</param>
             <value> return SaveDetails </value>
         </member>
@@ -57,7 +56,7 @@
             With this command you can Unlock achievement with the achievement ID
             you registered in the Developer panel.
             </summary>
-            <param name="achievementId">The ID of Achievement you Want To Unlock it</param>
+            <param name="achievementId">(Not NULL)The ID of Achievement you Want To Unlock it</param>
             <value> return unlocked Achievement </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.GetSaveGame``1">
@@ -66,12 +65,13 @@
             </summary>
             <value> return Player Last Save </value>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.GetLeaderBoardDetails(System.String)">
+        <member name="M:FiroozehGameService.Core.GameService.GetLeaderBoardDetails(System.String,System.Int32)">
             <summary>
             With this command you can get a LeaderBoardDetails with the ID of the LeaderBoard list
             you registered in the Developer panel.
             </summary>
-            <param name="leaderBoardId">The ID of leaderBoard you Want To get Detail</param>
+            <param name="leaderBoardId">(Not NULL)The ID of leaderBoard you Want To get Detail</param>
+            <param name="scoreLimit">(Min = 10,Max = 50) The Score List Limits</param>
             <value> return LeaderBoardDetails </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.GetCurrentPlayer">
@@ -96,7 +96,7 @@
             <summary>
             This command will return all information about the bucket with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To get Detail</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To get Detail</param>
             <param name="options">(Optional)The Bucket Options</param>
             <value> return List of all Bucket Items</value>
         </member>
@@ -104,40 +104,40 @@
             <summary>
             This command returns one of the Specific bucket information with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To get Detail</param>
-            <param name="itemId">The ID of BucketItem you Want To get Detail</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To get Detail</param>
+            <param name="itemId">(Not NULL)The ID of BucketItem you Want To get Detail</param>
             <value> return a Bucket Item</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)">
             <summary>
             This command will edit one of the bucket information with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To Edit Details</param>
-            <param name="itemId">The ID of BucketItem you Want To Edit Details</param>
-            <param name="editedBucket">The Object of BucketItem you Want To Edit Detail</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To Edit Details</param>
+            <param name="itemId">(Not NULL)The ID of BucketItem you Want To Edit Details</param>
+            <param name="editedBucket">(Not NULL)The Object of BucketItem you Want To Edit Detail</param>
             <value> return Edited Bucket Item</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)">
             <summary>
             This command will Add new bucket information with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To Add Item</param>
-            <param name="newBucket">The Object of BucketItem you Want To Add</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To Add Item</param>
+            <param name="newBucket">(Not NULL)The Object of BucketItem you Want To Add</param>
             <value> return Added Bucket Item</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)">
             <summary>
             This command will delete All of the bucket Items information with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To Delete All Items</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To Delete All Items</param>
             <value> return true if Remove Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)">
             <summary>
             This command will delete one of the bucket information with a specific ID
             </summary>
-            <param name="bucketId">The ID of Bucket you Want To Delete one of Items</param>
-            <param name="itemId">The ID of BucketItem you Want To Delete it</param>
+            <param name="bucketId">(Not NULL)The ID of Bucket you Want To Delete one of Items</param>
+            <param name="itemId">(Not NULL)The ID of BucketItem you Want To Delete it</param>
             <value> return true if Remove Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)">
@@ -155,6 +155,11 @@
             </summary>
             <param name="tag">(Not NULL)Specifies the Asset tag that Set in Developers Panel.</param>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.StopAllDownloadAsset">
+            <summary>
+            Stop All Current Download Assets
+            </summary>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)">
             <summary>
             Normal Login (InFirstOnly) To Game Service
@@ -167,6 +172,14 @@
             Normal Login With UserToken To Game Service
             It May Throw Exception
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.LoginWithGoogle(System.String)">
+            <summary>
+            Normal Login With GoogleSignInUser To Game Service
+            It May Throw Exception
+            <param name="idToken">(Not NULL)Specifies the idToken From GoogleSignInUser Class.</param>
+            </summary>
+            <value> return UserToken if Login Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login">
             <summary>
@@ -186,6 +199,12 @@
             Check if Current User Authenticated
             </summary>
             <value> return True if Current User Authenticated Before </value>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.Version">
+            <summary>
+            Get The Current GameService Version
+            </summary>
+            <value> return The Current GameService Version </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Logout">
             <summary>
@@ -237,6 +256,7 @@
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption">
+            <inheritdoc />
             <summary>
             Represents GSLive CreateRoomOption
             </summary>
@@ -280,7 +300,7 @@
             Send A Data To All Players in Room. 
             </summary>
             <param name="data">(NOTNULL) Data To BroadCast </param>
-            <param name="sendType">(NOTNULL) Send Type </param>
+            <param name="sendType">Send Type </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)">
             <summary>
@@ -476,28 +496,32 @@
             </summary>
             <value>the Status of Earned Achievement</value>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Bucket`1">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketCore">
             <summary>
-            Represents Bucket Data Model In Game Service Basic API
+            Represents BucketCore Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.Bucket`1.BucketId">
-            <summary>
-            Gets the Bucket ID.
-            </summary>
-            <value>the Bucket ID</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.Bucket`1.Id">
+        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.Id">
             <summary>
             Gets the Bucket Object ID.
             </summary>
             <value>the Bucket Object ID</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.Bucket`1.BucketData">
+        <member name="P:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.OwnerId">
             <summary>
-            Gets the Bucket Object.
+            Gets the Bucket Owner User ID.
             </summary>
-            <value>the Bucket Object</value>
+            <value>the Bucket Object ID</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.ShouldSerializeId">
+            <summary>
+            To Prevent Serialize Id Property
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketCore.ShouldSerializeOwnerId">
+            <summary>
+            To Prevent Serialize OwnerId Property
+            </summary>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketOption">
             <summary>
@@ -781,152 +805,102 @@
             </summary>
             <value>this User Is Yours or Not</value>
         </member>
-        <member name="T:FiroozehGameService.Models.Command.AutoMatchEvent">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors">
             <summary>
-            Represents AutoMatchEvent When AutoMatch Update Status in GSLive
+            Represents All GameService Errors
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.AutoMatchEvent.Status">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http">
             <summary>
-            Gets the AutoMatchStatus
-            </summary>
-            <value>the AutoMatchStatus</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.AutoMatchEvent.Players">
-            <summary>
-            Gets the AutoMatch Players Queue
-            </summary>
-            <value>the AutoMatch Players Queue</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.Command.ErrorEvent">
-            <summary>
-            Represents ErrorEvent When Error Happened in GSLive
+            Represents All GameService Errors in HTTP Requests
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.ErrorEvent.Type">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Internal">
             <summary>
-            Gets the Error Happened Type
-            </summary>
-            <value>Error Happened Type</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.ErrorEvent.Error">
-            <summary>
-            Gets the Error Text
-            </summary>
-            <value>the Error Text</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.Command.JoinEvent">
-            <summary>
-            Represents JoinEvent
+            Represents GameService HTTP Internal Errors
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.JoinEvent.Type">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Authorize">
+            <inheritdoc />
             <summary>
-            Gets the GSLive Type for JoinEvent
-            </summary>
-            <value>the GSLive Type for JoinEvent</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.JoinEvent.JoinData">
-            <summary>
-            Gets the Join Data
-            </summary>
-            <value>the Join Data</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.Command.Notification">
-            <summary>
-            Represents Notification Model In Game Service Command
+            Represents GameService Authorize HTTP Errors
+            Errors that occur in the following Functions :
+            <see cref="M:FiroozehGameService.Core.GameService.Login"/>
+            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)"/>
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.Notification.Title">
+        <member name="F:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Authorize.TokenRequired">
             <summary>
-            Gets the Notification Title
-            </summary>
-            <value>the Notification Title</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.Notification.Description">
-            <summary>
-            Gets the Notification Description
-            </summary>
-            <value>the Notification Description</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.Command.Notification.TapActionType">
-            <summary>
-            Gets the Notification Action Type
-            </summary>
-            <value>the Notification Action Type</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.Notification.ActionData">
-            <summary>
-            Gets the Notification Action Data
-            </summary>
-            <value>the Notification Action Data</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.Notification.JsonData">
-            <summary>
-            Gets the Notification Json Data
-            </summary>
-            <value>the Notification Json Data</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.Command.NotificationActionData">
-            <summary>
-            Represents NotificationActionData Model In Game Service Command
+            These errors may never happen!
             </summary>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.PackageName">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.LoginOrSignUp">
+            <inheritdoc />
             <summary>
-            Gets the PackageName Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService LoginOrSignUp HTTP Errors
+            Errors that occur in the following Functions :
+            <see cref="M:FiroozehGameService.Core.GameService.Login"/>
+            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)"/>
             </summary>
-            <value>the PackageName Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.MarketType">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Save">
+            <inheritdoc />
             <summary>
-            Gets the MarketType Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService Save HTTP Errors
+            Errors that occur in the following Functions :
+            <see cref="M:FiroozehGameService.Core.GameService.SaveGame(System.String,System.Object)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.GetSaveGame``1"/>
             </summary>
-            <value>the MarketType Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.LinkAddress">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Achievement">
+            <inheritdoc />
             <summary>
-            Gets the LinkAddress Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService Achievement HTTP Errors
+            Errors that occur in the following Functions :
+            <see cref="M:FiroozehGameService.Core.GameService.GetAchievements"/>
+            <see cref="M:FiroozehGameService.Core.GameService.UnlockAchievement(System.String)"/>
             </summary>
-            <value>the LinkAddress Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailAddress">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Leaderboard">
+            <inheritdoc />
             <summary>
-            Gets the EmailAddress Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService Leaderboard HTTP Errors
+            Errors that occur in the following Functions :
+            <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoards"/>
+            <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoardDetails(System.String,System.Int32)"/>
             </summary>
-            <value>the EmailAddress Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailTitle">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.DownloadAssets">
             <summary>
-            Gets the EmailTitle Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService DownloadAssets HTTP Errors
+            Errors that occur in the following Functions:
+            <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String)"/>
+            And You Can Handle Them in <see cref="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError"/>
             </summary>
-            <value>the EmailTitle Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.EmailBody">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Bucket">
             <summary>
-            Gets the EmailBody Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService Bucket HTTP Errors
+            Errors that occur in the following Functions:
+            <see cref="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])"/>
+            <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)"/>
             </summary>
-            <value>the EmailBody Data</value>
         </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.TelegramChannel">
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.EditCurrentPlayer">
             <summary>
-            Gets the TelegramChannel Data
-            this Data may be Null if Not Set in Developer Panel
+            Represents GameService EditCurrentPlayer HTTP Errors
+            Errors that occur in the following Functions:
+            <see cref="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)"/>
             </summary>
-            <value>the TelegramChannel Data</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.Command.NotificationActionData.IntentAction">
-            <summary>
-            Gets the IntentAction Data
-            this Data may be Null if Not Set in Developer Panel
-            </summary>
-            <value>the IntentAction Data</value>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.BucketOwnershipTypes">
             <summary>
@@ -941,11 +915,6 @@
         <member name="T:FiroozehGameService.Models.Enums.Command.MarketType">
             <summary>
             Represents MarketType Model In Notification
-            </summary>
-        </member>
-        <member name="T:FiroozehGameService.Models.Enums.GameServiceType">
-            <summary>
-            Represents GameServiceType Of Game Service 
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GProtocolSendType">
@@ -1076,6 +1045,153 @@
             Gets the Chat Message Send Time in Unix Time
             </summary>
             <value>the Chat Message Send Time in Unix Time</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent">
+            <summary>
+            Represents AutoMatchEvent When AutoMatch Update Status in GSLive
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent.Status">
+            <summary>
+            Gets the AutoMatchStatus
+            </summary>
+            <value>the AutoMatchStatus</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent.Players">
+            <summary>
+            Gets the AutoMatch Players Queue
+            </summary>
+            <value>the AutoMatch Players Queue</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Command.ErrorEvent">
+            <summary>
+            Represents ErrorEvent When Error Happened in GSLive
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.ErrorEvent.Type">
+            <summary>
+            Gets the Error Happened Type
+            </summary>
+            <value>Error Happened Type</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.ErrorEvent.Error">
+            <summary>
+            Gets the Error Text
+            </summary>
+            <value>the Error Text</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Command.JoinEvent">
+            <summary>
+            Represents JoinEvent
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.JoinEvent.Type">
+            <summary>
+            Gets the GSLive Type for JoinEvent
+            </summary>
+            <value>the GSLive Type for JoinEvent</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.JoinEvent.JoinData">
+            <summary>
+            Gets the Join Data
+            </summary>
+            <value>the Join Data</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Command.Notification">
+            <summary>
+            Represents Notification Model In Game Service Command
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.Title">
+            <summary>
+            Gets the Notification Title
+            </summary>
+            <value>the Notification Title</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.Description">
+            <summary>
+            Gets the Notification Description
+            </summary>
+            <value>the Notification Description</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Command.Notification.TapActionType">
+            <summary>
+            Gets the Notification Action Type
+            </summary>
+            <value>the Notification Action Type</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.ActionData">
+            <summary>
+            Gets the Notification Action Data
+            </summary>
+            <value>the Notification Action Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.Notification.JsonData">
+            <summary>
+            Gets the Notification Json Data
+            </summary>
+            <value>the Notification Json Data</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Command.NotificationActionData">
+            <summary>
+            Represents NotificationActionData Model In Game Service Command
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.PackageName">
+            <summary>
+            Gets the PackageName Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the PackageName Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.MarketType">
+            <summary>
+            Gets the MarketType Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the MarketType Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.LinkAddress">
+            <summary>
+            Gets the LinkAddress Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the LinkAddress Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailAddress">
+            <summary>
+            Gets the EmailAddress Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailAddress Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailTitle">
+            <summary>
+            Gets the EmailTitle Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailTitle Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.EmailBody">
+            <summary>
+            Gets the EmailBody Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the EmailBody Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.TelegramChannel">
+            <summary>
+            Gets the TelegramChannel Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the TelegramChannel Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Command.NotificationActionData.IntentAction">
+            <summary>
+            Gets the IntentAction Data
+            this Data may be Null if Not Set in Developer Panel
+            </summary>
+            <value>the IntentAction Data</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Game">
             <summary>
@@ -1222,7 +1338,7 @@
         <member name="P:FiroozehGameService.Models.GSLive.Room.Name">
             <summary>
             Gets the Room Name.
-            it Set in GSLiveOption <see cref="!:FiroozehGameServiceAndroid.Core.GSLive.GSLiveOption"/>
+            it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Name</value>
         </member>
@@ -1247,21 +1363,21 @@
         <member name="P:FiroozehGameService.Models.GSLive.Room.Min">
             <summary>
             Gets the Room Minimum Member Value To Accept.
-            it Set in GSLiveOption <see cref="!:FiroozehGameServiceAndroid.Core.GSLive.GSLiveOption"/>
+            it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Minimum Member Value To Accept</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Room.Max">
             <summary>
             Gets the Room Minimum Member Value To Accept.
-            it Set in GSLiveOption <see cref="!:FiroozehGameServiceAndroid.Core.GSLive.GSLiveOption"/>
+            it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Maximum Member Value To Accept</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Room.Role">
             <summary>
             Gets the Room Role Value.
-            it Set in GSLiveOption <see cref="!:FiroozehGameServiceAndroid.Core.GSLive.GSLiveOption"/>
+            it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Role Value</value>
         </member>
@@ -1274,7 +1390,7 @@
         <member name="P:FiroozehGameService.Models.GSLive.Room.IsPrivate">
             <summary>
             Gets the Room Privacy Value.
-            it Set in GSLiveOption <see cref="!:FiroozehGameServiceAndroid.Core.GSLive.GSLiveOption"/>
+            it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption"/>
             </summary>
             <value>the Room Privacy Value</value>
         </member>

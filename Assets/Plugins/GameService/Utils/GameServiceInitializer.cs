@@ -13,11 +13,12 @@ namespace Plugins.GameService.Utils
         {
             if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
             
-            Debug.Log("GameService Initializing...");
+            Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initializing...");
             DontDestroyOnLoad(this);
 
             var systemInfo = new SystemInfo
             {
+                DeviceUniqueId = UnityEngine.SystemInfo.deviceUniqueIdentifier,
                 DeviceModel = UnityEngine.SystemInfo.deviceModel,
                 DeviceName = UnityEngine.SystemInfo.deviceName,
                 DeviceType = UnityEngine.SystemInfo.deviceType.ToString(),
