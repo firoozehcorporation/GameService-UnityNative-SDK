@@ -675,31 +675,13 @@
             </summary>
             <value>the User id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Cover">
-            <summary>
-            Gets the Save Cover URL.
-            </summary>
-            <value>the Save Cover URL</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Desc">
-            <summary>
-            Gets the Save Description.
-            </summary>
-            <value>the Save Description</value>
-        </member>
         <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Name">
             <summary>
             Gets the Save Name.
             </summary>
             <value>the Save Name</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Playedtime">
-            <summary>
-            Gets the Played Time.
-            </summary>
-            <value>the Played Time</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.Lastmodify">
+        <member name="P:FiroozehGameService.Models.BasicApi.SaveDetails.LastModify">
             <summary>
             Gets the Last Modify Save Time.
             </summary>
@@ -739,12 +721,6 @@
             Gets the Tries Count of This Score.
             </summary>
             <value>the Tries Count of This Score</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.IsMe">
-            <summary>
-            if this is Score Submit By You or Not
-            </summary>
-            <value>this Score Submit By You or Not</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.SubmitScoreResponse">
             <summary>
@@ -804,6 +780,13 @@
             get this User Is Yours or Not.
             </summary>
             <value>this User Is Yours or Not</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.User.IsGuest">
+            <summary>
+            get this User Is Guest or Not.
+            (Note : Only Works on <see cref="M:FiroozehGameService.Core.GameService.GetCurrentPlayer"/>)
+            </summary>
+            <value>this User Is Guest or Not</value>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors">
             <summary>
