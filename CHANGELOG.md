@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [2.0.1] - 2020-06-4
+## [2.0.2] - 2020-03-8
+
+### Added
+
+- Added Ability To Check Current Time (In GetCurrentTime Function)
+
+### Fixed
+
+- Fixed  Reconnect To GameService
+
+
+
+
+
+## [2.0.1] - 2020-03-7
 
 ### Added
 
@@ -22,7 +36,9 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [2.0.0] - 2020-06-3
+
+
+## [2.0.0] - 2020-03-6
 
 ### Added
 

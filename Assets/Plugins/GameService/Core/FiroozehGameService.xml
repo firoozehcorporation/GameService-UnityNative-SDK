@@ -9,6 +9,11 @@
             Represents ClientConfiguration For Game Service 
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Core.DownloadManager">
+            <summary>
+            Represents Game Service DownloadManager
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Core.GameService">
             <summary>
             Represents Game Service Main Initializer
@@ -159,6 +164,12 @@
             <summary>
             Stop All Current Download Assets
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetCurrentTime">
+            <summary>
+            This command Gets The Current Times
+            </summary>
+            <value> return The Current Times</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)">
             <summary>
@@ -1553,6 +1564,29 @@
             Gets The Player Member who has TakeTurn.
             </summary>
             <value>The Player Member who has TakeTurn</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.Internal.GSTime">
+            <summary>
+            Represents GameServiceTime Class
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.Internal.GSTime.ServerTime">
+            <summary>
+            Gets the Current Server Time
+            </summary>
+            <value>the Current Server Time</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.Internal.GSTime.DeviceTime">
+            <summary>
+            Gets the Current Device Time
+            </summary>
+            <value>the Current Device Time</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.Internal.GSTime.IsDeviceTimeValid">
+            <summary>
+            Check DeviceTimeValid 
+            </summary>
+            <value>Returns True if Device Time Is Valid(Same With Server)</value>
         </member>
         <member name="T:FiroozehGameService.Models.Internal.SystemInfo">
             <summary>
