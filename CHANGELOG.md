@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [2.0.3] - 2020-03-10
+
+### Added
+
+- Added Ability To Cancel Current AutoMatch (In CancelAutoMatch Function)
+- Added EventHandlers XML Documentation
+
+
+
+
+
 ## [2.0.2] - 2020-03-8
 
 ### Added

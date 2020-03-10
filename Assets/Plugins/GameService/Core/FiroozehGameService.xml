@@ -289,6 +289,11 @@
             </summary>
             <param name="option">(NOTNULL)AutoMatch Option</param>
         </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.CancelAutoMatch">
+            <summary>
+            Cancel Current AutoMatch
+            </summary>
+        </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)">
             <summary>
             Join In Room With RoomID
@@ -367,6 +372,11 @@
             Create AutoMatch With Option Like :  Min , Max , Role 
             </summary>
             <param name="option">(NOTNULL)AutoMatch Option</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.CancelAutoMatch">
+            <summary>
+            Cancel Current AutoMatch
+            </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String)">
             <summary>
@@ -450,6 +460,215 @@
             </summary>
             <param name="query">(NOTNULL) Player's NickName</param>
             <param name="limit">(Max = 15) The Result Limits</param>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.ChatEventHandlers">
+            <summary>
+            Represents ChatEventHandlers
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnChatReceived">
+            <summary>
+            Calls When New Chat Received
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnSubscribeChannel">
+            <summary>
+            Calls When Current Player Subscribe Channel
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnUnSubscribeChannel">
+            <summary>
+            Calls When Current Player UnSubscribe Channel
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)"/>
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">
+            <summary>
+            Represents CoreEventHandlers In MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CoreEventHandlers.SuccessfullyLogined">
+            <summary>
+            Calls When Your Game Successfully Connected To GameService
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CoreEventHandlers.Error">
+            <summary>
+            Calls When An New Error Received From Server
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.DownloadEventHandlers">
+            <summary>
+            Represents DownloadEventHandlers
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadProgress">
+            <summary>
+            Calls When New Download Progress Event Received
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadCompleted">
+            <summary>
+            Calls When Download Completed
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError">
+            <summary>
+            Calls When An Error Occured 
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.RealTimeEventHandlers">
+            <inheritdoc />
+            <summary>
+            Represents RealTimeEventHandlers In MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.JoinedRoom">
+            <summary>
+            Calls When SomeOne Join To Current Room
+            It Maybe Current Player or Another
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.LeftRoom">
+            <summary>
+            Calls When SomeOne Left the Current Room
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.NewMessageReceived">
+            <summary>
+            Calls When SomeOne Send Message In Current Room
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.String,FiroozehGameService.Models.Enums.GProtocolSendType)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">
+            <summary>
+            Returns Current Room Members Detail  When Call The Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetRoomMembersDetail"/>
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.CommandEventHandler">
+            <inheritdoc />
+            <summary>
+            Represents CommandEventHandler In MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AvailableRoomsReceived">
+            <summary>
+            Returns Available Rooms When Call The Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetAvailableRooms(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetAvailableRooms(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AutoMatchUpdated">
+            <summary>
+            Returns New Auto Match Event When New User Added To List
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AutoMatchCanceled">
+            <summary>
+            Returns Current AutoMatch Canceled Status
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CancelAutoMatch"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CancelAutoMatch"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.InviteInboxReceived">
+            <summary>
+            Returns Available Invite , When Call The Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetInviteInbox"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetInviteInbox"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.NewInviteReceived">
+            <summary>
+            Calls When New Invite Received
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.FindUserReceived">
+            <summary>
+            Returns List of Users , When Call The Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindUser(System.String,System.Int32)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindUser(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.InvitationSent">
+            <summary>
+            Calls When Current Invitation Sent Successfully
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.InviteUser(System.String,System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.InviteUser(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
+            <inheritdoc />
+            <summary>
+            Represents TurnBasedEventHandlers In MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.JoinedRoom">
+            <summary>
+            Calls When SomeOne Join To Current Room
+            It Maybe Current Player or Another
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.LeftRoom">
+            <summary>
+            Calls When SomeOne Left the Current Room
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.LeaveRoom(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.TakeTurn">
+            <summary>
+            Returns New Turn With Data From Another Players When Call The Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.TakeTurn(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.ChoosedNext">
+            <summary>
+            Returns New Turn From Another Players When Call The Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.ChooseNext(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.Finished">
+            <summary>
+            Calls When SomeOne Announced To Finish Game
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Finish(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.Completed">
+            <summary>
+            Calls When The Game Is Finished
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Complete(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.RoomMembersDetailReceived">
+            <summary>
+            Returns Current Room Members Detail  When Call The Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetRoomMembersDetail"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.CurrentTurnMemberReceived">
+            <summary>
+            Returns Current Turn Member Received When Call The Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetCurrentTurnMember"/>
+            </summary>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Achievement">
             <summary>
@@ -906,11 +1125,6 @@
             Represents BucketSortOrder Model In Game Service Basic API
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Models.Enums.Command.MarketType">
-            <summary>
-            Represents MarketType Model In Notification
-            </summary>
-        </member>
         <member name="T:FiroozehGameService.Models.Enums.GProtocolSendType">
             <summary>
             Represents GProtocolSendType Of Game Service RealTime
@@ -920,6 +1134,16 @@
         <member name="T:FiroozehGameService.Models.Enums.GSLive.AutoMatchStatus">
             <summary>
             Represents AutoMatchStatus Of GSLive System
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.Command.AutoMatchCancel">
+            <summary>
+            Represents AutoMatchCancel
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.Command.MarketType">
+            <summary>
+            Represents MarketType Model In Notification
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.GSLiveType">
