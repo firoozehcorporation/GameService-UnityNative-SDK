@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [2.1.0] - 2020-03-28
+
+### Added
+
+- Added FaaS Feature (Earlier Version)
+- Added Ignore Default Value For Update Bucket
+- Added Check BucketCore Inheritance For Bucket Functions
+
+
+
+### Fixed
+
+- Fixed SDK
+
+
+
 
 
 ## [2.0.4] - 2020-03-21

@@ -153,7 +153,7 @@
         </member>
         <member name="M:FiroozehGameService.Core.GameService.GetAssetInfo(System.String)">
             <summary>
-               Gets Asset Info With AssetTag
+                Gets Asset Info With AssetTag
             </summary>
             <param name="assetTag">(Not NULL)Specifies the Asset tag that Set in Developers Panel.</param>
         </member>
@@ -191,6 +191,16 @@
             <summary>
                 Stop All Current Download Assets
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.ExecuteCloudFunction``1(System.String,``0,System.Boolean)">
+            <summary>
+                Execute Cloud Function
+                note : if Function is public , You Can Call it without Login
+            </summary>
+            <param name="functionId">(NOTNULL)Specifies the Function Id that Set in Developers Panel</param>
+            <param name="functionParameters">(NULLABLE)Specifies the Function Input Parameter Class that Set in Developers Panel</param>
+            <param name="isPublic">Specifies the Function Visibility Type that Set in Developers Panel</param>
+            <value> return Result in String </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)">
             <summary>
