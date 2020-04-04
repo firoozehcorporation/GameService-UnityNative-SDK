@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 
 
+
+
+## [2.1.1] - 2020-04-4
+
+### Added
+
+- Added Ignore Default Value To FaaS
+
+
+
+### Fixed
+
+- Fixed SDK
+
+
+
+
+
 ## [2.1.0] - 2020-03-28
 
 ### Added

@@ -192,7 +192,7 @@
                 Stop All Current Download Assets
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.ExecuteCloudFunction``1(System.String,``0,System.Boolean)">
+        <member name="M:FiroozehGameService.Core.GameService.ExecuteCloudFunction(System.String,System.Object,System.Boolean)">
             <summary>
                 Execute Cloud Function
                 note : if Function is public , You Can Call it without Login
@@ -1046,99 +1046,99 @@
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors">
             <summary>
-            Represents All GameService Errors
+                Represents All GameService Errors
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http">
             <summary>
-            Represents All GameService Errors in HTTP Requests
+                Represents All GameService Errors in HTTP Requests
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Internal">
             <summary>
-            Represents GameService HTTP Internal Errors
+                Represents GameService HTTP Internal Errors
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Authorize">
             <inheritdoc />
             <summary>
-            Represents GameService Authorize HTTP Errors
-            Errors that occur in the following Functions :
-            <see cref="M:FiroozehGameService.Core.GameService.Login"/>
-            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)"/>
+                Represents GameService Authorize HTTP Errors
+                Errors that occur in the following Functions :
+                <see cref="M:FiroozehGameService.Core.GameService.Login" />
+                <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Authorize.TokenRequired">
             <summary>
-            These errors may never happen!
+                These errors may never happen!
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.LoginOrSignUp">
             <inheritdoc />
             <summary>
-            Represents GameService LoginOrSignUp HTTP Errors
-            Errors that occur in the following Functions :
-            <see cref="M:FiroozehGameService.Core.GameService.Login"/>
-            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)"/>
+                Represents GameService LoginOrSignUp HTTP Errors
+                Errors that occur in the following Functions :
+                <see cref="M:FiroozehGameService.Core.GameService.Login" />
+                <see cref="M:FiroozehGameService.Core.GameService.Login(System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.SignUp(System.String,System.String,System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Save">
             <inheritdoc />
             <summary>
-            Represents GameService Save HTTP Errors
-            Errors that occur in the following Functions :
-            <see cref="M:FiroozehGameService.Core.GameService.SaveGame(System.String,System.Object)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.GetSaveGame``1"/>
+                Represents GameService Save HTTP Errors
+                Errors that occur in the following Functions :
+                <see cref="M:FiroozehGameService.Core.GameService.SaveGame(System.String,System.Object)" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetSaveGame``1" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Achievement">
             <inheritdoc />
             <summary>
-            Represents GameService Achievement HTTP Errors
-            Errors that occur in the following Functions :
-            <see cref="M:FiroozehGameService.Core.GameService.GetAchievements"/>
-            <see cref="M:FiroozehGameService.Core.GameService.UnlockAchievement(System.String)"/>
+                Represents GameService Achievement HTTP Errors
+                Errors that occur in the following Functions :
+                <see cref="M:FiroozehGameService.Core.GameService.GetAchievements" />
+                <see cref="M:FiroozehGameService.Core.GameService.UnlockAchievement(System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Leaderboard">
             <inheritdoc />
             <summary>
-            Represents GameService Leaderboard HTTP Errors
-            Errors that occur in the following Functions :
-            <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoards"/>
-            <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoardDetails(System.String,System.Int32)"/>
+                Represents GameService Leaderboard HTTP Errors
+                Errors that occur in the following Functions :
+                <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoards" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetLeaderBoardDetails(System.String,System.Int32)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.DownloadAssets">
             <summary>
-            Represents GameService DownloadAssets HTTP Errors
-            Errors that occur in the following Functions:
-            <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String)"/>
-            And You Can Handle Them in <see cref="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError"/>
+                Represents GameService DownloadAssets HTTP Errors
+                Errors that occur in the following Functions:
+                <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String)" />
+                And You Can Handle Them in <see cref="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.Bucket">
             <summary>
-            Represents GameService Bucket HTTP Errors
-            Errors that occur in the following Functions:
-            <see cref="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])"/>
-            <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)"/>
+                Represents GameService Bucket HTTP Errors
+                Errors that occur in the following Functions:
+                <see cref="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])" />
+                <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)" />
+                <see cref="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.Http.EditCurrentPlayer">
             <summary>
-            Represents GameService EditCurrentPlayer HTTP Errors
-            Errors that occur in the following Functions:
-            <see cref="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)"/>
+                Represents GameService EditCurrentPlayer HTTP Errors
+                Errors that occur in the following Functions:
+                <see cref="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.BucketOwnershipTypes">
