@@ -6,6 +6,28 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [2.2.0] - 2020-04-14
+
+### Added
+
+- Added Ability To Get User Data With UserID
+- Added Local & Global Mode To Member Data 
+- Added Ability to check if Command is available or not
+- Added GSLiveOption XML Doc
+
+### Changed
+
+- Added Name & Logo To Member Class (for Local Mode)
+- Changed FindUser Function to FindMember Function in GSLive
+- Changed Inviter User to Inviter Member in Invite Class in GSLive
+
+### Fixed
+
+- Fixed Timeout When GSLive not Connected
+- Fixed Http Request
+
+
+
 ## [2.1.1] - 2020-04-4
 
 ### Added

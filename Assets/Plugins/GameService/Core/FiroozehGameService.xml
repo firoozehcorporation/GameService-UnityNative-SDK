@@ -85,6 +85,13 @@
             </summary>
             <value> return CurrentPlayer Data </value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetUserData(System.String)">
+            <summary>
+                With this command you can get a User Data with the User ID
+            </summary>
+            <param name="userId">(Not NULL)The ID of User you Want To get Detail</param>
+            <value> return User Data </value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)">
             <summary>
                 With this command you can Edit information about the current player is playing
@@ -255,8 +262,26 @@
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLive">
             <summary>
-            Represents Game Service MultiPlayer System (GSLive)
+                Represents Game Service MultiPlayer System (GSLive)
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLive.IsCommandAvailable">
+            <summary>
+                check if Command Services are Available
+            </summary>
+            <returns>returns true if Command Services are Available</returns>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLive.IsRealTimeAvailable">
+            <summary>
+                check if Realtime Services are Available
+            </summary>
+            <returns>returns true if Realtime Services are Available</returns>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLive.IsTurnBasedAvailable">
+            <summary>
+                check if TurnBased Services are Available
+            </summary>
+            <returns>returns true if TurnBased Services are Available</returns>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveChat">
             <summary>
@@ -284,208 +309,236 @@
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption">
             <summary>
-            Represents GSLive GSLiveOption
+                Represents GSLive GSLiveOption
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption">
             <summary>
-            Represents GSLive AutoMatchOption
+                Represents GSLive AutoMatchOption
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption.#ctor(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+                Specifies the AutoMatch Options
+            </summary>
+            <param name="role">(Not NULL)Specifies the Room Role</param>
+            <param name="minPlayer">Specifies the Room min player limit (MIN=2)</param>
+            <param name="maxPlayer">Specifies the Room max player limit (MAX=8)</param>
+            <param name="isPersist">Specifies the Room Persistence</param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption">
             <inheritdoc />
             <summary>
-            Represents GSLive CreateRoomOption
+                Represents GSLive CreateRoomOption
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption.#ctor(System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+                Specifies the CreateRoom Options
+            </summary>
+            <param name="roomName">(Not NULL)Specifies the Room Name</param>
+            <param name="role">(Not NULL)Specifies the Room Role</param>
+            <param name="minPlayer">Specifies the Room min player limit (MIN=2)</param>
+            <param name="maxPlayer">Specifies the Room max player limit (MAX=8)</param>
+            <param name="isPrivate">Specifies the Room Privacy</param>
+            <param name="isPersist">Specifies the Room Persistence</param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveRT">
             <summary>
-            Represents Game Service Realtime MultiPlayer System
+                Represents Game Service Realtime MultiPlayer System
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)">
             <summary>
-            Create Room With Option Like : Name , Min , Max , Role , IsPrivate
+                Create Room With Option Like : Name , Min , Max , Role , IsPrivate
             </summary>
             <param name="option">(NOTNULL)Create Room Option</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)">
             <summary>
-            Create AutoMatch With Option Like :  Min , Max , Role 
+                Create AutoMatch With Option Like :  Min , Max , Role
             </summary>
             <param name="option">(NOTNULL)AutoMatch Option</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.CancelAutoMatch">
             <summary>
-            Cancel Current AutoMatch
+                Cancel Current AutoMatch
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)">
             <summary>
-            Join In Room With RoomID
+                Join In Room With RoomID
             </summary>
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom">
             <summary>
-            Leave The Current Room
+                Leave The Current Room
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetAvailableRooms(System.String)">
             <summary>
-            Get Available Rooms According To Room's Role  
+                Get Available Rooms According To Room's Role
             </summary>
             <param name="role">(NOTNULL)Room's Role </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.String,FiroozehGameService.Models.Enums.GProtocolSendType)">
             <summary>
-            Send A Data To All Players in Room. 
+                Send A Data To All Players in Room.
             </summary>
             <param name="data">(NOTNULL) Data To BroadCast </param>
             <param name="sendType">Send Type </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)">
             <summary>
-            Send A Data To Specific Player in Room. 
+                Send A Data To Specific Player in Room.
             </summary>
             <param name="receiverId">(NOTNULL) (Type : MemberID)Player's ID</param>
             <param name="data">(NOTNULL) Data for Send</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetRoomMembersDetail">
             <summary>
-            Get Room Members Details 
+                Get Room Members Details
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetInviteInbox">
             <summary>
-            Get Your Invite Inbox
+                Get Your Invite Inbox
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.InviteUser(System.String,System.String)">
             <summary>
-            Invite a Specific Player To Specific Room
+                Invite a Specific Player To Specific Room
             </summary>
             <param name="roomId">(NOTNULL) (Type : RoomID)Room's ID</param>
             <param name="userId">(NOTNULL) (Type : UserID)User's ID</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.AcceptInvite(System.String)">
             <summary>
-            Accept a Specific Invite With Invite ID
-            Note: After accepting the invitation, you will be automatically entered into the game room
+                Accept a Specific Invite With Invite ID
+                Note: After accepting the invitation, you will be automatically entered into the game room
             </summary>
             <param name="inviteId">(NOTNULL) (Type : InviteID) Invite's ID</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindUser(System.String,System.Int32)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindMember(System.String,System.Int32)">
             <summary>
-            Find All Users With Specific NickName
+                Find All Member With Specific Query
             </summary>
-            <param name="query">(NOTNULL) Player's NickName</param>
+            <param name="query">(NOTNULL) Query </param>
             <param name="limit">(Max = 15) The Result Limits</param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveTB">
             <summary>
-            Represents Game Service TurnBased MultiPlayer System
+                Represents Game Service TurnBased MultiPlayer System
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)">
             <summary>
-            Create Room With Option Like : Name , Min , Max , Role , IsPrivate
+                Create Room With Option Like : Name , Min , Max , Role , IsPrivate
             </summary>
             <param name="option">(NOTNULL)Create Room Option</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)">
             <summary>
-            Create AutoMatch With Option Like :  Min , Max , Role 
+                Create AutoMatch With Option Like :  Min , Max , Role
             </summary>
             <param name="option">(NOTNULL)AutoMatch Option</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.CancelAutoMatch">
             <summary>
-            Cancel Current AutoMatch
+                Cancel Current AutoMatch
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String)">
             <summary>
-            Join In Room With RoomID
+                Join In Room With RoomID
             </summary>
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetAvailableRooms(System.String)">
             <summary>
-            Get Available Rooms According To Room's Role  
+                Get Available Rooms According To Room's Role
             </summary>
             <param name="role">(NOTNULL)Room's Role </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.TakeTurn(System.String,System.String)">
             <summary>
-            If is your Turn, you can send data to other players using this function.
-            Also if You Want to Move Your Turn to the Next player
-            put the next player ID in the function entry
-            You can use this function several times
+                If is your Turn, you can send data to other players using this function.
+                Also if You Want to Move Your Turn to the Next player
+                put the next player ID in the function entry
+                You can use this function several times
             </summary>
             <param name="data">(NULLABLE)Room's Role </param>
             <param name="whoIsNext">(NULLABLE) Next Player's ID </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.ChooseNext(System.String)">
             <summary>
-            If it's your turn, you can transfer the turn to the next player without sending data
-            if whoIsNext Set Null , Server Automatically Selects Next Turn 
+                If it's your turn, you can transfer the turn to the next player without sending data
+                if whoIsNext Set Null , Server Automatically Selects Next Turn
             </summary>
             <param name="whoIsNext">(NULLABLE)Next Player's ID </param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.LeaveRoom(System.String)">
             <summary>
-            Leave The Current Room , if whoIsNext Set Null , Server Automatically Selects Next Turn 
+                Leave The Current Room , if whoIsNext Set Null , Server Automatically Selects Next Turn
             </summary>
             <param name="whoIsNext">(NULLABLE)(Type : Member's ID) Player's id You Want To Select Next Turn</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.Finish(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})">
             <summary>
-            If you want to announce the end of the game, use this function to send the result of your game to other players.
+                If you want to announce the end of the game, use this function to send the result of your game to other players.
             </summary>
             <param name="outcomes">(NOTNULL) A set of players and their results</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.Complete(System.String)">
             <summary>
-            If you would like to confirm one of the results posted by other Players
+                If you would like to confirm one of the results posted by other Players
             </summary>
             <param name="memberId">(NOTNULL)The Specific player ID</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetRoomMembersDetail">
             <summary>
-            Get Room Members Details 
+                Get Room Members Details
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetCurrentTurnMember">
             <summary>
-            Get Current Turn Member Details 
+                Get Current Turn Member Details
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetInviteInbox">
             <summary>
-            Get Your Invite Inbox
+                Get Your Invite Inbox
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.InviteUser(System.String,System.String)">
             <summary>
-            Invite a Specific Player To Specific Room
+                Invite a Specific Player To Specific Room
             </summary>
             <param name="roomId">(NOTNULL) (Type : RoomID)Room's ID</param>
             <param name="userId">(NOTNULL) (Type : UserID)User's ID</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.AcceptInvite(System.String)">
             <summary>
-            Accept a Specific Invite With Invite ID
-            Note: After accepting the invitation, you will be automatically entered into the game room
+                Accept a Specific Invite With Invite ID
+                Note: After accepting the invitation, you will be automatically entered into the game room
             </summary>
             <param name="inviteId">(NOTNULL) (Type : InviteID) Invite's ID</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindUser(System.String,System.Int32)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindMember(System.String,System.Int32)">
             <summary>
-            Find All Users With Specific NickName
+                Find All Member With Specific Query
             </summary>
-            <param name="query">(NOTNULL) Player's NickName</param>
+            <param name="query">(NOTNULL) Query </param>
             <param name="limit">(Max = 15) The Result Limits</param>
+        </member>
+        <member name="T:FiroozehGameService.Core.Socket.ClientHelper.TcpClientWithTimeout">
+            <summary>
+                TcpClientWithTimeout is used to open a TcpClient connection, with a
+                user definable connection timeout in milliseconds (1000=1second)
+                Use it like this:
+                TcpClient connection = new TcpClientWithTimeout('127.0.0.1',80,1000).Connect();
+            </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.ChatEventHandlers">
             <summary>
@@ -587,52 +640,52 @@
         <member name="T:FiroozehGameService.Handlers.CommandEventHandler">
             <inheritdoc />
             <summary>
-            Represents CommandEventHandler In MultiPlayer System
+                Represents CommandEventHandler In MultiPlayer System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AvailableRoomsReceived">
             <summary>
-            Returns Available Rooms When Call The Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetAvailableRooms(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetAvailableRooms(System.String)"/>
+                Returns Available Rooms When Call The Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetAvailableRooms(System.String)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetAvailableRooms(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AutoMatchUpdated">
             <summary>
-            Returns New Auto Match Event When New User Added To List
+                Returns New Auto Match Event When New User Added To List
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.AutoMatchCanceled">
             <summary>
-            Returns Current AutoMatch Canceled Status
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CancelAutoMatch"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CancelAutoMatch"/>
+                Returns Current AutoMatch Canceled Status
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CancelAutoMatch" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CancelAutoMatch" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.InviteInboxReceived">
             <summary>
-            Returns Available Invite , When Call The Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetInviteInbox"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetInviteInbox"/>
+                Returns Available Invite , When Call The Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetInviteInbox" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetInviteInbox" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.NewInviteReceived">
             <summary>
-            Calls When New Invite Received
+                Calls When New Invite Received
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.FindUserReceived">
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandler.FindMemberReceived">
             <summary>
-            Returns List of Users , When Call The Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindUser(System.String,System.Int32)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindUser(System.String,System.Int32)"/>
+                Returns List of Member , When Call The Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindMember(System.String,System.Int32)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindMember(System.String,System.Int32)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandler.InvitationSent">
             <summary>
-            Calls When Current Invitation Sent Successfully
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.InviteUser(System.String,System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.InviteUser(System.String,System.String)"/>
+                Calls When Current Invitation Sent Successfully
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.InviteUser(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.InviteUser(System.String,System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
@@ -1242,36 +1295,36 @@
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
             <summary>
-            Represents Chat Data Model In GameService Command System
+                Represents Chat Data Model In GameService Command System
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
             <summary>
-            Gets the Chat Privacy.
+                Gets the Chat Privacy.
             </summary>
             <value>the Chat Privacy</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
             <summary>
-            Gets the Chat Receiver Id.
+                Gets the Chat Receiver Id.
             </summary>
             <value>the Chat Receiver Id</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.Sender">
             <summary>
-            Gets the Chat Sender User.
+                Gets the Chat Sender Member.
             </summary>
-            <value>the Chat Sender User</value>
+            <value>the Chat Sender Member</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.Message">
             <summary>
-            Gets the Chat Message Data
+                Gets the Chat Message Data
             </summary>
             <value>the Chat Message Data</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.SendTime">
             <summary>
-            Gets the Chat Message Send Time in Unix Time
+                Gets the Chat Message Send Time in Unix Time
             </summary>
             <value>the Chat Message Send Time in Unix Time</value>
         </member>
@@ -1447,39 +1500,39 @@
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Invite">
             <summary>
-            Represents Invite Data Model In GameService MultiPlayer System (GSLive)
+                Represents Invite Data Model In GameService MultiPlayer System (GSLive)
             </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Game">
+            <summary>
+                Gets The Game Which You Are Invited.
+            </summary>
+            <value>The Game Where You Are Invited</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Room">
+            <summary>
+                Gets The Room Where You Are Invited.
+            </summary>
+            <value>The Room Where You Are Invited</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Invite.Id">
             <summary>
-            Gets the Invite id.
-            You Can Use It in Accept Invite
+                Gets the Invite id.
+                You Can Use It in Accept Invite
             </summary>
             <value>the Invite id</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Invite.Inviter">
             <summary>
-            Gets the Inviter User.
+                Gets the Inviter Member.
             </summary>
-            <value>the Inviter User</value>
+            <value>the Inviter Member</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Invite.Invited">
             <summary>
-            Gets the Invited User Id.
+                Gets the Invited User Id.
             </summary>
             <value>the Invited User Id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Room">
-            <summary>
-            Gets The Room Where You Are Invited.
-            </summary>
-            <value>The Room Where You Are Invited</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Game">
-            <summary>
-            Gets The Game Which You Are Invited.
-            </summary>
-            <value>The Game Where You Are Invited</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.JoinData">
             <summary>
@@ -1507,19 +1560,31 @@
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Member">
             <summary>
-            Represents Member Data Model In GameService MultiPlayer System (GSLive)
+                Represents Member Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Member.Id">
             <summary>
-            Gets the Member ID
-            You Can Use it In MultiPlayer Functions that Needs Member id
+                Gets the Member ID
+                You Can Use it In MultiPlayer Functions that Needs Member id
             </summary>
             <value>the Member ID</value>
         </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Member.Name">
+            <summary>
+                Gets the Member Name.
+            </summary>
+            <value>the Member Name</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Member.Logo">
+            <summary>
+                Gets the Member Logo URL.
+            </summary>
+            <value>the Member Logo URL</value>
+        </member>
         <member name="P:FiroozehGameService.Models.GSLive.Member.User">
             <summary>
-            Gets the Member User Data
+                Gets the Member User Data
             </summary>
             <value>the Member User Data</value>
         </member>
@@ -1689,13 +1754,13 @@
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.RT.Message.SenderId">
             <summary>
-                Gets the Sender Id.
+                Gets the Sender Member Id.
             </summary>
             <value>the Sender Id</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
             <summary>
-                Gets the Receiver Id.
+                Gets the Receiver Member Id.
             </summary>
             <value>the Receiver Id</value>
         </member>
