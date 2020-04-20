@@ -1304,6 +1304,12 @@
             </summary>
             <value>the Chat Privacy</value>
         </member>
+        <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.ChannelName">
+            <summary>
+                Gets the Chat Channel Name
+            </summary>
+            <value>the Chat Channel Name</value>
+        </member>
         <member name="P:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
             <summary>
                 Gets the Chat Receiver Id.

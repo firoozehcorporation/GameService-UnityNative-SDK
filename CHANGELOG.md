@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [2.2.1] - 2020-04-20
+
+### Added
+
+- Added Channel Name to Chat Class Model
+
+
+
 
 
 ## [2.2.0] - 2020-04-14
