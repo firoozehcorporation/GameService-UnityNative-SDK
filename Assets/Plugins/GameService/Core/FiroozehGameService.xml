@@ -307,6 +307,11 @@
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
         </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed">
+            <summary>
+            Get Channels Subscribe List
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption">
             <summary>
                 Represents GSLive GSLiveOption
@@ -563,6 +568,13 @@
             Calls When Current Player UnSubscribe Channel
             This Event Handler Called By Following Function :
             <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsSubscribed">
+            <summary>
+            Calls When Current Player Get Channels Subscribed List
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed"/>
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">

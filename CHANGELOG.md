@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 
 
+
+
+
+
+## [2.2.2] - 2020-04-23
+
+### Added
+
+- Added Ability to Get Channels Subscribed
+
+
+
+
+
 ## [2.2.1] - 2020-04-20
 
 ### Added
