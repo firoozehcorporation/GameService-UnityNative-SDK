@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [2.2.3] - 2020-04-26
+
+### Added
+
+- Fixed GSLive System
+
+
+
 
 
 ## [2.2.2] - 2020-04-23

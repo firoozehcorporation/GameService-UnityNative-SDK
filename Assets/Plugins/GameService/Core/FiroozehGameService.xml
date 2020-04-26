@@ -285,31 +285,31 @@
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveChat">
             <summary>
-            Represents Game Service Chat System
+                Represents Game Service Chat System
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)">
             <summary>
-            Subscribe In Channel With channelName.
+                Subscribe In Channel With channelName.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Subscribe</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)">
             <summary>
-            UnSubscribeChannel With channelName.
+                UnSubscribeChannel With channelName.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To UnSubscribe</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)">
             <summary>
-            Send Message In SubscribedChannel.
+                Send Message In SubscribedChannel.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed">
             <summary>
-            Get Channels Subscribe List
+                Get Channels Subscribe List
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption">
@@ -547,34 +547,34 @@
         </member>
         <member name="T:FiroozehGameService.Handlers.ChatEventHandlers">
             <summary>
-            Represents ChatEventHandlers
+                Represents ChatEventHandlers
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnChatReceived">
             <summary>
-            Calls When New Chat Received
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)"/>
+                Calls When New Chat Received
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendChannelMessage(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnSubscribeChannel">
             <summary>
-            Calls When Current Player Subscribe Channel
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)"/>
+                Calls When Current Player Subscribe Channel
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.SubscribeChannel(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnUnSubscribeChannel">
             <summary>
-            Calls When Current Player UnSubscribe Channel
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)"/>
+                Calls When Current Player UnSubscribe Channel
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.UnSubscribeChannel(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsSubscribed">
             <summary>
-            Calls When Current Player Get Channels Subscribed List
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed"/>
+                Calls When Current Player Get Channels Subscribed List
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">
