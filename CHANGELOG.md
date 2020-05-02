@@ -6,9 +6,32 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [2.2.3] - 2020-04-26
+## [2.3.0] - 2020-05-02
 
 ### Added
+
+- Added Ability To GetMemberData
+- Added Ability To Send Private Message 
+- Added Ability To Get Members Chat
+- Added Ability To Get Pending Messages
+- Added Ability To Get Recent Messages
+
+### Changed
+
+- Changed Return Value in GetCurrentPlayer Function
+- Changed Score User Property to Submitter Member
+
+### Fixed
+
+- Fixed GSLive System
+
+
+
+
+
+## [2.2.3] - 2020-04-26
+
+### Fixed
 
 - Fixed GSLive System
 

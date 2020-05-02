@@ -92,11 +92,18 @@
             <param name="userId">(Not NULL)The ID of User you Want To get Detail</param>
             <value> return User Data </value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetMemberData(System.String)">
+            <summary>
+                With this command you can get a Member Data with the Member ID
+            </summary>
+            <param name="memberId">(Not NULL)The ID of Member you Want To get Detail</param>
+            <value> return Member Data </value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)">
             <summary>
                 With this command you can Edit information about the current player is playing
             </summary>
-            <value> return CurrentPlayer Data </value>
+            <value> return Edited Current Member Data Data </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.RemoveLastSave">
             <summary>
@@ -307,9 +314,35 @@
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.SendPrivateMessage(System.String,System.String)">
+            <summary>
+                Send Message To Member.
+            </summary>
+            <param name="memberId">(NOTNULL)ID of Member You want To Send Message</param>
+            <param name="message">(NOTNULL)Message Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelsSubscribed">
             <summary>
                 Get Channels Subscribe List
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)">
+            <summary>
+                Get Channel last 30 Messages
+            </summary>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Get last 30 Messages</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelMembers(System.String,System.Int32,System.Int32)">
+            <summary>
+                Get Channel Members
+            </summary>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Get Members</param>
+            <param name="skip">The skip value</param>
+            <param name="limit">(Max = 15) The Limit value</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetPendingMessages">
+            <summary>
+                Get Your Pending Messages
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption">
@@ -574,7 +607,30 @@
             <summary>
                 Calls When Current Player Get Channels Subscribed List
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.ChannelsSubscribed" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelsSubscribed" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsMembers">
+            <summary>
+                Calls When Current Player Get Channel Members List
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelMembers(System.String,System.Int32,System.Int32)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsRecentMessages">
+            <summary>
+                Calls When Current Player Get Channel Recent Messages
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.PendingMessages">
+            <summary>
+                Calls When Current Player Get Pending Messages
+                Pending Messages Saved when the Current Player is offline
+                You Can Get Them With this Function
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveChat.GetChannelRecentMessages(System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">
@@ -1010,36 +1066,36 @@
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Score">
             <summary>
-            Represents Score Data Model In Game Service Basic API
+                Represents Score Data Model In Game Service Basic API
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.BasicApi.Score.Game">
             <summary>
-            Gets the Game id.
+                Gets the Game id.
             </summary>
             <value>the Game id</value>
         </member>
-        <member name="P:FiroozehGameService.Models.BasicApi.Score.User">
+        <member name="P:FiroozehGameService.Models.BasicApi.Score.Submitter">
             <summary>
-            Gets the User Submit this Score.
+                Gets the Member Submit this Score.
             </summary>
-            <value>the User Submit this Score</value>
+            <value>the Member Submit this Score</value>
         </member>
         <member name="P:FiroozehGameService.Models.BasicApi.Score.Value">
             <summary>
-            Gets the Value of This Score.
+                Gets the Value of This Score.
             </summary>
             <value>the Value of This Score</value>
         </member>
         <member name="P:FiroozehGameService.Models.BasicApi.Score.Rank">
             <summary>
-            Gets the Rank of This Score.
+                Gets the Rank of This Score.
             </summary>
             <value>the Rank of This Score</value>
         </member>
         <member name="P:FiroozehGameService.Models.BasicApi.Score.Tries">
             <summary>
-            Gets the Tries Count of This Score.
+                Gets the Tries Count of This Score.
             </summary>
             <value>the Tries Count of This Score</value>
         </member>
