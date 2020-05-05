@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [3.0.0] - 2020-05-05
+
+### Added
+
+- Added Ability To Build on IL2CPP Scripting Backend
+
+
+
+
+
 ## [2.3.0] - 2020-05-02
 
 ### Added
