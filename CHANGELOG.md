@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [3.0.1] - 2020-05-28
+
+### Fixed
+
+- Fixed Download Manager
+
+
+
+
+
 ## [3.0.0] - 2020-05-05
 
 ### Added

@@ -11,7 +11,7 @@
         </member>
         <member name="T:FiroozehGameService.Core.DownloadManager">
             <summary>
-            Represents Game Service DownloadManager
+                Represents Game Service DownloadManager
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GameService">
