@@ -9,7 +9,6 @@
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
             <e p="Core" t="Include">
-              <e p="Crc32.NET.xml" t="Include" />
               <e p="FiroozehGameService.xml" t="Include" />
               <e p="Newtonsoft.Json.xml" t="Include" />
             </e>
