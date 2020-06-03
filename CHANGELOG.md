@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 
 
+
+
+## [4.1.0] - 2020-06-03
+
+### Added
+
+- Added Message Info To RealTime Message Receive Event
+- Added Round-Trip Time (RTT) to RealTime Message Info
+
+### Fixed
+
+- Fixed GetCurrent Time Function
+
+- Fixed GSLive System
+
+  
+
+
+
 ## [4.0.1] - 2020-05-31
 
 ### Fixed
