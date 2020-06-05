@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [4.1.1] - 2020-06-05
+
+### Fixed
+
+- Fixed MaxPlayer in GSLiveOption
+
+
+
 ## [4.1.0] - 2020-06-03
 
 ### Added
