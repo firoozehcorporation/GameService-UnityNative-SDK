@@ -434,6 +434,20 @@
             <param name="receiverId">(NOTNULL) (Type : MemberID)Player's ID</param>
             <param name="data">(NOTNULL) Data for Send</param>
         </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)">
+            <summary>
+                Send A Data To All Players in Room.
+            </summary>
+            <param name="data">(NOTNULL) Data To BroadCast </param>
+            <param name="sendType">Send Type </param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.Byte[])">
+            <summary>
+                Send A Data To Specific Player in Room.
+            </summary>
+            <param name="receiverId">(NOTNULL) (Type : MemberID)Player's ID</param>
+            <param name="data">(NOTNULL) Data for Send</param>
+        </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetRoomMembersDetail">
             <summary>
                 Get Room Members Details
@@ -464,6 +478,18 @@
             </summary>
             <param name="query">(NOTNULL) Query </param>
             <param name="limit">(Max = 15) The Result Limits</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetPing">
+            <summary>
+                Get The Ping
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[])">
+            <summary>
+                Send An Event To Another Players in Room
+            </summary>
+            <param name="caller">(NOTNULL) Caller Info Data </param>
+            <param name="data">(NOTNULL) Data To Send By Event </param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveTB">
             <summary>
@@ -697,6 +723,13 @@
             This Event Handler Called By Following Functions :
             <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.String,FiroozehGameService.Models.Enums.GProtocolSendType)"/>
             <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.NewEventReceived">
+            <summary>
+            Calls When SomeOne Send New Event In Current Room
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[])"/>
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">
@@ -1853,6 +1886,23 @@
             </summary>
             <value>the Room Status Value</value>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.EventData">
+            <summary>
+                Represents Event Data Model In GameService RealTime MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Caller">
+            <summary>
+                Gets the Event Caller Buffer
+            </summary>
+            <value>the Event Caller Buffer</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Data">
+            <summary>
+                Gets the Event Data Buffer
+            </summary>
+            <value>the Event Data Buffer</value>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.RT.Message">
             <summary>
                 Represents Message Data Model In GameService RealTime MultiPlayer System
@@ -1860,9 +1910,9 @@
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.RT.Message.Data">
             <summary>
-                Gets the Message Data
+                Gets the Message Data Buffer
             </summary>
-            <value>the Message Data</value>
+            <value>the Message Data Buffer</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
             <summary>

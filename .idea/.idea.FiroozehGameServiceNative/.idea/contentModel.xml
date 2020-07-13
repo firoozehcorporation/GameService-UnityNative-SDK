@@ -36,6 +36,39 @@
             </e>
             <e p="Utils" t="Include">
               <e p="GameServiceInitializer.cs" t="Include" />
+              <e p="RealTimeUtil" t="Include">
+                <e p="Classes" t="Include">
+                  <e p="Abstracts" t="Include">
+                    <e p="GsLiveSerializable.cs" t="Include" />
+                  </e>
+                  <e p="GsLiveRtObservers.cs" t="Include" />
+                  <e p="Handlers" t="Include">
+                    <e p="PrefabHandler.cs" t="Include" />
+                  </e>
+                  <e p="Observers" t="Include">
+                    <e p="RealtimeTransformObserver.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="Consts" t="Include">
+                  <e p="Sizes.cs" t="Include" />
+                  <e p="Types.cs" t="Include" />
+                </e>
+                <e p="GsLive.cs" t="Include" />
+                <e p="Interfaces" t="Include">
+                  <e p="IPrefabHandler.cs" t="Include" />
+                </e>
+                <e p="Models" t="Include">
+                  <e p="GameObjectData.cs" t="Include" />
+                  <e p="InstantiateData.cs" t="Include" />
+                </e>
+                <e p="Utils" t="Include">
+                  <e p="IO" t="Include">
+                    <e p="BufferPool.cs" t="Include" />
+                    <e p="ByteArrayReader.cs" t="Include" />
+                    <e p="ByteStream.cs" t="Include" />
+                  </e>
+                </e>
+              </e>
             </e>
           </e>
         </e>
