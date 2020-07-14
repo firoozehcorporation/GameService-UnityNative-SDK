@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="IMonoBehaviourHandler.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,14 @@
 */
 
 
-namespace Plugins.GameService.Utils.GSLiveRT.Consts
+
+namespace Plugins.GameService.Utils.GSLiveRT.Interfaces
 {
-
-    internal enum Internals : byte
+    internal interface IMonoBehaviourHandler
     {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x2,
-        RunFunction = 0x3
-    }
-
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        /// <summary>
+        /// Can be used to refresh the list of MonoBehaviours on this GameObject
+        /// </summary>
+        void RefreshMonoBehaviourCache();
     }
 }

@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="GsLiveFunction.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,24 +19,14 @@
 * @author Alireza Ghodrati
 */
 
+using System;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Consts
+namespace Plugins.GameService.Utils.GSLiveRT.Classes.Attributes
 {
-
-    internal enum Internals : byte
+    /// <summary>Used to flag methods as GSLive Remote Function</summary>
+    [AttributeUsage(AttributeTargets.Method)]
+    public class GsLiveFunction : Attribute
     {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x2,
-        RunFunction = 0x3
-    }
-
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        
     }
 }

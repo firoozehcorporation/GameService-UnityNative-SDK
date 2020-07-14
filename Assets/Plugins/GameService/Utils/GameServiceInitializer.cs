@@ -1,4 +1,7 @@
 ﻿using FiroozehGameService.Builder;
+using FiroozehGameService.Handlers;
+using FiroozehGameService.Models.GSLive.RT;
+using Plugins.GameService.Utils.GSLiveRT;
 using UnityEngine;
 using SystemInfo = FiroozehGameService.Models.Internal.SystemInfo;
 
@@ -32,14 +35,21 @@ namespace Plugins.GameService.Utils
                 GraphicsMemorySize = UnityEngine.SystemInfo.graphicsMemorySize
             };
             
+            // set RealTime Helper Listener & Init GsLiveRealtime
+            GsLiveRealtime.Init();
+            RealTimeEventHandlers.NewEventReceived += GsLiveRealtime.NewEventReceived;
+            
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
         }
+
+        
 
 
         private void OnDestroy()
         {
             Debug.Log("GameService Logout Called");
+            RealTimeEventHandlers.NewEventReceived = null;
             FiroozehGameService.Core.GameService.Logout();
         }
     }

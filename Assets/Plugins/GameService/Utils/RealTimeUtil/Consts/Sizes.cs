@@ -19,11 +19,13 @@
 * @author Alireza Ghodrati
 */
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Consts
+namespace Plugins.GameService.Utils.GSLiveRT.Consts
 {
     internal static class Sizes
     {
         internal const short MaxId = 255;
         internal const short MaxPrefabName = 128;
+        internal const short MaxMethodName = 255;
+
     }
 }

@@ -1,4 +1,4 @@
-// <copyright file="GsLive.cs" company="Firoozeh Technology LTD">
+// <copyright file="GsLiveRealtime.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,22 +21,43 @@
 
 
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
-using Plugins.GameService.Utils.RealTimeUtil.Models;
+using FiroozehGameService.Models.GSLive.RT;
+using Plugins.GameService.Utils.GSLiveRT.Classes.Handlers;
+using Plugins.GameService.Utils.GSLiveRT.Consts;
+using Plugins.GameService.Utils.GSLiveRT.Interfaces;
+using Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects;
+using Plugins.GameService.Utils.GSLiveRT.Utils;
 using UnityEngine;
-using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
+using Types = Plugins.GameService.Utils.GSLiveRT.Consts.Types;
 
-namespace Plugins.GameService.Utils.RealTimeUtil
+namespace Plugins.GameService.Utils.GSLiveRT
 {
     /// <summary>
     ///     Represents Game Service Realtime MultiPlayer System Helper
     /// </summary>
-    public class GsLive
+    public static class GsLiveRealtime
     {
 
-        private static readonly IPrefabHandler PrefabHandler = new PrefabHandler();
+        private static IPrefabHandler _prefabHandler;
+        private static IFunctionHandler _functionHandler;
+        private static IMonoBehaviourHandler _monoBehaviourHandler;
+
+
+        internal static void Init()
+        {
+            _monoBehaviourHandler = new MonoBehaviourHandler();
+            _prefabHandler = new PrefabHandler();
+            _functionHandler = new FunctionHandler();
+            
+            _monoBehaviourHandler.RefreshMonoBehaviourCache();
+            ObjectUtil.Init();
+        }
+        
+        internal static void NewEventReceived(object sender, EventData eventData)
+        {
+            var action = (Types) eventData.Caller[0];
+            ActionUtil.ApplyData(action,eventData.Caller,eventData.Data,_prefabHandler);
+        }
         
         
         /// <summary>
@@ -46,8 +67,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation,byte[] extraData = null)
         {
             var instantiateData = new InstantiateData(prefabName,position,rotation,extraData);
-            var gameObject = PrefabHandler.Instantiate(prefabName, position, rotation);
-            NetworkInstantiate(instantiateData);
+            var gameObject = _prefabHandler.Instantiate(prefabName, position, rotation);
+            SenderUtil.NetworkInstantiate(instantiateData);
             return gameObject;
         }
 
@@ -62,12 +83,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if (string.IsNullOrEmpty(gameObjTag))
                throw new GameServiceException("Failed to Destroy GameObject because gameObjTag Is NullOrEmpty");
 
-            var isDone = PrefabHandler.DestroyWithTag(gameObjTag);
+            var isDone = _prefabHandler.DestroyWithTag(gameObjTag);
             if (!isDone) 
                 throw new GameServiceException("Failed to Destroy GameObject because GameObject With this Tag Not Found!");
             
             var gameObjData = new GameObjectData(objectTag : gameObjTag);
-            NetworkDestroy(gameObjData);
+            SenderUtil.NetworkDestroy(gameObjData);
         }
         
         
@@ -81,34 +102,36 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if (string.IsNullOrEmpty(gameObjName))
                 throw new GameServiceException("Failed to Destroy GameObject because gameObjName Is NullOrEmpty");
 
-            var isDone = PrefabHandler.DestroyWithName(gameObjName);
+            var isDone = _prefabHandler.DestroyWithName(gameObjName);
             if (!isDone) 
                 throw new GameServiceException("Failed to Destroy GameObject because GameObject With this Name Not Found!");
             
             var gameObjData = new GameObjectData(gameObjName);
-            NetworkDestroy(gameObjData);
+            SenderUtil.NetworkDestroy(gameObjData);
         }
 
         
-
-        private static void NetworkInstantiate(InstantiateData instantiateData)
+        
+        #if UNITY_2019_2_OR_NEWER
+        /// <summary>
+        /// Run a Function method on remote clients of this room (or on all, including this client).
+        /// </summary>
+        /// <param name="methodName">The name of a fitting method that was has the GsLiveFunction attribute.</param>
+        /// <param name="type">The group of targets and the way the Function gets sent.</param>
+        /// <param name="extraData">The Extra Data that the Function method has.</param>
+        public static void RunFunction(string methodName, FunctionType type, byte[] extraData = null)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-
-            var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Instantiate ,(byte) 0x0};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,instantiateData.Serialize());
+            
+            var isOk = _functionHandler.RunFunction(methodName,type,extraData);
+            if (!isOk) return;
+            
+            var functionData = new FunctionData(methodName,type,extraData);
+            SenderUtil.NetworkRunFunction(functionData);
         }
-        
-        
-        private static void NetworkDestroy(GameObjectData gameObjectData)
-        {
-            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
-                throw new GameServiceException("RealTime is Not Available");
+        #endif
 
-            var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Destroy ,(byte) 0x0};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,gameObjectData.Serialize());
-        }
         
     }
 }

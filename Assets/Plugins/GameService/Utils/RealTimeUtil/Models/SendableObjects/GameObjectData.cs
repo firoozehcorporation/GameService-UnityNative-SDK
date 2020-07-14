@@ -22,12 +22,12 @@
 
 using System;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
+using Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts;
+using Plugins.GameService.Utils.GSLiveRT.Consts;
+using Plugins.GameService.Utils.GSLiveRT.Utils.IO;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Models
+namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
 {
     internal class GameObjectData : GsLiveSerializable
     {
@@ -38,6 +38,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models
         private int _nameLen;
         private int _tagLen;
 
+        public GameObjectData(byte[] buffer)
+        {
+            Deserialize(buffer);
+        }
         public GameObjectData(string objectName = null , string objectTag = null)
         {
             ObjectName = objectName;
@@ -103,7 +107,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models
         }
 
 
-        internal override void Deserialize(byte[] buffer)
+        internal sealed override void Deserialize(byte[] buffer)
         {
             try
             {

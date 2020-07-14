@@ -1,4 +1,4 @@
-// <copyright file="GsLiveRtObservers.cs" company="Firoozeh Technology LTD">
+// <copyright file="GsLiveRtObserver.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,15 +21,17 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts;
+using Plugins.GameService.Utils.GSLiveRT.Classes.Attributes;
+using Plugins.GameService.Utils.GSLiveRT.Consts;
+using Plugins.GameService.Utils.GSLiveRT.Utils;
 using UnityEngine;
-using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Classes
+namespace Plugins.GameService.Utils.GSLiveRT.Classes
 {
-    public class GsLiveRtObservers : MonoBehaviour
+    public class GsLiveRtObserver : MonoBehaviour
     {
         
         [Header("Set a unique ID to send data from this observer.")]
@@ -43,6 +45,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         {
             if (serializableComponents?.Count > Sizes.MaxId)
                 throw new GameServiceException("observableComponents Count is Too Large!");
+            
+            // register Observer
+            ObjectUtil.RegisterObserver(this);
         }
 
         private void FixedUpdate()
@@ -52,17 +57,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             foreach (var component in serializableComponents)
             {
                 component.Id = idCounter++;
-
-                const byte action = (byte) Types.SyncTransforms;
-                var mainId = id;
-                var subId = component.Id;
-                var buffer = component.Serialize();
-
-                if (buffer == null || !FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable()) continue;
-                
-                var caller = new[] {action,mainId, subId};
-                FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer);
+                SenderUtil.NetworkObserver(id,component);
             }
+        }
+
+        internal void ApplyData(byte componentId,byte[] data)
+        {
+            var currentComponent = serializableComponents.Find(sc => sc.Id == componentId);
+            if(currentComponent == null)
+                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
+            
+            currentComponent.Deserialize(data);
         }
     }
 }

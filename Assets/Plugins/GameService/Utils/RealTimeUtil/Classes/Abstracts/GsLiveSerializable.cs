@@ -22,14 +22,16 @@
 using System.Text;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts
+namespace Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts
 {
     public abstract class GsLiveSerializable : MonoBehaviour
     {
-        internal bool NeedsToUpdate;
-        
         internal byte Id;
+        
+        internal bool NeedsToUpdate;
+
         internal abstract byte[] Serialize();
+        
         internal abstract void Deserialize(byte[] buffer);
 
         internal static byte[] GetBuffer(string data, bool isUtf) 

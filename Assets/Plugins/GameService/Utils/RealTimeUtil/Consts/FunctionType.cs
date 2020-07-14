@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="FunctionType.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,21 +22,12 @@
 
 namespace Plugins.GameService.Utils.GSLiveRT.Consts
 {
+    public enum FunctionType : byte
+    {
+        /// <summary>Sends the Function to everyone else and executes it immediately on this client. Player who join later will not execute this Function.</summary>
+        All = 0x0,
 
-    internal enum Internals : byte
-    {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x2,
-        RunFunction = 0x3
-    }
-
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        /// <summary>Sends the Function to everyone else. This client does not execute the Function. Player who join later will not execute this Function.</summary>
+        Others,
     }
 }

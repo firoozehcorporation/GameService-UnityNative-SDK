@@ -20,11 +20,12 @@
 */
 
 using System;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
+using Plugins.GameService.Utils.GSLiveRT.Classes.Attributes;
+using Plugins.GameService.Utils.GSLiveRT.Utils.IO;
 using UnityEngine;
+using GsLiveSerializable = Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts.GsLiveSerializable;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
+namespace Plugins.GameService.Utils.GSLiveRT.Classes.Observers
 {
     
     public class RealtimeTransformObserver : GsLiveSerializable

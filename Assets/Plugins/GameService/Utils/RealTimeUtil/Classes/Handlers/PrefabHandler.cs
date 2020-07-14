@@ -20,10 +20,10 @@
 */
 
 using System.Collections.Generic;
-using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.GSLiveRT.Interfaces;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
+namespace Plugins.GameService.Utils.GSLiveRT.Classes.Handlers
 {
     internal class PrefabHandler : IPrefabHandler
     {

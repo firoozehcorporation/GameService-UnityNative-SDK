@@ -22,7 +22,7 @@
 
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
+namespace Plugins.GameService.Utils.GSLiveRT.Interfaces
 {
     public interface IPrefabHandler
     {
