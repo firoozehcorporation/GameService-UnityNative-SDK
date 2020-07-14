@@ -20,7 +20,7 @@
 */
 
 
-namespace Plugins.GameService.Utils.GSLiveRT.Consts
+namespace Plugins.GameService.Utils.RealTimeUtil.Consts
 {
 
     internal enum Internals : byte

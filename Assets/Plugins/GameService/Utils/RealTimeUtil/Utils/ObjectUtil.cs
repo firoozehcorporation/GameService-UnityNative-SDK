@@ -25,13 +25,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.GSLiveRT.Classes;
-using Plugins.GameService.Utils.GSLiveRT.Classes.Attributes;
-using Plugins.GameService.Utils.GSLiveRT.Classes.Handlers;
+using Plugins.GameService.Utils.RealTimeUtil.Classes;
+using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
+using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Utils
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class ObjectUtil
     {

@@ -21,11 +21,11 @@
 
 using System;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.GSLiveRT.Consts;
-using Plugins.GameService.Utils.GSLiveRT.Interfaces;
-using Plugins.GameService.Utils.GSLiveRT.Utils;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Utils;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Classes.Handlers
+namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
 {
     internal class FunctionHandler : IFunctionHandler
     {

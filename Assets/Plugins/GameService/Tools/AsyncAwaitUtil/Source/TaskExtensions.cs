@@ -1,40 +1,39 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
-using UnityEngine;
 
-public static class TaskExtensions
+namespace Plugins.GameService.Tools.AsyncAwaitUtil.Source
 {
-    public static IEnumerator AsIEnumerator(this Task task)
+    public static class TaskExtensions
     {
-        while (!task.IsCompleted)
+        public static IEnumerator AsIEnumerator(this Task task)
         {
-            yield return null;
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            if (task.IsFaulted)
+            {
+                ExceptionDispatchInfo.Capture(task.Exception).Throw();
+            }
         }
 
-        if (task.IsFaulted)
+        public static IEnumerator<T> AsIEnumerator<T>(this Task<T> task)
+            where T : class
         {
-            ExceptionDispatchInfo.Capture(task.Exception).Throw();
-        }
-    }
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
 
-    public static IEnumerator<T> AsIEnumerator<T>(this Task<T> task)
-        where T : class
-    {
-        while (!task.IsCompleted)
-        {
-            yield return null;
-        }
+            if (task.IsFaulted)
+            {
+                ExceptionDispatchInfo.Capture(task.Exception).Throw();
+            }
 
-        if (task.IsFaulted)
-        {
-            ExceptionDispatchInfo.Capture(task.Exception).Throw();
+            yield return task.Result;
         }
-
-        yield return task.Result;
     }
 }

@@ -19,7 +19,7 @@
 * @author Alireza Ghodrati
 */
 
-namespace Plugins.GameService.Utils.GSLiveRT.Consts
+namespace Plugins.GameService.Utils.RealTimeUtil.Consts
 {
     internal static class Sizes
     {

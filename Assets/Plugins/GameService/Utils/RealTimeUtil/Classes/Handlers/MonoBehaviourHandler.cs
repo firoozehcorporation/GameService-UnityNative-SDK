@@ -20,10 +20,10 @@
 */
 
 
-using Plugins.GameService.Utils.GSLiveRT.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Classes.Handlers
+namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
 {
     internal class MonoBehaviourHandler : IMonoBehaviourHandler
     {

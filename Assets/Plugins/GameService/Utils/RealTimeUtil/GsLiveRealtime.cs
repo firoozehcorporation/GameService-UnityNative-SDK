@@ -23,15 +23,15 @@
 using System;
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.GSLive.RT;
-using Plugins.GameService.Utils.GSLiveRT.Classes.Handlers;
-using Plugins.GameService.Utils.GSLiveRT.Consts;
-using Plugins.GameService.Utils.GSLiveRT.Interfaces;
-using Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects;
-using Plugins.GameService.Utils.GSLiveRT.Utils;
+using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
+using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
-using Types = Plugins.GameService.Utils.GSLiveRT.Consts.Types;
+using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
-namespace Plugins.GameService.Utils.GSLiveRT
+namespace Plugins.GameService.Utils.RealTimeUtil
 {
     /// <summary>
     ///     Represents Game Service Realtime MultiPlayer System Helper

@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Utils.IO
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.IO
 {
 	/// <summary>
 	/// Helper class for a quick non-allocating way to read or write from/to temporary byte arrays as streams

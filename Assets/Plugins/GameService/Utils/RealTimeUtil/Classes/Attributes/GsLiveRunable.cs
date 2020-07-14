@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Classes.Attributes
+namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes
 {
     /// <summary>Used to flag methods as GSLive Remote Function</summary>
     [AttributeUsage(AttributeTargets.Method)]

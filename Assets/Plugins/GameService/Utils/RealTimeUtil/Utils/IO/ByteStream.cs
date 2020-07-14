@@ -23,7 +23,7 @@
 using System;
 using System.IO;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Utils.IO
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.IO
 {
     /// <summary>
     /// A simple stream implementation for reading/writing from/to byte arrays which can be reused

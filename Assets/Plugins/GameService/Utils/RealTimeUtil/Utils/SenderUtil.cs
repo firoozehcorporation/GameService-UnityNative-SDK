@@ -20,11 +20,11 @@
 */
 
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts;
-using Plugins.GameService.Utils.GSLiveRT.Consts;
-using Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects;
+using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Utils
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class SenderUtil
     {

@@ -1,7 +1,7 @@
 ﻿using FiroozehGameService.Builder;
 using FiroozehGameService.Handlers;
 using FiroozehGameService.Models.GSLive.RT;
-using Plugins.GameService.Utils.GSLiveRT;
+using Plugins.GameService.Utils.RealTimeUtil;
 using UnityEngine;
 using SystemInfo = FiroozehGameService.Models.Internal.SystemInfo;
 

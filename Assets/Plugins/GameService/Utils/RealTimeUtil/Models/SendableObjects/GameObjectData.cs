@@ -22,12 +22,12 @@
 
 using System;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts;
-using Plugins.GameService.Utils.GSLiveRT.Consts;
-using Plugins.GameService.Utils.GSLiveRT.Utils.IO;
+using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
+namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {
     internal class GameObjectData : GsLiveSerializable
     {

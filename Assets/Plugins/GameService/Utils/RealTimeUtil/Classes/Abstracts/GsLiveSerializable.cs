@@ -22,7 +22,7 @@
 using System.Text;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Classes.Abstracts
+namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts
 {
     public abstract class GsLiveSerializable : MonoBehaviour
     {

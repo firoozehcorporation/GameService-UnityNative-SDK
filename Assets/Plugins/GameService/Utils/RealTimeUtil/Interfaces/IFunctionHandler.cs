@@ -21,9 +21,9 @@
 
 
 using System;
-using Plugins.GameService.Utils.GSLiveRT.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
 
-namespace Plugins.GameService.Utils.GSLiveRT.Interfaces
+namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
 {
     internal interface IFunctionHandler
     {
