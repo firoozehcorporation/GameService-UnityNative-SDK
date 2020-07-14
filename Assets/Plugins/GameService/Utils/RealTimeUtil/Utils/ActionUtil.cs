@@ -77,12 +77,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null)
         {
             var func = functionData;
+            object[] parameters = null;
+            
             if(func == null && buffer != null) func = new FunctionData(buffer);
             
             var haveBuffer = func.ExtraData != null;
             var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,haveBuffer);
+
+            if (haveBuffer)
+               parameters = new object[] {func.ExtraData};
             
-            info.Invoke(baseObj, new object[] {haveBuffer ? func.ExtraData : null});
+            info.Invoke(baseObj,parameters);
         }
     }
 }

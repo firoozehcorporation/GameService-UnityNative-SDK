@@ -28,7 +28,6 @@ using FiroozehGameService.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Classes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
-using UnityEditor;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
@@ -53,10 +52,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             
             var monoBehaviours = MonoBehaviourHandler.MonoBehaviours;
-            var extractedMethods = TypeCache.GetMethodsWithAttribute<GsLiveFunction>();
-            var methods = extractedMethods
-                .Select(methodInfo => methodInfo)
-                .ToList();
             
             foreach (var monoBehaviour in monoBehaviours)
             {
@@ -68,13 +63,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 }
 
                 var type = monoBehaviour.GetType();
-
+                var methods = GetMethods(type, typeof(GsLiveFunction));
+                
                 var methodsOfTypeInCache = _runableCache.TryGetValue(type, out _);
                 if (methodsOfTypeInCache) continue;
                 
-                var methodInfos = methods.FindAll(m => m.DeclaringType == type);
-                _runableCache.Add(type,methodInfos);
-                _runableCacheMono.Add(type,monoBehaviour);
+                
+                if (_runableCache.ContainsKey(type)) continue;
+                _runableCache.Add(type, methods);
+                _runableCacheMono.Add(type, monoBehaviour);
             }
         }
 
@@ -113,12 +110,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             
             if(functions?.Item2 == null || functions.Item2?.Count == 0)
                 throw new GameServiceException("this Type " + fullName + " Have No Runable Methods");
-
+            
+            
             var parameterLen = haveBuffer ? 1 : 0 ;
             var method = functions.Item2.FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == parameterLen);
             if(method == null)
                 throw new GameServiceException("Function With Name " + methodName + " is Not Exist.You Must Set GsLiveFunction Attribute For Your Function");
-
             
             _runableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
             if(monoBehaviour == null)
@@ -141,6 +138,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             _observerCache.TryGetValue(id,out var observer);
             return observer;
+        }
+
+        private static List<MethodInfo> GetMethods(Type type, Type attribute)
+        {
+            var methodInfoList = new List<MethodInfo>();
+            if (type == null) return methodInfoList;
+            methodInfoList.AddRange(type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(method => attribute == null || method.IsDefined(attribute, false)));
+            return methodInfoList;
         }
     }
 }

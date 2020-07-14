@@ -117,7 +117,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
         
         
-        #if UNITY_2019_2_OR_NEWER
         /// <summary>
         /// Run a Function method on remote clients of this room (or on all, including this client).
         /// </summary>
@@ -129,7 +128,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-                
             
             var isOk = _functionHandler.RunFunction(methodName,from,type,extraData);
             if (!isOk) return;
@@ -142,8 +140,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
             SenderUtil.NetworkRunFunction(functionData);
         }
-        #endif
-
         
     }
 }
