@@ -26,6 +26,8 @@ using Plugins.GameService.Utils.GSLiveRT.Classes;
 using Plugins.GameService.Utils.GSLiveRT.Consts;
 using Plugins.GameService.Utils.GSLiveRT.Interfaces;
 using Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects;
+using UnityEngine;
+using Types = Plugins.GameService.Utils.GSLiveRT.Consts.Types;
 
 namespace Plugins.GameService.Utils.GSLiveRT.Utils
 {
@@ -75,12 +77,15 @@ namespace Plugins.GameService.Utils.GSLiveRT.Utils
             }
         }
         
-        private static void ApplyFunction(byte[] buffer)
+        internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null)
         {
-            var func = new FunctionData(buffer);
-            var info = ObjectUtil.GetFunction(func.MethodName);
+            var func = functionData;
+            if(func == null && buffer != null) func = new FunctionData(buffer);
+            
             var haveBuffer = func.ExtraData != null;
-            info.Item2.Invoke(info.Item1, haveBuffer ? new object[] {func.ExtraData} : null);
+            var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,haveBuffer);
+            
+            info.Invoke(baseObj, new object[] {haveBuffer ? func.ExtraData : null});
         }
     }
 }

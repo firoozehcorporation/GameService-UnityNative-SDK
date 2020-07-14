@@ -19,6 +19,7 @@
 * @author Alireza Ghodrati
 */
 
+using System;
 using FiroozehGameService.Models;
 using Plugins.GameService.Utils.GSLiveRT.Consts;
 using Plugins.GameService.Utils.GSLiveRT.Interfaces;
@@ -29,14 +30,14 @@ namespace Plugins.GameService.Utils.GSLiveRT.Classes.Handlers
     internal class FunctionHandler : IFunctionHandler
     {
         
-        public bool RunFunction(string methodName, FunctionType type, byte[] extraData = null)
+        public bool RunFunction(string methodName,Type from, FunctionType type, byte[] extraData = null)
         {
             if (string.IsNullOrEmpty(methodName))
                 throw new GameServiceException("Function method name cannot be null or empty.");
             
-           // if(!ObjectUtil.InitFunctions().ContainsKey(methodName))
-              //  throw new GameServiceException("No Function Have GsLiveFunction Attribute");
-
+            if(!ObjectUtil.HaveFunctions(from))
+                throw new GameServiceException("No Function Have GsLiveFunction Attribute in Class " + from);
+            
             return true;
         }
         

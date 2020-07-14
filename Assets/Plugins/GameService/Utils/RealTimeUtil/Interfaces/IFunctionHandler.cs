@@ -20,19 +20,20 @@
 */
 
 
+using System;
 using Plugins.GameService.Utils.GSLiveRT.Consts;
 
 namespace Plugins.GameService.Utils.GSLiveRT.Interfaces
 {
     internal interface IFunctionHandler
     {
-        
         /// <summary>
         /// Run a Function method on remote clients of this room (or on all, including this client).
         /// </summary>
         /// <param name="methodName">The name of a fitting method that was has the GsLiveFunction attribute.</param>
+        /// <param name="from">the Type of Object That Call this Function in this class</param>
         /// <param name="type">The group of targets and the way the Function gets sent.</param>
         /// <param name="extraData">The Extra Data that the Function method has.</param>
-        bool RunFunction(string methodName, FunctionType type, byte[] extraData = null);
+        bool RunFunction(string methodName,Type from, FunctionType type, byte[] extraData = null);
     }
 }

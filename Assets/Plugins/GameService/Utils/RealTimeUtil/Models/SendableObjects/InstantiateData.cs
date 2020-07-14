@@ -33,18 +33,15 @@ namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
         internal string PrefabName;
         internal Vector3 Position;
         internal Quaternion Rotation;
-        internal byte[] ExtraData;
-
-
+        
         private int _prefabLen;
-        private int _extraLen;
 
         public InstantiateData(byte[] buffer)
         {
             Deserialize(buffer);
         }
         
-        public InstantiateData(string prefabName, Vector3 position, Quaternion rotation, byte[] extraData = null)
+        public InstantiateData(string prefabName, Vector3 position, Quaternion rotation)
         {
             if (string.IsNullOrEmpty(prefabName))
                 throw new GameServiceException("prefabName Cant Be NullOrEmpty");
@@ -56,7 +53,6 @@ namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
             PrefabName = prefabName;
             Position = position;
             Rotation = rotation;
-            ExtraData = extraData;
         }
 
 
@@ -65,35 +61,24 @@ namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
             try
             {
                 // Check Buffer Size
-                byte haveExtra = 0x0;
-
                 var prefabName = GetBuffer(PrefabName,false);
                 _prefabLen = prefabName.Length;
                 
                 if(_prefabLen > Sizes.MaxPrefabName)
                     throw new GameServiceException("Prefab Name is Too Large!");
-
-                if (ExtraData != null)
-                {
-                    haveExtra = 0x1;
-                    _extraLen = ExtraData.Length;
-                }
+                
                 
 
-                var bufferSize = 2 * sizeof(byte) + 7 * sizeof(float) + sizeof(ushort) + 
-                                                  + _prefabLen + _extraLen;
+                var bufferSize = sizeof(byte) + 7 * sizeof(float) + sizeof(ushort) + 
+                                                  + _prefabLen;
 
                 // Get Binary Buffer
                 var packetBuffer = BufferPool.GetBuffer(bufferSize);
                 using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
                 {
                     // Write Headers
-                    packetWriter.Write(haveExtra);
-                    
                     packetWriter.Write((byte)_prefabLen);
-                    packetWriter.Write((ushort)_extraLen);
-                    
-                    
+
                     // Write Data
                     // Write Position
                     packetWriter.Write(BitConverter.GetBytes(Position.x));
@@ -108,7 +93,6 @@ namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
                     
 
                    packetWriter.Write(prefabName);
-                   if(haveExtra == 0x1) packetWriter.Write(ExtraData);
                 }
 
                 return packetBuffer;
@@ -127,25 +111,20 @@ namespace Plugins.GameService.Utils.GSLiveRT.Models.SendableObjects
             {
                 using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
                 {
-                    var haveExtra = packetWriter.ReadByte();
-                    
                     var prefabLen = packetWriter.ReadByte();
-                    var extraLen = packetWriter.ReadUInt16();
 
-                    var x = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                    var y = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                    var z = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
+                    var x = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
+                    var y = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
+                    var z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                     Position = new Vector3(x,y,z);
-                    
-                    
-                     x = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                     y = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                     z = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                     var w = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
+
+                    x = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
+                     y = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
+                     z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
+                     var w = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                     Rotation = new Quaternion(x,y,z,w);
 
                     PrefabName = GetStringFromBuffer(packetWriter.ReadBytes(prefabLen),false);
-                    if (haveExtra == 0x1) ExtraData = packetWriter.ReadBytes(extraLen);
                 }
             }
             catch (Exception e)

@@ -25,18 +25,25 @@ using UnityEngine;
 
 namespace Plugins.GameService.Utils.GSLiveRT.Classes.Handlers
 {
-    internal class MonoBehaviourHandler : MonoBehaviour,IMonoBehaviourHandler
+    internal class MonoBehaviourHandler : IMonoBehaviourHandler
     {
         
+        private MonoBehaviour _rootMono;
         internal static MonoBehaviour[] MonoBehaviours;
-        
+
+
+        public void Init(MonoBehaviour monoBehaviour)
+        {
+            _rootMono = monoBehaviour;
+            RefreshMonoBehaviourCache();
+        }
         
         /// <summary>
         /// Can be used to refresh the list of MonoBehaviours on this GameObject
         /// </summary>
         public void RefreshMonoBehaviourCache()
         {
-            MonoBehaviours = GetComponents<MonoBehaviour>();
+            MonoBehaviours = _rootMono.GetComponents<MonoBehaviour>();
         }
         
         

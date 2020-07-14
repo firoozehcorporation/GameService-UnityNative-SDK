@@ -20,11 +20,14 @@
 */
 
 
+using UnityEngine;
 
 namespace Plugins.GameService.Utils.GSLiveRT.Interfaces
 {
     internal interface IMonoBehaviourHandler
     {
+
+        void Init(MonoBehaviour monoBehaviour);
         /// <summary>
         /// Can be used to refresh the list of MonoBehaviours on this GameObject
         /// </summary>

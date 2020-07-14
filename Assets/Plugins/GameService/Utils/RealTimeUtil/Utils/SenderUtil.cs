@@ -66,6 +66,7 @@ namespace Plugins.GameService.Utils.GSLiveRT.Utils
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
+                
 
             var caller = new[] {(byte) Types.RunFunction,(byte) Internals.Padding,(byte) Internals.Padding};
             FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,functionData.Serialize());

@@ -20,6 +20,7 @@
 */
 
 
+using System;
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.GSLive.RT;
 using Plugins.GameService.Utils.GSLiveRT.Classes.Handlers;
@@ -43,13 +44,13 @@ namespace Plugins.GameService.Utils.GSLiveRT
         private static IMonoBehaviourHandler _monoBehaviourHandler;
 
 
-        internal static void Init()
+        internal static void Init(MonoBehaviour monoBehaviour)
         {
             _monoBehaviourHandler = new MonoBehaviourHandler();
             _prefabHandler = new PrefabHandler();
             _functionHandler = new FunctionHandler();
             
-            _monoBehaviourHandler.RefreshMonoBehaviourCache();
+            _monoBehaviourHandler.Init(monoBehaviour);
             ObjectUtil.Init();
         }
         
@@ -64,10 +65,14 @@ namespace Plugins.GameService.Utils.GSLiveRT
         ///  Instantiate the GameObject For All PLayers in Room
         ///  notes : Your prefab Must Save in Resources folder
         /// </summary>
-        public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation,byte[] extraData = null)
+        public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation)
         {
-            var instantiateData = new InstantiateData(prefabName,position,rotation,extraData);
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            var instantiateData = new InstantiateData(prefabName,position,rotation);
             var gameObject = _prefabHandler.Instantiate(prefabName, position, rotation);
+            
             SenderUtil.NetworkInstantiate(instantiateData);
             return gameObject;
         }
@@ -118,16 +123,23 @@ namespace Plugins.GameService.Utils.GSLiveRT
         /// </summary>
         /// <param name="methodName">The name of a fitting method that was has the GsLiveFunction attribute.</param>
         /// <param name="type">The group of targets and the way the Function gets sent.</param>
+        /// <param name="from">the Type of Object That Call this Function in this class</param>
         /// <param name="extraData">The Extra Data that the Function method has.</param>
-        public static void RunFunction(string methodName, FunctionType type, byte[] extraData = null)
+        public static void RunFunction(string methodName,Type from,FunctionType type, byte[] extraData = null)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
+                
             
-            var isOk = _functionHandler.RunFunction(methodName,type,extraData);
+            var isOk = _functionHandler.RunFunction(methodName,from,type,extraData);
             if (!isOk) return;
             
-            var functionData = new FunctionData(methodName,type,extraData);
+            var functionData = new FunctionData(from.FullName,methodName,type,extraData);
+           
+            // run on this Client
+            if (type == FunctionType.All)
+                ActionUtil.ApplyFunction(functionData : functionData);
+
             SenderUtil.NetworkRunFunction(functionData);
         }
         #endif

@@ -37,23 +37,30 @@ namespace Plugins.GameService.Utils.GSLiveRT.Utils
     {
         
         private static Dictionary<Type, List<MethodInfo>> _runableCache;
+        private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
         private static Dictionary<byte, GsLiveRtObserver> _observerCache;
 
         internal static void Init()
         {
             _runableCache = new Dictionary<Type, List<MethodInfo>>();
+            _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
             _observerCache = new Dictionary<byte, GsLiveRtObserver>();
 
-            InitFunctions();
+            UpdateFunctions();
         }
         
-        private static void InitFunctions()
+        private static void UpdateFunctions()
         {
-            if(_runableCache.Count > 0) return;
-
+            
             var monoBehaviours = MonoBehaviourHandler.MonoBehaviours;
+            var extractedMethods = TypeCache.GetMethodsWithAttribute<GsLiveFunction>();
+            var methods = extractedMethods
+                .Select(methodInfo => methodInfo)
+                .ToList();
+            
             foreach (var monoBehaviour in monoBehaviours)
             {
+                
                 if (monoBehaviour == null)
                 {
                     Debug.LogError("ERROR You have missing MonoBehaviours on your GameObjects!");
@@ -64,26 +71,61 @@ namespace Plugins.GameService.Utils.GSLiveRT.Utils
 
                 var methodsOfTypeInCache = _runableCache.TryGetValue(type, out _);
                 if (methodsOfTypeInCache) continue;
-                var extractedMethods = TypeCache.GetMethodsWithAttribute<GsLiveFunction>();
-                var methods = extractedMethods
-                    .Select(methodInfo => methodInfo)
-                    .Where(m=> m.DeclaringType == type)
-                    .ToList();
                 
-                _runableCache.Add(type,methods);
+                var methodInfos = methods.FindAll(m => m.DeclaringType == type);
+                _runableCache.Add(type,methodInfos);
+                _runableCacheMono.Add(type,monoBehaviour);
             }
         }
 
         
-        internal static Tuple<Type,MethodInfo> GetFunction(string methodName)
+        
+        internal static bool HaveFunctions(Type from)
         {
-            var method = _runableCache
-                .FirstOrDefault(rc => rc.Value.Any(mt => mt.Name == methodName));
+            if(_runableCache.Count == 0) return false;
+            _runableCache.TryGetValue(from, out var methodInfos);
+            if (methodInfos != null)
+                return methodInfos.Count > 0;
+            return false;
+        }
+
+        
+        private static Tuple<Type,List<MethodInfo>> GetFunctions(string fullName)
+        {
+            if(_runableCache.Count == 0) return null;
+
+           var data = _runableCache
+               .FirstOrDefault(rc => rc.Key.FullName == fullName);
+
+           if (data.Key == null || data.Value == null)
+               return null;
+
+           return Tuple.Create(data.Key, data.Value);
+        }
+        
+
+        
+        internal static Tuple<MonoBehaviour,MethodInfo> GetFunction(string methodName,string fullName,bool haveBuffer)
+        {
+            UpdateFunctions();
+
+            var functions = GetFunctions(fullName);
             
-            if(method.Key == null || method.Value == null)
+            if(functions?.Item2 == null || functions.Item2?.Count == 0)
+                throw new GameServiceException("this Type " + fullName + " Have No Runable Methods");
+
+            var parameterLen = haveBuffer ? 1 : 0 ;
+            var method = functions.Item2.FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == parameterLen);
+            if(method == null)
                 throw new GameServiceException("Function With Name " + methodName + " is Not Exist.You Must Set GsLiveFunction Attribute For Your Function");
 
-            return Tuple.Create(method.Key, method.Value.Find(mt => mt.Name == methodName));
+            
+            _runableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
+            if(monoBehaviour == null)
+                throw new GameServiceException("no monoBehaviour Exist for Function With Name " + methodName);
+
+            
+            return Tuple.Create(monoBehaviour,method);
         }
 
 

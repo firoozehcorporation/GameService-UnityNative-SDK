@@ -11,6 +11,7 @@ namespace Plugins.GameService.Utils
     {
         public string ClientId;
         public string ClientSecret;
+        public bool RealTimeUtilEnabled = false;
 
         private void OnEnable()
         {
@@ -34,11 +35,15 @@ namespace Plugins.GameService.Utils
                 GraphicsDeviceVendor = UnityEngine.SystemInfo.graphicsDeviceVendor,
                 GraphicsMemorySize = UnityEngine.SystemInfo.graphicsMemorySize
             };
+
             
-            // set RealTime Helper Listener & Init GsLiveRealtime
-            GsLiveRealtime.Init();
-            RealTimeEventHandlers.NewEventReceived += GsLiveRealtime.NewEventReceived;
-            
+            if (RealTimeUtilEnabled)
+            {
+                // set RealTime Helper Listener & Init GsLiveRealtime
+                GsLiveRealtime.Init(this);
+                RealTimeEventHandlers.NewEventReceived += GsLiveRealtime.NewEventReceived;
+            }
+
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
         }
