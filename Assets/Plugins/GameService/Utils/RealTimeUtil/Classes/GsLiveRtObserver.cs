@@ -22,10 +22,12 @@
 
 using System.Collections.Generic;
 using FiroozehGameService.Models;
+using FiroozehGameService.Utils;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
+using Event = FiroozehGameService.Utils.Event;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 {
@@ -39,6 +41,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         public List<GsLiveSerializable> serializableComponents;
 
 
+        private Event _callerEvent;
+        
         private void OnEnable()
         {
             if (serializableComponents?.Count > Sizes.MaxId)
@@ -46,9 +50,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             
             // register Observer
             ObjectUtil.RegisterObserver(this);
+            _callerEvent = EventCallerUtil.AddEvent(id, 100);
+            _callerEvent.EventHandler += OnUpdate;
         }
 
-        private void FixedUpdate()
+        
+        
+        private void OnUpdate(object sender, Event e)
         {
             if (serializableComponents == null) return;
             byte idCounter = 0;
@@ -58,6 +66,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
                 SenderUtil.NetworkObserver(id,component);
             }
         }
+        
 
         internal void ApplyData(byte componentId,byte[] data)
         {
