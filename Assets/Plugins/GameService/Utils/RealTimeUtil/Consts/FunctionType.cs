@@ -29,5 +29,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
 
         /// <summary>Sends the Function to everyone else. This client does not execute the Function. Player who join later will not execute this Function.</summary>
         Others,
+        
+        /// <summary>Sends the Function to everyone else and executes it immediately on this client. New players get the Function when they join as it's buffered</summary>
+        Buffered,
     }
 }
