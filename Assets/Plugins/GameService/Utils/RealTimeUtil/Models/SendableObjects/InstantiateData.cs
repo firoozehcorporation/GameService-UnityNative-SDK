@@ -78,8 +78,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                 {
                     // Write Headers
                     packetWriter.Write((byte)_prefabLen);
-
+                    
                     // Write Data
+                    packetWriter.Write(prefabName);
                     // Write Position
                     packetWriter.Write(BitConverter.GetBytes(Position.x));
                     packetWriter.Write(BitConverter.GetBytes(Position.y));
@@ -90,9 +91,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                     packetWriter.Write(BitConverter.GetBytes(Rotation.y));
                     packetWriter.Write(BitConverter.GetBytes(Rotation.z));
                     packetWriter.Write(BitConverter.GetBytes(Rotation.w));
-                    
-
-                   packetWriter.Write(prefabName);
                 }
 
                 return packetBuffer;
@@ -112,7 +110,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                 using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
                 {
                     var prefabLen = packetWriter.ReadByte();
-
+                    PrefabName = GetStringFromBuffer(packetWriter.ReadBytes(prefabLen),false);
+                    
                     var x = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                     var y = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                     var z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
@@ -123,8 +122,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                      z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                      var w = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
                     Rotation = new Quaternion(x,y,z,w);
-
-                    PrefabName = GetStringFromBuffer(packetWriter.ReadBytes(prefabLen),false);
                 }
             }
             catch (Exception e)

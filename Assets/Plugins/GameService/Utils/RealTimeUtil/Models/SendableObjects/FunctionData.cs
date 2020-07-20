@@ -90,7 +90,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                 {
                     // Write Headers
                     packetWriter.Write(haveExtra);
-                    
+                    packetWriter.Write((byte)Type);
+
                     packetWriter.Write((byte)_nameLen);
                     packetWriter.Write((byte)_fullnameLen);
                     if(haveExtra == 0x1) packetWriter.Write((ushort)extraLen);
@@ -98,7 +99,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                     // Write Data
                    packetWriter.Write(methodName);
                    packetWriter.Write(fullName);
-                   packetWriter.Write((byte)Type);
                    if(haveExtra == 0x1) packetWriter.Write(ExtraData);
                 }
 
@@ -121,13 +121,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                     var extraLen = 0;
                     
                     var haveExtra = packetWriter.ReadByte();
+                    Type = (FunctionType) packetWriter.ReadByte();
+
                     _nameLen = packetWriter.ReadByte();
                     _fullnameLen = packetWriter.ReadByte();
                     if(haveExtra == 0x1) extraLen = packetWriter.ReadUInt16();
 
                     MethodName = GetStringFromBuffer(packetWriter.ReadBytes(_nameLen), false);
                     FullName = GetStringFromBuffer(packetWriter.ReadBytes(_fullnameLen), false);
-                    Type = (FunctionType) packetWriter.ReadByte();
                     if(haveExtra == 0x1) ExtraData = packetWriter.ReadBytes(extraLen);
                 }
             }
