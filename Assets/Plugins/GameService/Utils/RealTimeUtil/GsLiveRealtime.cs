@@ -92,7 +92,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if (!isDone) 
                 throw new GameServiceException("Failed to Destroy GameObject because GameObject With this Tag Not Found!");
             
-            var gameObjData = new GameObjectData(objectTag : gameObjTag);
+            var gameObjData = new GameObjectData(true,gameObjTag);
             SenderUtil.NetworkDestroy(gameObjData);
         }
         
@@ -111,7 +111,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if (!isDone) 
                 throw new GameServiceException("Failed to Destroy GameObject because GameObject With this Name Not Found!");
             
-            var gameObjData = new GameObjectData(gameObjName);
+            var gameObjData = new GameObjectData(false,gameObjName);
             SenderUtil.NetworkDestroy(gameObjData);
         }
 

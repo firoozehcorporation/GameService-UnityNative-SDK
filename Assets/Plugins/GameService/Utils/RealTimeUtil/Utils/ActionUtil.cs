@@ -69,8 +69,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 case ObjectActions.Destroy:
                     var objectHandler = new GameObjectData();
                     objectHandler.CallReadStream(data);
-                    if (objectHandler.ObjectName != null) handler.DestroyWithName(objectHandler.ObjectName);
-                    else handler.DestroyWithTag(objectHandler.ObjectTag);
+                    if (objectHandler.IsTag) handler.DestroyWithTag(objectHandler.ObjectNameOrTag);
+                    else handler.DestroyWithName(objectHandler.ObjectNameOrTag);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

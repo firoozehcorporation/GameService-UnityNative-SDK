@@ -42,8 +42,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
             {
                 return rotation.Serialize();
             }
-        
-            
             
             
             public static Vector3 DeserializeToVector3(byte[] buffer)
@@ -57,9 +55,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
                 return UnityModels.DeserializeToQuaternion(buffer);
             }
 
-            
-            
-            
         }
        
         

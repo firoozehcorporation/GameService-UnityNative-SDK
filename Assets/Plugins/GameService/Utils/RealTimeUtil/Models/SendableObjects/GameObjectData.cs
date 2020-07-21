@@ -27,27 +27,27 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {
     internal class GameObjectData : IGsLiveSerializable
     {
-        internal string ObjectName;
-        internal string ObjectTag;
+        internal string ObjectNameOrTag;
+        internal bool IsTag;
         
         internal GameObjectData(){}
         
-        internal GameObjectData(string objectName = null , string objectTag = null)
+        internal GameObjectData(bool isTag, string objectNameOrTag = null)
         {
-            ObjectName = objectName;
-            ObjectTag = objectTag;
+            ObjectNameOrTag = objectNameOrTag;
+            IsTag = isTag;
         }
 
         public void OnGsLiveRead(GsReadStream readStream)
         {
-            ObjectName = (string) readStream.ReadNext();
-            ObjectTag = (string) readStream.ReadNext();
+            IsTag = (bool) readStream.ReadNext();
+            ObjectNameOrTag = (string) readStream.ReadNext();
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
         {
-            writeStream.WriteNext(ObjectName);
-            writeStream.WriteNext(ObjectTag);
+            writeStream.WriteNext(IsTag);
+            writeStream.WriteNext(ObjectNameOrTag);
         }
     }
 }
