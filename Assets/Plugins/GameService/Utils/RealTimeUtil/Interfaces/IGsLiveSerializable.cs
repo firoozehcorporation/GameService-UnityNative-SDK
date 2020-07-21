@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="IGsLiveSerializable.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,24 +19,14 @@
 * @author Alireza Ghodrati
 */
 
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Consts
+namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
 {
+    public interface IGsLiveSerializable
+    {
+        void OnGsLiveRead(GsReadStream readStream);
 
-    internal enum Internals : byte
-    {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x1,
-        RunFunction = 0x2
-    }
-
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        void OnGsLiveWrite(GsWriteStream writeStream);
     }
 }

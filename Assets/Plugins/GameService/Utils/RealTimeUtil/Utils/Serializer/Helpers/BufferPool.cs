@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Utils.IO
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 {
 	/// <summary>
 	/// Helper methods for allocating temporary buffers

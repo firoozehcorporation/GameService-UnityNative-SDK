@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="IObjectSerializer.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,18 @@
 */
 
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Consts
+using System;
+
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Interfaces
 {
+    public interface IObjectSerializer
+    {
+        byte[] Serialize();
+        
+        void Deserialize(byte[] buffer);
 
-    internal enum Internals : byte
-    {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x1,
-        RunFunction = 0x2
-    }
+        ushort Length();
 
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        Type GetType();
     }
 }

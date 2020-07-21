@@ -38,9 +38,6 @@
               <e p="GameServiceInitializer.cs" t="Include" />
               <e p="RealTimeUtil" t="Include">
                 <e p="Classes" t="Include">
-                  <e p="Abstracts" t="Include">
-                    <e p="GsLiveSerializable.cs" t="Include" />
-                  </e>
                   <e p="Attributes" t="Include">
                     <e p="GsLiveRunable.cs" t="Include" />
                   </e>
@@ -49,6 +46,9 @@
                     <e p="FunctionHandler.cs" t="Include" />
                     <e p="MonoBehaviourHandler.cs" t="Include" />
                     <e p="PrefabHandler.cs" t="Include" />
+                  </e>
+                  <e p="Helpers" t="Include">
+                    <e p="UnityModels.cs" t="Include" />
                   </e>
                   <e p="Observers" t="Include">
                     <e p="RealtimeTransformObserver.cs" t="Include" />
@@ -62,6 +62,7 @@
                 <e p="GsLiveRealtime.cs" t="Include" />
                 <e p="Interfaces" t="Include">
                   <e p="IFunctionHandler.cs" t="Include" />
+                  <e p="IGsLiveSerializable.cs" t="Include" />
                   <e p="IMonoBehaviourHandler.cs" t="Include" />
                   <e p="IPrefabHandler.cs" t="Include" />
                 </e>
@@ -74,13 +75,28 @@
                 </e>
                 <e p="Utils" t="Include">
                   <e p="ActionUtil.cs" t="Include" />
-                  <e p="IO" t="Include">
-                    <e p="BufferPool.cs" t="Include" />
-                    <e p="ByteArrayReader.cs" t="Include" />
-                    <e p="ByteStream.cs" t="Include" />
-                  </e>
                   <e p="ObjectUtil.cs" t="Include" />
                   <e p="SenderUtil.cs" t="Include" />
+                  <e p="Serializer" t="Include">
+                    <e p="GsSerializer.cs" t="Include" />
+                    <e p="Helpers" t="Include">
+                      <e p="BufferPool.cs" t="Include" />
+                      <e p="ByteArrayReader.cs" t="Include" />
+                      <e p="ByteStream.cs" t="Include" />
+                      <e p="GSReadStream.cs" t="Include" />
+                      <e p="GSWriteStream.cs" t="Include" />
+                    </e>
+                    <e p="Interfaces" t="Include">
+                      <e p="IObjectSerializer.cs" t="Include" />
+                    </e>
+                    <e p="Models" t="Include">
+                      <e p="ObjectInfo.cs" t="Include" />
+                      <e p="Types.cs" t="Include" />
+                    </e>
+                    <e p="Utils" t="Include">
+                      <e p="SerializerUtil.cs" t="Include" />
+                    </e>
+                  </e>
                 </e>
               </e>
             </e>

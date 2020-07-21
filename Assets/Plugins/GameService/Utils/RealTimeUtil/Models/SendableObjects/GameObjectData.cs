@@ -20,114 +20,34 @@
 */
 
 
-using System;
-using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
-using UnityEngine;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {
-    internal class GameObjectData : GsLiveSerializable
+    internal class GameObjectData : IGsLiveSerializable
     {
         internal string ObjectName;
         internal string ObjectTag;
         
+        internal GameObjectData(){}
         
-        private int _nameLen;
-        private int _tagLen;
-
-        public GameObjectData(byte[] buffer)
-        {
-            Deserialize(buffer);
-        }
-        public GameObjectData(string objectName = null , string objectTag = null)
+        internal GameObjectData(string objectName = null , string objectTag = null)
         {
             ObjectName = objectName;
             ObjectTag = objectTag;
         }
 
-
-        internal override byte[] Serialize()
+        public void OnGsLiveRead(GsReadStream readStream)
         {
-            try
-            {
-                // Check Buffer Size
-                byte haveName = 0x0,haveTag = 0x0;
-                byte[] objectName = null, objectTag = null;
-
-                if (!string.IsNullOrEmpty(ObjectName))
-                {
-                    haveName = 0x1;
-                    objectName = GetBuffer(ObjectName,false);
-                    _nameLen = objectName.Length;
-                }
-               
-                if (!string.IsNullOrEmpty(ObjectTag))
-                {
-                    haveTag = 0x1;
-                    objectTag = GetBuffer(ObjectTag,false);
-                    _tagLen = objectTag.Length;
-                }
-
-                
-                if(_nameLen > Sizes.MaxPrefabName)
-                    throw new GameServiceException("Object Name is Too Large!");
-                
-                if(_tagLen > Sizes.MaxPrefabName)
-                    throw new GameServiceException("Object Tag is Too Large!");
-
-
-                var bufferSize = 4 * sizeof(byte) + _nameLen + _tagLen;
-
-                // Get Binary Buffer
-                var packetBuffer = BufferPool.GetBuffer(bufferSize);
-                using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
-                {
-                    // Write Headers
-                    packetWriter.Write(haveName);
-                    packetWriter.Write(haveTag);
-                    
-                    if(haveName == 0x1) packetWriter.Write((byte)_nameLen);
-                    if(haveTag == 0x1) packetWriter.Write((byte)_tagLen);
-                    
-                    // Write Data
-                   if(haveName == 0x1) packetWriter.Write(objectName);
-                   if(haveTag == 0x1) packetWriter.Write(objectTag);
-                }
-
-                return packetBuffer;
-            }
-            catch (Exception e)
-            {
-               Debug.LogError("InstantiateData Serialize Error : " + e);
-               return null;
-            }
+            ObjectName = (string) readStream.ReadNext();
+            ObjectTag = (string) readStream.ReadNext();
         }
 
-
-        internal sealed override void Deserialize(byte[] buffer)
+        public void OnGsLiveWrite(GsWriteStream writeStream)
         {
-            try
-            {
-                using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
-                {
-                    var haveName = packetWriter.ReadByte();
-                    var haveTag = packetWriter.ReadByte();
-
-                    if(haveName == 0x1) _nameLen = packetWriter.ReadByte();
-                    if(haveTag == 0x1)  _tagLen = packetWriter.ReadByte();
-
-                    if(haveName == 0x1) ObjectName = GetStringFromBuffer(packetWriter.ReadBytes(_nameLen),false);
-                    if(haveTag == 0x1)  ObjectTag = GetStringFromBuffer(packetWriter.ReadBytes(_tagLen),false);
-                    
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("InstantiateData Deserialize Error : " + e);
-            }
+            writeStream.WriteNext(ObjectName);
+            writeStream.WriteNext(ObjectTag);
         }
     }
 }

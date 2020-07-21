@@ -19,24 +19,23 @@
 * @author Alireza Ghodrati
 */
 
-
-namespace Plugins.GameService.Utils.RealTimeUtil.Consts
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models
 {
-
-    internal enum Internals : byte
-    {
-        Padding = 0x0
-    }
     internal enum Types : byte
     {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x1,
-        RunFunction = 0x2
-    }
-
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        Null = 0x0,
+        Bool ,
+        Byte ,
+        Char ,
+        Double,
+        Float ,
+        Int ,
+        Long ,
+        Short ,
+        Uint ,
+        Ushort,
+        String ,
+        ByteArray,
+        CustomObject
     }
 }

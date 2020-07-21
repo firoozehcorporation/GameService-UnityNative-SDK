@@ -20,19 +20,20 @@
 */
 
 using System;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
 {
     
-    public class RealtimeTransformObserver : Abstracts.GsLiveSerializable
+    public class RealtimeTransformObserver : MonoBehaviour,IGsLiveSerializable
     {
 
         [Header("Config Values")]
         public float posThreshold = 0.5f;
         public float rotThreshold = 5;
-        public float scaleThreshold = 0.5f;
         public float lerpRate = 10;
         public bool synchronizePosition = true;
         public bool synchronizeRotation = true;
@@ -71,137 +72,59 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
             _transform.rotation = Quaternion.Lerp(_transform.rotation,_mNetworkRotation, Time.deltaTime * lerpRate);
             _transform.localScale = _mNetworkScale;
         }
-
-
-        internal override byte[] Serialize()
-        {
-            try
-            {
-                // send to server
-                var newPos = _transform.position;
-                var newRot = _transform.rotation;
-                var newScale = _transform.localScale;
-
-                // Check Buffer Size
-                byte havePos = 0x0, haveRot = 0x0, haveScale = 0x0;
-                var bufferSize = 3 * sizeof(byte);
-
-                if (Vector3.Distance(_oldPosition, newPos) > posThreshold)
-                {
-                    _oldPosition = newPos;
-                    if (synchronizePosition)
-                    {
-                        havePos = 0x1;
-                        bufferSize += 3 * sizeof(float);
-                        NeedsToUpdate = true;
-                    }
-                }
-
-                if (Quaternion.Angle(_oldRotation, newRot) > rotThreshold)
-                {
-                    _oldRotation = newRot;
-                    if (synchronizeRotation)
-                    {
-                        haveRot = 0x1;
-                        bufferSize += 4 * sizeof(float);
-                        NeedsToUpdate = true;
-                    }
-                }
-
-                if (synchronizeScale)
-                {
-                    haveScale = 0x1;
-                    bufferSize += 3 * sizeof(float);
-                    NeedsToUpdate = true;
-                }
-
-                
-                if (!NeedsToUpdate) return null;
-                
-                // Get Binary Buffer
-                var packetBuffer = BufferPool.GetBuffer(bufferSize);
-                using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
-                {
-                    // Write Headers
-                    packetWriter.Write(havePos);
-                    packetWriter.Write(haveRot);
-                    packetWriter.Write(haveScale);
-
-                    if (havePos == 0x1)
-                    {
-                        packetWriter.Write(BitConverter.GetBytes(newPos.x));
-                        packetWriter.Write(BitConverter.GetBytes(newPos.y));
-                        packetWriter.Write(BitConverter.GetBytes(newPos.z));
-                    }
-
-                    if (haveRot == 0x1)
-                    {
-                        packetWriter.Write(BitConverter.GetBytes(newRot.x));
-                        packetWriter.Write(BitConverter.GetBytes(newRot.y));
-                        packetWriter.Write(BitConverter.GetBytes(newRot.z));
-                        packetWriter.Write(BitConverter.GetBytes(newRot.w));
-                    }
-
-                    if (haveScale == 0x1)
-                    {
-                        packetWriter.Write(BitConverter.GetBytes(newScale.x));
-                        packetWriter.Write(BitConverter.GetBytes(newScale.y));
-                        packetWriter.Write(BitConverter.GetBytes(newScale.z));
-                    }
-
-                }
-
-                return packetBuffer;
-            }
-            catch (Exception e)
-            {
-               Debug.LogError("GSLiveTransformObserver Serialize Error : " + e);
-               return null;
-            }
-        }
         
-
-        internal override void Deserialize(byte[] buffer)
+        public void OnGsLiveRead(GsReadStream readStream)
         {
-            try
-            {
-                using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
-                {
-                    var havePos = packetWriter.ReadByte();
-                    var haveRot = packetWriter.ReadByte();
-                    var haveScale = packetWriter.ReadByte();
-                    
-                    
-                    if (havePos == 0x1)
-                    {
-                        var x = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var y = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var z = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        _mNetworkPosition = new Vector3(x,y,z);
-                    }
+            bool havePos, haveRot, haveScale;
 
-                    if (haveRot == 0x1)
-                    {
-                        var x = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var y = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var z = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var w = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        _mNetworkRotation = new Quaternion(x,y,z,w);
-                    }
+            havePos   = (bool) readStream.ReadNext();
+            haveRot   = (bool) readStream.ReadNext();
+            haveScale = (bool) readStream.ReadNext();
 
-                    if (haveScale == 0x1)
-                    {
-                        var x = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var y = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        var z = (float) BitConverter.ToDouble(packetWriter.ReadBytes(sizeof(float)),0);
-                        _mNetworkScale = new Vector3(x,y,z);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("GSLiveTransformObserver Deserialize Error : " + e);
-            }
+            if (havePos) _mNetworkPosition = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
+            if (haveRot) _mNetworkRotation = GsSerializer.Transform.DeserializeToQuaternion(readStream.ReadNext() as byte[]);
+            if (haveScale) _mNetworkScale = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
+        }
+
+        public void OnGsLiveWrite(GsWriteStream writeStream)
+        {
+             try
+             {
+                 // send to server
+                 var newPos = _transform.position;
+                 var newRot = _transform.rotation;
+                 var newScale = _transform.localScale;
+
+                 bool havePos, haveRot, haveScale;
+                 
+                 if (Vector3.Distance(_oldPosition, newPos) > posThreshold)
+                 {
+                     _oldPosition = newPos;
+                     if (synchronizePosition) havePos = true;
+                 }
+
+                 if (Quaternion.Angle(_oldRotation, newRot) > rotThreshold)
+                 {
+                     _oldRotation = newRot;
+                     if (synchronizeRotation) haveRot = true;
+                 }
+
+                 if (synchronizeScale)
+                     haveScale = true;
+                 
+                 writeStream.WriteNext(havePos);
+                 writeStream.WriteNext(haveRot);
+                 writeStream.WriteNext(haveScale);
+                 
+                 if(havePos)   writeStream.WriteNext(GsSerializer.Transform.Serialize(newPos));
+                 if(haveRot)   writeStream.WriteNext(GsSerializer.Transform.Serialize(newRot));
+                 if(haveScale) writeStream.WriteNext(GsSerializer.Transform.Serialize(newScale));
+
+             }
+             catch (Exception e)
+             {
+                 Debug.LogError("GSLiveTransformObserver OnGsLiveWrite Error : " + e);
+             }
         }
     }
 }

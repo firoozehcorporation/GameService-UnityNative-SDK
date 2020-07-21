@@ -21,25 +21,25 @@
 
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.Enums;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class SenderUtil
     {
         
-        public static void NetworkObserver(byte id,GsLiveSerializable serializable)
+        public static void NetworkObserver(byte id,byte subId,IGsLiveSerializable serializable)
         {
-            var mainId = id;
-            var buffer = serializable.Serialize();
+            var buffer = GsSerializer.GetBuffer(serializable);
 
             if(buffer == null) return;
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
                 
-            var caller = new[] {(byte) Types.ObserverActions,mainId, serializable.Id};
+            var caller = new[] {(byte) Types.ObserverActions,id, subId};
             FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.UnReliable);
         }
         
@@ -49,7 +49,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 throw new GameServiceException("RealTime is Not Available");
 
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Instantiate,(byte) Internals.Padding};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,instantiateData.Serialize(),GProtocolSendType.Reliable);
+            var buffer = GsSerializer.GetBuffer(instantiateData);
+            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
         }
 
 
@@ -59,7 +60,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 throw new GameServiceException("RealTime is Not Available");
 
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Destroy,(byte) Internals.Padding};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,gameObjectData.Serialize(),GProtocolSendType.Reliable);
+            var buffer = GsSerializer.GetBuffer(gameObjectData);
+            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
         }
         
         
@@ -70,7 +72,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 
 
             var caller = new[] {(byte) Types.RunFunction,(byte) Internals.Padding,(byte) Internals.Padding};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,functionData.Serialize(),GProtocolSendType.Reliable);
+            var buffer = GsSerializer.GetBuffer(functionData);
+            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
         }
 
 

@@ -19,29 +19,24 @@
 * @author Alireza Ghodrati
 */
 
-using System;
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {
-    internal class InstantiateData : GsLiveSerializable
+    internal class InstantiateData : IGsLiveSerializable
     {
         internal string PrefabName;
         internal Vector3 Position;
         internal Quaternion Rotation;
         
-        private int _prefabLen;
-
-        public InstantiateData(byte[] buffer)
-        {
-            Deserialize(buffer);
-        }
         
-        public InstantiateData(string prefabName, Vector3 position, Quaternion rotation)
+        internal InstantiateData(){}
+        
+        internal InstantiateData(string prefabName, Vector3 position, Quaternion rotation)
         {
             if (string.IsNullOrEmpty(prefabName))
                 throw new GameServiceException("prefabName Cant Be NullOrEmpty");
@@ -56,78 +51,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
         }
 
 
-        internal override byte[] Serialize()
+        public void OnGsLiveRead(GsReadStream readStream)
         {
-            try
-            {
-                // Check Buffer Size
-                var prefabName = GetBuffer(PrefabName,false);
-                _prefabLen = prefabName.Length;
-                
-                if(_prefabLen > Sizes.MaxPrefabName)
-                    throw new GameServiceException("Prefab Name is Too Large!");
-                
-                
-
-                var bufferSize = sizeof(byte) + 7 * sizeof(float) + sizeof(ushort) + 
-                                                  + _prefabLen;
-
-                // Get Binary Buffer
-                var packetBuffer = BufferPool.GetBuffer(bufferSize);
-                using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
-                {
-                    // Write Headers
-                    packetWriter.Write((byte)_prefabLen);
-                    
-                    // Write Data
-                    packetWriter.Write(prefabName);
-                    // Write Position
-                    packetWriter.Write(BitConverter.GetBytes(Position.x));
-                    packetWriter.Write(BitConverter.GetBytes(Position.y));
-                    packetWriter.Write(BitConverter.GetBytes(Position.z));
-                    
-                    // Write Rotation
-                    packetWriter.Write(BitConverter.GetBytes(Rotation.x));
-                    packetWriter.Write(BitConverter.GetBytes(Rotation.y));
-                    packetWriter.Write(BitConverter.GetBytes(Rotation.z));
-                    packetWriter.Write(BitConverter.GetBytes(Rotation.w));
-                }
-
-                return packetBuffer;
-            }
-            catch (Exception e)
-            {
-               Debug.LogError("InstantiateData Serialize Error : " + e);
-               return null;
-            }
+            PrefabName = (string) readStream.ReadNext();
+            Position = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
+            Rotation = GsSerializer.Transform.DeserializeToQuaternion(readStream.ReadNext() as byte[]);
         }
 
-
-        internal sealed override void Deserialize(byte[] buffer)
+        public void OnGsLiveWrite(GsWriteStream writeStream)
         {
-            try
-            {
-                using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
-                {
-                    var prefabLen = packetWriter.ReadByte();
-                    PrefabName = GetStringFromBuffer(packetWriter.ReadBytes(prefabLen),false);
-                    
-                    var x = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                    var y = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                    var z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                    Position = new Vector3(x,y,z);
-
-                    x = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                     y = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                     z = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                     var w = BitConverter.ToSingle(packetWriter.ReadBytes(sizeof(float)),0);
-                    Rotation = new Quaternion(x,y,z,w);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("InstantiateData Deserialize Error : " + e);
-            }
+            writeStream.WriteNext(PrefabName);
+            writeStream.WriteNext(GsSerializer.Transform.Serialize(Position));
+            writeStream.WriteNext(GsSerializer.Transform.Serialize(Rotation));
         }
+        
+        
     }
 }

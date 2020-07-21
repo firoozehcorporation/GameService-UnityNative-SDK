@@ -1,4 +1,4 @@
-// <copyright file="Types.cs" company="Firoozeh Technology LTD">
+// <copyright file="GSWriteStream.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,33 @@
 */
 
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Consts
+using System.Collections.Generic;
+
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 {
+    public class GsWriteStream
+    {
+        private readonly Queue<object> _objects;
 
-    internal enum Internals : byte
-    {
-        Padding = 0x0
-    }
-    internal enum Types : byte
-    {
-        ObserverActions = 0x0,
-        ObjectsActions = 0x1,
-        RunFunction = 0x2
-    }
+        public GsWriteStream()
+        {
+            _objects = new Queue<object>();
+        }
 
-    internal enum ObjectActions : byte
-    {
-        Instantiate = 0x0,
-        Destroy = 0x1
+        public void WriteNext(object data)
+        { 
+            _objects?.Enqueue(data);
+        }
+        
+        internal object GetObject()
+        {
+            return _objects.Dequeue();
+        }
+
+        internal bool CanRead()
+        {
+            return _objects.Count > 0;
+        }
+
     }
 }

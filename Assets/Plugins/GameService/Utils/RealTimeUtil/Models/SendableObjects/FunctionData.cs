@@ -20,122 +20,44 @@
 */
 
 
-using System;
-using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.IO;
-using UnityEngine;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {
-    internal class FunctionData : GsLiveSerializable
+    internal class FunctionData : IGsLiveSerializable
     {
         internal string MethodName;
         internal string FullName;
         internal FunctionType Type;
         internal byte[] ExtraData;
         
+        internal FunctionData(){}
         
-        private int _nameLen;
-        private int _fullnameLen;
-
-        public FunctionData(byte[] buffer)
-        {
-            Deserialize(buffer);
-        }
-        
-        public FunctionData(string fullName,string methodName, FunctionType type, byte[] extraData = null)
+        internal FunctionData(string fullName,string methodName, FunctionType type, byte[] extraData = null)
         {
             MethodName = methodName;
             Type = type;
             FullName = fullName;
             ExtraData = extraData;
         }
-
-
-        internal override byte[] Serialize()
+        
+        
+        public void OnGsLiveRead(GsReadStream readStream)
         {
-            try
-            {
-                // Check Buffer Size
-                byte haveExtra = 0x0;
-                var extraLen = 0;
-                var methodName = GetBuffer(MethodName,false);
-                var fullName = GetBuffer(FullName, false);
-                _nameLen = methodName.Length;
-                _fullnameLen = fullName.Length;
-                
-                
-                if(_nameLen > Sizes.MaxMethodName)
-                    throw new GameServiceException("MethodName is Too Large!");
-                
-                if(_fullnameLen > Sizes.MaxMethodName)
-                    throw new GameServiceException("ClassFullName is Too Large!");
-                
-
-                if (ExtraData != null)
-                {
-                    haveExtra = 0x1;
-                    extraLen = ExtraData.Length;
-                }
-
-                var bufferSize = 4 * sizeof(byte) + _nameLen + _fullnameLen + extraLen;
-                if (haveExtra == 0x1)
-                    bufferSize += sizeof(ushort);
-                
-                // Get Binary Buffer
-                var packetBuffer = BufferPool.GetBuffer(bufferSize);
-                using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
-                {
-                    // Write Headers
-                    packetWriter.Write(haveExtra);
-                    packetWriter.Write((byte)Type);
-
-                    packetWriter.Write((byte)_nameLen);
-                    packetWriter.Write((byte)_fullnameLen);
-                    if(haveExtra == 0x1) packetWriter.Write((ushort)extraLen);
-                    
-                    // Write Data
-                   packetWriter.Write(methodName);
-                   packetWriter.Write(fullName);
-                   if(haveExtra == 0x1) packetWriter.Write(ExtraData);
-                }
-
-                return packetBuffer;
-            }
-            catch (Exception e)
-            {
-               Debug.LogError("FunctionData Serialize Error : " + e);
-               return null;
-            }
+            MethodName = (string) readStream.ReadNext();
+            FullName = (string) readStream.ReadNext();
+            Type = (FunctionType) readStream.ReadNext();
+            ExtraData = (byte[]) readStream.ReadNext();
         }
 
-
-        internal sealed override void Deserialize(byte[] buffer)
+        public void OnGsLiveWrite(GsWriteStream writeStream)
         {
-            try
-            {
-                using (var packetWriter = ByteArrayReaderWriter.Get(buffer))
-                {
-                    var extraLen = 0;
-                    
-                    var haveExtra = packetWriter.ReadByte();
-                    Type = (FunctionType) packetWriter.ReadByte();
-
-                    _nameLen = packetWriter.ReadByte();
-                    _fullnameLen = packetWriter.ReadByte();
-                    if(haveExtra == 0x1) extraLen = packetWriter.ReadUInt16();
-
-                    MethodName = GetStringFromBuffer(packetWriter.ReadBytes(_nameLen), false);
-                    FullName = GetStringFromBuffer(packetWriter.ReadBytes(_fullnameLen), false);
-                    if(haveExtra == 0x1) ExtraData = packetWriter.ReadBytes(extraLen);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("FunctionData Deserialize Error : " + e);
-            }
+           writeStream.WriteNext(MethodName);
+           writeStream.WriteNext(FullName);
+           writeStream.WriteNext((byte)Type);
+           writeStream.WriteNext(ExtraData);
         }
     }
 }

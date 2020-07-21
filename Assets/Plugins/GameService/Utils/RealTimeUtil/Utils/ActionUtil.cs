@@ -24,6 +24,7 @@ using System;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
@@ -61,11 +62,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             switch (action)
             {
                 case ObjectActions.Instantiate:
-                    var instantiateData = new InstantiateData(data);
+                    var instantiateData = new InstantiateData();
+                    instantiateData.CallReadStream(data);
                     handler.Instantiate(instantiateData.PrefabName, instantiateData.Position, instantiateData.Rotation);
                     break;
                 case ObjectActions.Destroy:
-                    var objectHandler = new GameObjectData(data);
+                    var objectHandler = new GameObjectData();
+                    objectHandler.CallReadStream(data);
                     if (objectHandler.ObjectName != null) handler.DestroyWithName(objectHandler.ObjectName);
                     else handler.DestroyWithTag(objectHandler.ObjectTag);
                     break;
@@ -78,8 +81,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             var func = functionData;
             object[] parameters = null;
-            
-            if(func == null && buffer != null) func = new FunctionData(buffer);
+
+            if (func == null && buffer != null)
+            {
+                func = new FunctionData();
+                func.CallReadStream(buffer);
+            }
             
             var haveBuffer = func.ExtraData != null;
             var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,haveBuffer);

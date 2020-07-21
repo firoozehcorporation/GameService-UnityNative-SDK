@@ -23,9 +23,10 @@
 using System.Collections.Generic;
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using UnityEngine;
 using Event = FiroozehGameService.Utils.Event;
 
@@ -38,7 +39,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         public byte id;
         
         [Header("Add Your Components that You Want To Observe And Serializable")]
-        public List<GsLiveSerializable> serializableComponents;
+        public List<IGsLiveSerializable> serializableComponents;
 
 
         private Event _callerEvent;
@@ -61,20 +62,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             if (serializableComponents == null) return;
             byte idCounter = 0;
             foreach (var component in serializableComponents)
-            {
-                component.Id = idCounter++;
-                SenderUtil.NetworkObserver(id,component);
-            }
+                SenderUtil.NetworkObserver(id,idCounter++,component);
         }
         
 
         internal void ApplyData(byte componentId,byte[] data)
         {
-            var currentComponent = serializableComponents.Find(sc => sc.Id == componentId);
-            if(currentComponent == null)
+            if (componentId > serializableComponents.Count) 
                 throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
             
-            currentComponent.Deserialize(data);
+            var currentComponent = serializableComponents[componentId];
+            if (currentComponent == null)
+                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
+
+            currentComponent.CallReadStream(data);
         }
     }
 }
