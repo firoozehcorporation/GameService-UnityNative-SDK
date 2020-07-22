@@ -1,4 +1,4 @@
-// <copyright file="IObjectSerializer.cs" company="Firoozeh Technology LTD">
+// <copyright file="BaseSerializer.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,17 +21,20 @@
 
 
 using System;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Interfaces
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts
 {
-    public interface IObjectSerializer
+    public abstract class BaseSerializer
     {
-        byte[] Serialize();
+        internal BaseSerializer(){}
         
-        void Deserialize(byte[] buffer);
+        internal abstract void SerializeObject(object obj,GsWriteStream writeStream);
 
-        ushort Length();
+        internal abstract object DeserializeObject(GsReadStream readStream);
 
-        Type GetType();
+        internal abstract bool CanSerializeModel(object obj);
+        
+        internal abstract bool CanSerializeModel(Type type);
     }
 }

@@ -19,13 +19,14 @@
 * @author Alireza Ghodrati
 */
 
+
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models
 {
     internal class ObjectInfo
     {
-        internal object Src;
-        internal Types Type;
-        internal ushort Size;
+        internal readonly object Src;
+        internal readonly Types Type;
+        internal readonly ushort Size;
 
         public ObjectInfo(object src,Types type, ushort size)
         {

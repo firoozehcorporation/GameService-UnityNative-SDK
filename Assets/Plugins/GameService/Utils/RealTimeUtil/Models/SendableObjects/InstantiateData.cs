@@ -53,16 +53,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 
         public void OnGsLiveRead(GsReadStream readStream)
         {
-            PrefabName = (string) readStream.ReadNext();
-            Position = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
-            Rotation = GsSerializer.Transform.DeserializeToQuaternion(readStream.ReadNext() as byte[]);
+            PrefabName = (string)     readStream.ReadNext();
+            Position   = (Vector3)    readStream.ReadNext();
+            Rotation   = (Quaternion) readStream.ReadNext();
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
         {
             writeStream.WriteNext(PrefabName);
-            writeStream.WriteNext(GsSerializer.Transform.Serialize(Position));
-            writeStream.WriteNext(GsSerializer.Transform.Serialize(Rotation));
+            writeStream.WriteNext(Position);
+            writeStream.WriteNext(Rotation);
         }
         
         

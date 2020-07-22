@@ -20,46 +20,55 @@
 */
 
 using FiroozehGameService.Models;
-using Plugins.GameService.Utils.RealTimeUtil.Classes.Helpers;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.ExtendedPrimitives;
+using Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Miscs;
+using Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Primitives;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils;
-using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
 {
     public static class GsSerializer
     {
-
-        public static class Transform
+        
+        public static class TypeRegistry
         {
-            public static byte[] Serialize(Vector3 vector3)
+            internal static void Init()
             {
-                return vector3.Serialize();
-            }
-            
-            public static byte[] Serialize(Quaternion rotation)
-            {
-                return rotation.Serialize();
-            }
-            
-            
-            public static Vector3 DeserializeToVector3(byte[] buffer)
-            {
-                return UnityModels.DeserializeToVector3(buffer);
-            }
-            
-            
-            public static Quaternion DeserializeToQuaternion(byte[] buffer)
-            {
-                return UnityModels.DeserializeToQuaternion(buffer);
-            }
+                // Register Primitive Types
+                TypeUtil.RegisterNewType(new Vector2Serializer());
+                TypeUtil.RegisterNewType(new Vector3Serializer());
+                TypeUtil.RegisterNewType(new Vector4Serializer());
+                TypeUtil.RegisterNewType(new QuaternionSerializer());
+                TypeUtil.RegisterNewType(new ColorSerializer());
+                TypeUtil.RegisterNewType(new Color32Serializer());
+                TypeUtil.RegisterNewType(new Matrix4X4Serializer());
 
+                
+                // Register Extended Primitive Types
+                TypeUtil.RegisterNewType(new RectSerializer());
+                TypeUtil.RegisterNewType(new RaySerializer());
+                TypeUtil.RegisterNewType(new Ray2DSerializer());
+                TypeUtil.RegisterNewType(new RangeIntSerializer());
+                TypeUtil.RegisterNewType(new PlaneSerializer());
+                TypeUtil.RegisterNewType(new BoundsSerializer());
+                
+                // Register Misc Types
+                #if UNITY_2017_2_OR_NEWER
+                TypeUtil.RegisterNewType(new Vector2IntSerializer());
+                TypeUtil.RegisterNewType(new Vector3IntSerializer());
+                #endif
+
+            }
+            
+            
+            public static void RegisterSerializer<T>(ObjectSerializer<T> serializer)
+            {
+                TypeUtil.RegisterNewType(serializer);
+            }
         }
-       
-        
-        
-        
         
         internal static byte[] GetBuffer(IGsLiveSerializable serializable)
         {
@@ -83,6 +92,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
 
             return SerializerUtil.Deserialize(buffer);
         }
-        
+
     }
 }

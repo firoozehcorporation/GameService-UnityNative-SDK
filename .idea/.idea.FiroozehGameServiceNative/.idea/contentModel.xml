@@ -5,6 +5,7 @@
     <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_FiroozehGameServiceNative.-1469830139.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
@@ -47,9 +48,6 @@
                     <e p="MonoBehaviourHandler.cs" t="Include" />
                     <e p="PrefabHandler.cs" t="Include" />
                   </e>
-                  <e p="Helpers" t="Include">
-                    <e p="UnityModels.cs" t="Include" />
-                  </e>
                   <e p="Observers" t="Include">
                     <e p="RealtimeTransformObserver.cs" t="Include" />
                   </e>
@@ -72,12 +70,39 @@
                     <e p="GameObjectData.cs" t="Include" />
                     <e p="InstantiateData.cs" t="Include" />
                   </e>
+                  <e p="UnitySerializerModels" t="Include">
+                    <e p="ExtendedPrimitives" t="Include">
+                      <e p="BoundsSerializer.cs" t="Include" />
+                      <e p="PlaneSerializer.cs" t="Include" />
+                      <e p="RangeIntSerializer.cs" t="Include" />
+                      <e p="Ray2DSerializer.cs" t="Include" />
+                      <e p="RaySerializer.cs" t="Include" />
+                      <e p="RectSerializer.cs" t="Include" />
+                    </e>
+                    <e p="Miscs" t="Include">
+                      <e p="Vector2IntSerializer.cs" t="Include" />
+                      <e p="Vector3IntSerializer.cs" t="Include" />
+                    </e>
+                    <e p="Primitives" t="Include">
+                      <e p="Color32Serializer.cs" t="Include" />
+                      <e p="ColorSerializer.cs" t="Include" />
+                      <e p="Matrix4X4Serializer.cs" t="Include" />
+                      <e p="QuaternionSerializer.cs" t="Include" />
+                      <e p="ٰVector2Serializer.cs" t="Include" />
+                      <e p="ٰVector3Serializer.cs" t="Include" />
+                      <e p="ٰVector4Serializer.cs" t="Include" />
+                    </e>
+                  </e>
                 </e>
                 <e p="Utils" t="Include">
                   <e p="ActionUtil.cs" t="Include" />
                   <e p="ObjectUtil.cs" t="Include" />
                   <e p="SenderUtil.cs" t="Include" />
                   <e p="Serializer" t="Include">
+                    <e p="Abstracts" t="Include">
+                      <e p="BaseSerializer.cs" t="Include" />
+                      <e p="ObjectSerializer.cs" t="Include" />
+                    </e>
                     <e p="GsSerializer.cs" t="Include" />
                     <e p="Helpers" t="Include">
                       <e p="BufferPool.cs" t="Include" />
@@ -86,15 +111,13 @@
                       <e p="GSReadStream.cs" t="Include" />
                       <e p="GSWriteStream.cs" t="Include" />
                     </e>
-                    <e p="Interfaces" t="Include">
-                      <e p="IObjectSerializer.cs" t="Include" />
-                    </e>
                     <e p="Models" t="Include">
                       <e p="ObjectInfo.cs" t="Include" />
                       <e p="Types.cs" t="Include" />
                     </e>
                     <e p="Utils" t="Include">
                       <e p="SerializerUtil.cs" t="Include" />
+                      <e p="TypeUtil.cs" t="Include" />
                     </e>
                   </e>
                 </e>

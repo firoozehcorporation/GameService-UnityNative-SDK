@@ -28,7 +28,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
     {
         private readonly Queue<object> _objects;
 
-        public GsWriteStream()
+        internal GsWriteStream()
         {
             _objects = new Queue<object>();
         }

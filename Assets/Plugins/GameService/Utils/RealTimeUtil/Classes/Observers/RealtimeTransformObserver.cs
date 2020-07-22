@@ -21,7 +21,6 @@
 
 using System;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using UnityEngine;
 
@@ -30,7 +29,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
     
     public class RealtimeTransformObserver : MonoBehaviour,IGsLiveSerializable
     {
-
         [Header("Config Values")]
         public float posThreshold = 0.5f;
         public float rotThreshold = 5;
@@ -81,9 +79,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
             haveRot   = (bool) readStream.ReadNext();
             haveScale = (bool) readStream.ReadNext();
 
-            if (havePos) _mNetworkPosition = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
-            if (haveRot) _mNetworkRotation = GsSerializer.Transform.DeserializeToQuaternion(readStream.ReadNext() as byte[]);
-            if (haveScale) _mNetworkScale = GsSerializer.Transform.DeserializeToVector3(readStream.ReadNext() as byte[]);
+            if (havePos)    _mNetworkPosition = (Vector3)    readStream.ReadNext();
+            if (haveRot)    _mNetworkRotation = (Quaternion) readStream.ReadNext();
+            if (haveScale)  _mNetworkScale    = (Vector3)    readStream.ReadNext();
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
@@ -95,7 +93,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                  var newRot = _transform.rotation;
                  var newScale = _transform.localScale;
 
-                 bool havePos, haveRot, haveScale;
+                 bool havePos = false, haveRot = false, haveScale = false;
                  
                  if (Vector3.Distance(_oldPosition, newPos) > posThreshold)
                  {
@@ -116,9 +114,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                  writeStream.WriteNext(haveRot);
                  writeStream.WriteNext(haveScale);
                  
-                 if(havePos)   writeStream.WriteNext(GsSerializer.Transform.Serialize(newPos));
-                 if(haveRot)   writeStream.WriteNext(GsSerializer.Transform.Serialize(newRot));
-                 if(haveScale) writeStream.WriteNext(GsSerializer.Transform.Serialize(newScale));
+                 if(havePos)   writeStream.WriteNext(newPos);
+                 if(haveRot)   writeStream.WriteNext(newRot);
+                 if(haveScale) writeStream.WriteNext(newScale);
 
              }
              catch (Exception e)

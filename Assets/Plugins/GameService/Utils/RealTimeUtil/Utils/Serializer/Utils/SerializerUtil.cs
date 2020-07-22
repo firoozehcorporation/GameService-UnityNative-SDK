@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FiroozehGameService.Models;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
@@ -52,7 +52,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                     case ushort _: infos.Add(new ObjectInfo(obj,Types.Ushort,sizeof(ushort))); break;
                     case string s: infos.Add(new ObjectInfo(obj,Types.String,(ushort) s.Length)); break;
                     case byte[] ba: infos.Add(new ObjectInfo(obj,Types.ByteArray,(ushort) ba.Length)); break;
-                    //case IObjectSerializer o : infos.Add(new ObjectInfo(obj,Types.CustomObject,o.Length())); break;
+                    case ObjectSerializer<object> o : infos.Add(new ObjectInfo(obj,Types.CustomObject,0)); break;
                     default: throw new GameServiceException("SerializerUtil -> The Type " + obj.GetType() + " is Not Supported");
                 }
             }
@@ -98,17 +98,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                             packetWriter.Write(objectInfo.Size);
                             packetWriter.Write((byte[]) objectInfo.Src);
                             break;
-                       /* case Types.CustomObject:
-                            var obj = (IObjectSerializer) objectInfo.Src;
-                            if (obj == null) throw new GameServiceException("Serialize Err -> Invalid CustomObject");
-                            var fullName = GetBuffer(obj.GetType().FullName,false);
+                        case Types.CustomObject:
+                            var (id, gsWriteStream) = TypeUtil.GetWriteStream(objectInfo.Src);
+                            var buffer = Serialize(gsWriteStream);
                             
-                            packetWriter.Write((ushort) fullName.Length);
-                            packetWriter.Write(fullName);
-                            packetWriter.Write(objectInfo.Size);
-                            packetWriter.Write(obj.Serialize());
+                            packetWriter.Write(id);
+                            packetWriter.Write((ushort)buffer.Length);
+                            packetWriter.Write(buffer);
                             break;
-                            */
+                            
                         case Types.Null: break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -143,13 +141,11 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                         case Types.Ushort: readStream.Add(packetReader.ReadUInt16()); break;
                         case Types.String: readStream.Add(GetStringFromBuffer(packetReader.ReadBytes(packetReader.ReadUInt16()),true)); break;
                         case Types.ByteArray: readStream.Add(packetReader.ReadBytes(packetReader.ReadUInt16())); break;
-                        /* case Types.CustomObject:
-                             var fullName = GetStringFromBuffer(packetReader.ReadBytes(packetReader.ReadUInt16()),false);
-                             var obj = Activator.CreateInstance(Type.GetType(fullName) ?? throw new GameServiceException("Deserialize Err -> Cant Create Type :" + fullName));
-                             (obj as IObjectSerializer)?.Deserialize(packetReader.ReadBytes(packetReader.ReadUInt16()));
-                             readStream.Add(obj); 
+                         case Types.CustomObject:
+                             var id = packetReader.ReadUInt16();
+                             var bufferData = packetReader.ReadBytes(packetReader.ReadUInt16());
+                             readStream.Add(TypeUtil.GetFinalObject(id, Deserialize(bufferData)));
                              break;
-                             */
                         case Types.Null:
                             readStream.Add(null);
                             break;

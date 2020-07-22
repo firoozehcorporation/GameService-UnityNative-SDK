@@ -51,6 +51,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             
             // register Observer
             ObjectUtil.RegisterObserver(this);
+            
+            // add Event
             _callerEvent = EventCallerUtil.AddEvent(id, 100);
             _callerEvent.EventHandler += OnUpdate;
         }

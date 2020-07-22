@@ -28,6 +28,7 @@ using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using UnityEngine;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
@@ -51,6 +52,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _functionHandler = new FunctionHandler();
             
             _monoBehaviourHandler.Init(monoBehaviour);
+            GsSerializer.TypeRegistry.Init();
             ObjectUtil.Init();
         }
         
