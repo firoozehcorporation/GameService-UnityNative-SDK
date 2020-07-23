@@ -25,11 +25,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models
     internal class ObjectInfo
     {
         internal readonly object Src;
+        internal readonly object Extra;
         internal readonly Types Type;
 
-        public ObjectInfo(object src,Types type)
+        public ObjectInfo(object src,Types type, object extra = null)
         {
             Type = type;
+            Extra = extra;
             Src = src;
         }
     }

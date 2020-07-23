@@ -53,7 +53,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         private static void ApplyTransform(byte observerId,byte serializableId,byte[] buffer)
         {
             var observer = ObjectUtil.GetGsLiveObserver(observerId);
-            observer.ApplyData(serializableId,buffer);
+            observer?.ApplyData(serializableId,buffer);
         }
 
         private static void ApplyObject(byte objectAction,byte[] data,IPrefabHandler handler)

@@ -25,25 +25,26 @@ using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
+using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class SenderUtil
     {
         
-        public static void NetworkObserver(byte id,byte subId,IGsLiveSerializable serializable)
+        internal static void NetworkObserver(byte id,byte subId,IGsLiveSerializable serializable)
         {
-            var buffer = GsSerializer.GetBuffer(serializable);
-
-            if(buffer == null) return;
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-                
+            
+            var buffer = GsSerializer.GetBuffer(serializable);
+            if(buffer == null) return;
+            
             var caller = new[] {(byte) Types.ObserverActions,id, subId};
             FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.UnReliable);
         }
         
-        public static void NetworkInstantiate(InstantiateData instantiateData)
+        internal static void NetworkInstantiate(InstantiateData instantiateData)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
@@ -54,7 +55,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        public static void NetworkDestroy(GameObjectData gameObjectData)
+        internal static void NetworkDestroy(GameObjectData gameObjectData)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
@@ -65,7 +66,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
         
         
-        public static void NetworkRunFunction(FunctionData functionData)
+        internal static void NetworkRunFunction(FunctionData functionData)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");

@@ -26,6 +26,8 @@ using FiroozehGameService.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models;
+using UnityEngine;
+using Types = Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models.Types;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
 {
@@ -42,6 +44,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                 var obj = writeStream.GetObject();
                 switch (obj)
                 {
+                    case null:
+                        infos.Add(new ObjectInfo(null,Types.Null));
+                        break;
                     case bool _: 
                         infos.Add(new ObjectInfo(obj,Types.Bool));
                         bufferSize += sizeof(byte);
@@ -94,7 +99,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                     case BaseSerializer _ :
                         infos.Add(new ObjectInfo(obj,Types.CustomObject));
                         break;
-                    default: throw new GameServiceException("SerializerUtil -> The Type " + obj.GetType() + " is Not Supported");
+                    default:
+                        if (TypeUtil.HaveType(obj))
+                        {
+                            var (hash, stream) = TypeUtil.GetWriteStream(obj);
+                            var bufferObj = Serialize(stream);
+                            infos.Add(new ObjectInfo(bufferObj,Types.CustomObject,hash));
+                            bufferSize += sizeof(int) + sizeof(ushort) + bufferObj.Length;
+                        }
+                        else if(GsLiveRealtime.IsAvailable)  throw new GameServiceException("SerializerUtil -> The Type " + obj.GetType() + " is Not Supported");
+                        break;
                 }
             }
             
@@ -141,18 +155,11 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                             packetWriter.Write(bufferDataArray);
                             break;
                         case Types.CustomObject:
-                            var (hash, gsWriteStream) = TypeUtil.GetWriteStream(objectInfo.Src);
-                            var buffer = Serialize(gsWriteStream);
-
-                            // Increase Buffer Size
-                            var newSize = 2 * sizeof(ushort) + bufferSize + buffer.Length;
-                            Array.Resize(ref packetBuffer,newSize);
-                            
-                            packetWriter.Write(hash);
-                            packetWriter.Write((ushort)buffer.Length);
-                            packetWriter.Write(buffer);
+                            var bufferDataObject = (byte[]) objectInfo.Src;
+                            packetWriter.Write((int) objectInfo.Extra);
+                            packetWriter.Write((ushort) bufferDataObject.Length);
+                            packetWriter.Write(bufferDataObject);
                             break;
-                            
                         case Types.Null: break;
                         default:
                             throw new ArgumentOutOfRangeException();

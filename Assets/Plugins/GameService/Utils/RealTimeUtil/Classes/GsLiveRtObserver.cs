@@ -22,7 +22,6 @@
 
 using System.Linq;
 using FiroozehGameService.Models;
-using FiroozehGameService.Utils;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
@@ -42,30 +41,33 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         public byte id;
         
         [ReorderableList]
-        [BoxGroup("Add Your Components that You Want To Observe And Serializable")]
+        [BoxGroup("Add Your Components that You Want To Serialize")]
         [ValidateInput("CheckComponents", "The Component Must Implements IGsLiveSerializable")]
         public MonoBehaviour[] serializableComponents;
 
         private Event _callerEvent;
         
-        private void OnEnable()
+        private void Start()
         {
             if(!GsLiveRealtime.IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available!");
 
             if (serializableComponents?.Length > Sizes.MaxId)
-                throw new GameServiceException("observableComponents Count is Too Large!");
+                throw new GameServiceException("SerializableComponents Count is Too Large!");
             
             // register Observer
-            ObjectUtil.RegisterObserver(this);
-            
-            // add Event
-            _callerEvent = EventCallerUtil.AddEvent(id, 100);
+            _callerEvent = ObjectUtil.RegisterObserver(this);
             _callerEvent.EventHandler += OnUpdate;
+            _callerEvent.Start();
         }
 
-        
-        
+
+        private void OnDestroy()
+        {
+            ObjectUtil.UnregisterObserver(this);
+        }
+
+
         private void OnUpdate(object sender, Event e)
         {
             if (serializableComponents == null) return;
@@ -91,9 +93,11 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         
         
         private bool CheckId(byte value) => value > 0;
-        
-        private bool CheckComponents(MonoBehaviour[] sc) 
-            => sc.All(component => component is IGsLiveSerializable);
+
+        private bool CheckComponents(MonoBehaviour[] sc)
+        {
+            return sc != null && sc.All(component => component is IGsLiveSerializable);
+        }
         
     }
 }

@@ -119,6 +119,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 			for (var i = 0; i < length; i++)
 				buffer[i] = ReadByte();
 		}
+		
 
 		public void Dispose()
 		{

@@ -50,6 +50,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
             ObjectsCache.Add(typeHash,serializer);
         }
 
+        internal static bool HaveType(object obj)
+        {
+            return TypeToHash.ContainsKey(obj.GetType());
+        }
         
         internal static Tuple<int,GsWriteStream> GetWriteStream(object obj)
         {

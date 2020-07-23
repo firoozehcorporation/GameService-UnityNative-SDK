@@ -44,7 +44,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         public override bool CanWrite => true;
 
         public override bool CanSeek => true;
-
+        
         /// <summary>
         /// Set a new byte array for this stream to read from
         /// </summary>

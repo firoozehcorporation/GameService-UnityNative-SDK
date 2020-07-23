@@ -25,10 +25,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FiroozehGameService.Models;
+using FiroozehGameService.Utils;
 using Plugins.GameService.Utils.RealTimeUtil.Classes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using UnityEngine;
+using Event = FiroozehGameService.Utils.Event;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
@@ -38,12 +41,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         private static Dictionary<Type, List<MethodInfo>> _runableCache;
         private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
         private static Dictionary<byte, GsLiveRtObserver> _observerCache;
+        private static Dictionary<byte, Event> _observerEventCache;
+
 
         internal static void Init()
         {
             _runableCache = new Dictionary<Type, List<MethodInfo>>();
             _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
             _observerCache = new Dictionary<byte, GsLiveRtObserver>();
+            _observerEventCache = new Dictionary<byte, Event>();
 
             UpdateFunctions();
         }
@@ -52,7 +58,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             _runableCache?.Clear();
             _runableCacheMono?.Clear();
-            _observerCache?.Clear();
         }
         
         private static void UpdateFunctions()
@@ -133,14 +138,33 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        internal static void RegisterObserver(GsLiveRtObserver observer)
+        internal static Event RegisterObserver(GsLiveRtObserver observer)
         {
             if(_observerCache.ContainsKey(observer.id))
                 throw new GameServiceException("Observer Id Must Be Unique");
+
+            var newEvent = EventCallerUtil.CreateNewEvent(Sizes.EventInterval);
+            
             _observerCache.Add(observer.id,observer);
+            _observerEventCache.Add(observer.id,newEvent);
+            return newEvent;
         }
-        
-        
+
+
+        internal static void UnregisterObserver(GsLiveRtObserver observer)
+        {
+            if (_observerCache == null || _observerEventCache == null) return;
+            
+            if (!_observerCache.ContainsKey(observer.id))
+                throw new GameServiceException("Observer Not Exist!");
+
+            _observerCache.Remove(observer.id);
+
+            _observerEventCache[observer.id]?.Dispose();
+            _observerEventCache.Remove(observer.id);
+        }
+
+
         internal static GsLiveRtObserver GetGsLiveObserver(byte id)
         {
             _observerCache.TryGetValue(id,out var observer);
