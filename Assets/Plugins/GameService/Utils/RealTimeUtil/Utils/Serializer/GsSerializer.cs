@@ -62,8 +62,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
                 #endif
 
             }
-            
-            
+
+            internal static void Dispose()
+            {
+                TypeUtil.Dispose();
+            }
+
             public static void RegisterSerializer<T>(ObjectSerializer<T> serializer)
             {
                 TypeUtil.RegisterNewType(serializer);

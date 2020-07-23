@@ -81,7 +81,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
             
             return serializer.DeserializeObject(readStream);
         }
-        
+
+
+        internal static void Dispose()
+        {
+            ObjectsCache?.Clear();
+            HashToType?.Clear();
+            TypeToHash?.Clear();
+        }
         
     }
 }

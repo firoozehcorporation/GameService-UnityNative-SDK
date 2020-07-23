@@ -31,13 +31,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
         private MonoBehaviour _rootMono;
         internal static MonoBehaviour[] MonoBehaviours;
 
-
         public void Init(MonoBehaviour monoBehaviour)
         {
             _rootMono = monoBehaviour;
             RefreshMonoBehaviourCache();
         }
-        
+
+        public void Dispose()
+        {
+            MonoBehaviours = null;
+        }
+
         /// <summary>
         /// Can be used to refresh the list of MonoBehaviours on this GameObject
         /// </summary>
@@ -45,6 +49,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
         {
             MonoBehaviours = _rootMono.GetComponents<MonoBehaviour>();
         }
+        
         
         
     }

@@ -47,6 +47,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
             UpdateFunctions();
         }
+
+        internal static void Dispose()
+        {
+            _runableCache?.Clear();
+            _runableCacheMono?.Clear();
+            _observerCache?.Clear();
+        }
         
         private static void UpdateFunctions()
         {

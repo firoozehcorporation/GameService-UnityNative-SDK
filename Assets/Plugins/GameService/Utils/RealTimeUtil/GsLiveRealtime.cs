@@ -45,6 +45,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMonoBehaviourHandler _monoBehaviourHandler;
         public static bool IsAvailable;
 
+        public const string Version = "Alpha 1.0.0";
 
         internal static void Init(MonoBehaviour monoBehaviour)
         {
@@ -56,6 +57,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             GsSerializer.TypeRegistry.Init();
             ObjectUtil.Init();
             IsAvailable = true;
+        }
+
+        internal static void Dispose()
+        {
+            _monoBehaviourHandler?.Dispose();
+            _prefabHandler?.Dispose();
+            
+            GsSerializer.TypeRegistry.Dispose();
+            ObjectUtil.Dispose();
+            IsAvailable = false;
         }
         
         internal static void NewEventReceived(object sender, EventData eventData)

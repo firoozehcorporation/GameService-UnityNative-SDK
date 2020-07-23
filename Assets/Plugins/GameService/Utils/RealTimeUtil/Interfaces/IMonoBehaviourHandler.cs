@@ -28,6 +28,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
     {
 
         void Init(MonoBehaviour monoBehaviour);
+
+        void Dispose();
         /// <summary>
         /// Can be used to refresh the list of MonoBehaviours on this GameObject
         /// </summary>

@@ -46,8 +46,6 @@ namespace Plugins.GameService.Utils
         private void OnEnable()
         {
             if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
-            
-            Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initializing...");
             DontDestroyOnLoad(this);
 
             var systemInfo = new SystemInfo
@@ -72,10 +70,13 @@ namespace Plugins.GameService.Utils
                 // set RealTime Helper Listener & Init GsLiveRealtime
                 GsLiveRealtime.Init(this);
                 RealTimeEventHandlers.NewEventReceived += GsLiveRealtime.NewEventReceived;
+                Debug.Log("GsLiveRealtime Version : "+GsLiveRealtime.Version+" Initialized");
             }
 
             var config = new GameServiceClientConfiguration(ClientId,ClientSecret,systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
+            
+            Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initialized");
         }
 
         
@@ -83,9 +84,14 @@ namespace Plugins.GameService.Utils
 
         private void OnDestroy()
         {
-            Debug.Log("GameService Logout Called");
             RealTimeEventHandlers.NewEventReceived = null;
             FiroozehGameService.Core.GameService.Logout();
+            Debug.Log("GameService Logout Called");
+
+            if (!RealTimeUtilEnabled) return;
+            
+            GsLiveRealtime.Dispose();
+            Debug.Log("GsLiveRealtime Dispose Called");
         }
 
 

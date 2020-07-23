@@ -54,5 +54,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
         /// </summary>
         /// <param name="gameObjectTag">The instance Name to destroy.</param>
         bool DestroyWithTag(string gameObjectTag);
+
+
+        void Dispose();
     }
 }

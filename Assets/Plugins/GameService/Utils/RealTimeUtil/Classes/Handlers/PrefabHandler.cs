@@ -81,5 +81,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
             if(obj != null) GameObject.Destroy(obj);
             return obj != null;
         }
+
+        public void Dispose()
+        {
+            _resourceCache?.Clear();
+        }
     }
 }
