@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [5.0.0] - 2020-07-25
+
+### Added
+
+- Added New RealTime Utility System (Version Alpha 1.0.0) 
+
+- Added Http Request Observer
+
+- Added GetPing() To RealTime Functions
+
+  
+
+### Changed
+
+- Migrate To Binary System in RealTime Core
+
+
+
+### Fixed
+
+- Fixed GsLive on Critical Sections
+- Fixed Code
+
+
+
 ## [4.1.2] - 2020-07-03
 
 ### Changed
