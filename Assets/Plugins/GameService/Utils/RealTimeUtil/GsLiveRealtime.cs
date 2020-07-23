@@ -43,6 +43,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IPrefabHandler _prefabHandler;
         private static IFunctionHandler _functionHandler;
         private static IMonoBehaviourHandler _monoBehaviourHandler;
+        public static bool IsAvailable;
 
 
         internal static void Init(MonoBehaviour monoBehaviour)
@@ -54,6 +55,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _monoBehaviourHandler.Init(monoBehaviour);
             GsSerializer.TypeRegistry.Init();
             ObjectUtil.Init();
+            IsAvailable = true;
         }
         
         internal static void NewEventReceived(object sender, EventData eventData)

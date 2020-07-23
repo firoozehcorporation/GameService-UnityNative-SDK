@@ -20,9 +20,12 @@
 */
 
 
-using System.Collections.Generic;
+using System.Linq;
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
@@ -34,19 +37,23 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 {
     public class GsLiveRtObserver : MonoBehaviour
     {
-        
-        [Header("Set a unique ID to send data from this observer.")]
+        [BoxGroup("Set a unique ID to send data from this observer")]
+        [ValidateInput("CheckId", "The ID Must Grater Than Zero And Lower Than 256")]
         public byte id;
         
-        [Header("Add Your Components that You Want To Observe And Serializable")]
-        public List<IGsLiveSerializable> serializableComponents;
-
+        [ReorderableList]
+        [BoxGroup("Add Your Components that You Want To Observe And Serializable")]
+        [ValidateInput("CheckComponents", "The Component Must Implements IGsLiveSerializable")]
+        public MonoBehaviour[] serializableComponents;
 
         private Event _callerEvent;
         
         private void OnEnable()
         {
-            if (serializableComponents?.Count > Sizes.MaxId)
+            if(!GsLiveRealtime.IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available!");
+
+            if (serializableComponents?.Length > Sizes.MaxId)
                 throw new GameServiceException("observableComponents Count is Too Large!");
             
             // register Observer
@@ -64,20 +71,29 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             if (serializableComponents == null) return;
             byte idCounter = 0;
             foreach (var component in serializableComponents)
-                SenderUtil.NetworkObserver(id,idCounter++,component);
+               SenderUtil.NetworkObserver(id,idCounter++,component as IGsLiveSerializable);
         }
         
 
         internal void ApplyData(byte componentId,byte[] data)
         {
-            if (componentId > serializableComponents.Count) 
+            if (componentId > serializableComponents.Length) 
                 throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
             
             var currentComponent = serializableComponents[componentId];
             if (currentComponent == null)
                 throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
 
-            currentComponent.CallReadStream(data);
+            (currentComponent as IGsLiveSerializable)?.CallReadStream(data);
         }
+        
+        
+        
+        
+        private bool CheckId(byte value) => value > 0;
+        
+        private bool CheckComponents(MonoBehaviour[] sc) 
+            => sc.All(component => component is IGsLiveSerializable);
+        
     }
 }

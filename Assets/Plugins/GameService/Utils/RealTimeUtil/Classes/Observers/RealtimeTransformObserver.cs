@@ -20,6 +20,8 @@
 */
 
 using System;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.Utility;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using UnityEngine;
@@ -29,15 +31,32 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
     
     public class RealtimeTransformObserver : MonoBehaviour,IGsLiveSerializable
     {
-        [Header("Config Values")]
+        
+        [BoxGroup("Config Values")]
+        [ShowIf("synchronizePosition")]
         public float posThreshold = 0.5f;
+        
+        [ShowIf("synchronizeRotation")]
+        [BoxGroup("Config Values")]
         public float rotThreshold = 5;
+        
+        [ShowIf(EConditionOperator.Or,"synchronizePosition","synchronizeRotation")]
+        [BoxGroup("Config Values")]
         public float lerpRate = 10;
+        
+        
+        
+        [BoxGroup("Config Values")]
         public bool synchronizePosition = true;
+        
+        [BoxGroup("Config Values")]
         public bool synchronizeRotation = true;
-        public bool synchronizeScale = false;
+        
+        [BoxGroup("Config Values")]
+        public bool synchronizeScale;
 
 
+        
         private Transform _transform;
 
         

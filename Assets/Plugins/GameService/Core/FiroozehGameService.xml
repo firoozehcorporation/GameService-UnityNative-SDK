@@ -484,12 +484,15 @@
                 Get The Ping
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[])">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)">
             <summary>
                 Send An Event To Another Players in Room
+                NOTE : Do not use this function if you are using Real Time Utility
+                       , as critical errors may occur.
             </summary>
             <param name="caller">(NOTNULL) Caller Info Data </param>
             <param name="data">(NOTNULL) Data To Send By Event </param>
+            <param name="sendType">Send Type </param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveTB">
             <summary>
@@ -729,7 +732,9 @@
             <summary>
             Calls When SomeOne Send New Event In Current Room
             This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[])"/>
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
+             NOTE : Do not use this EventHandler if you are using Real Time Utility
+                       , as critical errors may occur.
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">

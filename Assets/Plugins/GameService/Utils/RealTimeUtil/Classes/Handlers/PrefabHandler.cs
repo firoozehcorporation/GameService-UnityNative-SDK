@@ -42,13 +42,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
             {
                 res = (GameObject)Resources.Load(prefabId, typeof(GameObject));
                 if (res == null)
-                {
                     Debug.LogError("PrefabHandler failed to load \"" + prefabId + "\" . Make sure it's in a \"Resources\" folder.");
-                }
                 else
-                {
                     _resourceCache.Add(prefabId, res);
-                }
             }
 
             var wasActive = res.activeSelf;
