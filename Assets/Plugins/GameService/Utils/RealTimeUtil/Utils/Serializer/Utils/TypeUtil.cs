@@ -28,7 +28,7 @@ using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
 {
-    public static class TypeUtil
+    internal static class TypeUtil
     {
         
         private static readonly Dictionary<int,BaseSerializer> ObjectsCache = new Dictionary<int, BaseSerializer>();
@@ -51,7 +51,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
         }
 
         
-        public static Tuple<int,GsWriteStream> GetWriteStream(object obj)
+        internal static Tuple<int,GsWriteStream> GetWriteStream(object obj)
         {
             var type = obj.GetType();
             
@@ -70,7 +70,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
         }
 
         
-        public static object GetFinalObject(int hash,GsReadStream readStream)
+        internal static object GetFinalObject(int hash,GsReadStream readStream)
         {
             if(!HashToType.ContainsKey(hash))
                 throw new GameServiceException("Type With Hash " + hash + " is Not Registered!");

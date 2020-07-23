@@ -20,7 +20,7 @@
 */
 
 
-using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
@@ -28,7 +28,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
     /// <summary>
     /// A simple stream implementation for reading/writing from/to byte arrays which can be reused
     /// </summary>
-    public class ByteStream : Stream
+    internal class ByteStream : Stream
     {
         private byte[] _srcByteArray;
 
@@ -37,134 +37,119 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
             get; set;
         }
 
-        public override long Length
-        {
-            get
-            {
-                return _srcByteArray.Length;
-            }
-        }
+        public override long Length => _srcByteArray.Length;
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
-        public override bool CanSeek
-        {
-            get { return true; }
-        }
+        public override bool CanSeek => true;
 
         /// <summary>
         /// Set a new byte array for this stream to read from
         /// </summary>
-        public void SetStreamSource(byte[] sourceBuffer)
+        internal void SetStreamSource(byte[] sourceBuffer)
         {
-            this._srcByteArray = sourceBuffer;
-            this.Position = 0;
+            _srcByteArray = sourceBuffer;
+            Position = 0;
         }
 
-        public byte[] ReadBytes(int length)
+        internal byte[] ReadBytes(int length)
         {
-            byte[] bytes = new byte[length];
+            var bytes = new byte[length];
             Read(bytes, 0, length);
 
             return bytes;
         }
 
-        public char ReadChar()
+        internal char ReadChar()
         {
-            int c = 0;
+            var c = 0;
 
-            for (int i = 0; i < sizeof(char); i++) {
+            for (var i = 0; i < sizeof(char); i++) {
                 c |= ReadByte() << (i << 3);
             }
 
             return (char)c;
         }
 
-        public char[] ReadChars(int length)
+        internal char[] ReadChars(int length)
         {
-            char[] chars = new char[length];
+            var chars = new char[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
                 chars[i] = ReadChar();
 
             return chars;
         }
 
-        public string ReadString()
+        internal string ReadString()
         {
-            uint len = ReadUInt32();
-            char[] chars = ReadChars((int)len);
+            var len = ReadUInt32();
+            var chars = ReadChars((int)len);
             return new string(chars);
         }
 
-        public short ReadInt16()
+        internal short ReadInt16()
         {
-            int c = 0;
+            var c = 0;
 
-            for (int i = 0; i < sizeof(short); i++) {
+            for (var i = 0; i < sizeof(short); i++) {
                 c |= ReadByte() << (i << 3);
             }
 
             return (short)c;
         }
 
-        public int ReadInt32()
+        internal int ReadInt32()
         {
-            int c = 0;
+            var c = 0;
 
-            for (int i = 0; i < sizeof(int); i++) {
+            for (var i = 0; i < sizeof(int); i++) {
                 c |= ReadByte() << (i << 3);
             }
 
             return c;
         }
 
-        public long ReadInt64()
+        internal long ReadInt64()
         {
             long c = 0;
 
-            for (int i = 0; i < sizeof(long); i++) {
+            for (var i = 0; i < sizeof(long); i++) {
                 c |= (long)ReadByte() << (i << 3);
             }
 
             return c;
         }
 
-        public ushort ReadUInt16()
+        internal ushort ReadUInt16()
         {
             ushort c = 0;
 
-            for (int i = 0; i < sizeof(ushort); i++) {
+            for (var i = 0; i < sizeof(ushort); i++) {
                 c |= (ushort)(ReadByte() << (i << 3));
             }
 
             return c;
         }
 
-        public uint ReadUInt32()
+        internal uint ReadUInt32()
         {
             uint c = 0;
 
-            for (int i = 0; i < sizeof(uint); i++) {
+            for (var i = 0; i < sizeof(uint); i++) {
                 c |= (uint)ReadByte() << (i << 3);
             }
 
             return c;
         }
 
-        public ulong ReadUInt64()
+        internal ulong ReadUInt64()
         {
             ulong c = 0;
 
-            for (int i = 0; i < sizeof(ulong); i++) {
+            for (var i = 0; i < sizeof(ulong); i++) {
                 c |= (ulong)ReadByte() << (i << 3);
             }
 
@@ -173,117 +158,119 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            int readBytes = 0;
-            long pos = this.Position;
-            long len = this.Length;
-            for (int i = 0; i < count && pos < len; i++) {
+            var readBytes = 0;
+            var pos = Position;
+            var len = Length;
+            for (var i = 0; i < count && pos < len; i++) {
                 buffer[i + offset] = _srcByteArray[pos++];
                 readBytes++;
             }
 
-            this.Position = pos;
+            Position = pos;
             return readBytes;
         }
 
-        public new byte ReadByte()
+        internal new byte ReadByte()
         {
-            long pos = this.Position;
-            byte val = _srcByteArray[pos++];
-            this.Position = pos;
+            var pos = Position;
+            var val = _srcByteArray[pos++];
+            Position = pos;
 
             return val;
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
                 WriteByte(buffer[i + offset]);
         }
 
         public override void WriteByte(byte value)
         {
-            long pos = this.Position;
+            var pos = Position;
             _srcByteArray[pos++] = value;
-            this.Position = pos;
+            Position = pos;
         }
 
-        public void Write(byte val)
+        internal void Write(byte val)
         {
             WriteByte(val);
         }
 
-        public void Write(byte[] val)
+        internal void Write(byte[] val)
         {
             Write(val, 0, val.Length);
         }
 
-        public void Write(char val)
+        internal void Write(char val)
         {
-            uint uval = (uint)val;
-            for (int i = 0; i < sizeof(char); i++) {
+            var uval = (uint)val;
+            for (var i = 0; i < sizeof(char); i++) {
                 WriteByte((byte)(uval & 0xFF));
                 uval >>= 8;
             }
         }
 
-        public void Write(char[] val)
+        internal void Write(IEnumerable<char> val)
         {
-            for (int i = 0; i < val.Length; i++) {
-                Write(val[i]);
+            foreach (var t in val)
+            {
+                Write(t);
             }
         }
 
-        public void Write(string val)
+        internal void Write(string val)
         {
             Write((uint)val.Length);
-            for (int i = 0; i < val.Length; i++) {
-                Write(val[i]);
+            foreach (var t in val)
+            {
+                Write(t);
             }
         }
 
-        public void Write(short val)
+        internal void Write(short val)
         {
-            for (int i = 0; i < sizeof(short); i++) {
+            for (var i = 0; i < sizeof(short); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
         }
 
-        public void Write(int val)
+        internal void Write(int val)
         {
-            for (int i = 0; i < sizeof(int); i++) {
+            for (var i = 0; i < sizeof(int); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
         }
 
-        public void Write(long val)
+        internal void Write(long val)
         {
-            for (int i = 0; i < sizeof(long); i++) {
+            for (var i = 0; i < sizeof(long); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
         }
 
-        public void Write(ushort val)
+        internal void Write(ushort val)
         {
-            for (int i = 0; i < sizeof(ushort); i++) {
+            for (var i = 0; i < sizeof(ushort); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
         }
 
-        public void Write(uint val)
+        internal void Write(uint val)
         {
-            for (int i = 0; i < sizeof(uint); i++) {
+            for (var i = 0; i < sizeof(uint); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
         }
 
-        public void Write(ulong val)
+        internal void Write(ulong val)
         {
-            for (int i = 0; i < sizeof(ulong); i++) {
+            for (var i = 0; i < sizeof(ulong); i++) {
                 WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
@@ -314,7 +301,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 
         public override void SetLength(long value)
         {
-            throw new NotImplementedException();
         }
     }
 }
