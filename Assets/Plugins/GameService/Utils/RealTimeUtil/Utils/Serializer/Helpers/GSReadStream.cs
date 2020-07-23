@@ -36,16 +36,21 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         
         public object ReadNext()
         {
-            if(_objects.Count == 0)
+            if(_objects?.Count == 0)
                 throw new GameServiceException("GSReadStream Queue Is Empty!");
 
-            return _objects.Dequeue();
+            return _objects?.Dequeue();
         }
 
         
         internal void Add(object o)
         {
-            _objects.Enqueue(o);
+            _objects?.Enqueue(o);
+        }
+
+        internal bool CanRead()
+        {
+            return _objects?.Count > 0;
         }
         
     }

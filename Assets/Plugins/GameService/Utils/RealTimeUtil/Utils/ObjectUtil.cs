@@ -30,6 +30,7 @@ using Plugins.GameService.Utils.RealTimeUtil.Classes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils;
 using UnityEngine;
 using Event = FiroozehGameService.Utils.Event;
 
@@ -114,7 +115,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
 
         
-        internal static Tuple<MonoBehaviour,MethodInfo> GetFunction(string methodName,string fullName,bool haveBuffer)
+        internal static Tuple<MonoBehaviour,MethodInfo> GetFunction(string methodName,string fullName,object[] parameters = null)
         {
             UpdateFunctions();
 
@@ -122,12 +123,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             
             if(functions?.Item2 == null || functions.Item2?.Count == 0)
                 throw new GameServiceException("this Type " + fullName + " Have No Runable Methods");
-            
-            
-            var parameterLen = haveBuffer ? 1 : 0 ;
+
+
+            var parameterLen = parameters?.Length ?? 0;
             var method = functions.Item2.FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == parameterLen);
             if(method == null)
-                throw new GameServiceException("Function With Name " + methodName + " is Not Exist.You Must Set GsLiveFunction Attribute For Your Function");
+                throw new GameServiceException("Function " + methodName + " "+ TypeUtil.GetParameterTypes(parameters) +" Not Found! .You Must Set GsLiveFunction Attribute For Your Function");
             
             _runableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
             if(monoBehaviour == null)

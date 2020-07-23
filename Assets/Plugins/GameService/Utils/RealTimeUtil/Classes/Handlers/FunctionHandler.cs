@@ -30,7 +30,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
     internal class FunctionHandler : IFunctionHandler
     {
         
-        public bool RunFunction(string methodName,Type from, FunctionType type, byte[] extraData = null)
+        public bool RunFunction(string methodName,Type from, FunctionType type, params object[] extraData)
         {
             if (string.IsNullOrEmpty(methodName))
                 throw new GameServiceException("Function method name cannot be null or empty.");

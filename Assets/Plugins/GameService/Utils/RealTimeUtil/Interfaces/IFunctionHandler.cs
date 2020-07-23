@@ -34,6 +34,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
         /// <param name="from">the Type of Object That Call this Function in this class</param>
         /// <param name="type">The group of targets and the way the Function gets sent.</param>
         /// <param name="extraData">The Extra Data that the Function method has.</param>
-        bool RunFunction(string methodName,Type from, FunctionType type, byte[] extraData = null);
+        bool RunFunction(string methodName,Type from, FunctionType type, params object[] extraData);
     }
 }

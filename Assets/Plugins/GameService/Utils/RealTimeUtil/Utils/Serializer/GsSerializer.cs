@@ -19,6 +19,8 @@
 * @author Alireza Ghodrati
 */
 
+using System;
+using System.Collections.Generic;
 using FiroozehGameService.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.ExtendedPrimitives;
@@ -74,6 +76,32 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
             }
         }
         
+        internal static class Function
+        {
+            internal static byte[] SerializeParams(params object[] data)
+            {
+                try
+                {
+                    var stream = TypeUtil.GetWriteStreamForParams(data);
+                    return SerializerUtil.Serialize(stream);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+
+            internal static object[] DeserializeParams(byte[] buffer)
+            {
+                var objects = new List<object>();
+                var readStream = SerializerUtil.Deserialize(buffer);
+                while (readStream.CanRead())
+                    objects.Add(readStream.ReadNext());
+
+                return objects.ToArray();
+            }
+        }
+        
         internal static byte[] GetBuffer(IGsLiveSerializable serializable)
         {
             if(serializable == null)
@@ -97,5 +125,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer
             return SerializerUtil.Deserialize(buffer);
         }
 
+        
     }
 }

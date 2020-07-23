@@ -89,10 +89,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             }
             
             var haveBuffer = func.ExtraData != null;
-            var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,haveBuffer);
-
             if (haveBuffer)
-               parameters = new object[] {func.ExtraData};
+                parameters = GsSerializer.Function.DeserializeParams(func.ExtraData);
+            
+            var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,parameters);
             
             info.Invoke(baseObj,parameters);
         }

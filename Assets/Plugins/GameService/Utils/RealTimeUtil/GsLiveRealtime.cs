@@ -29,6 +29,7 @@ using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
+using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils;
 using UnityEngine;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
@@ -137,23 +138,26 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// </summary>
         /// <param name="methodName">The name of a fitting method that was has the GsLiveFunction attribute.</param>
         /// <param name="type">The group of targets and the way the Function gets sent.</param>
-        /// <param name="from">the Type of Object That Call this Function in this class</param>
-        /// <param name="extraData">The Extra Data that the Function method has.</param>
-        public static void RunFunction(string methodName,Type from,FunctionType type, byte[] extraData = null)
+        /// <param name="parameters">The Parameters that the Function method has.</param>
+        public static void RunFunction<TFrom>(string methodName,FunctionType type, params object[] parameters)
         {
+            
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-            
-            var isOk = _functionHandler.RunFunction(methodName,from,type,extraData);
+
+            var objType = typeof(TFrom);
+            var isOk = _functionHandler.RunFunction(methodName,objType,type,parameters);
             if (!isOk) return;
-            
-            var functionData = new FunctionData(from.FullName,methodName,type,extraData);
+
+            var extraBuffer = GsSerializer.Function.SerializeParams(parameters);
+            var functionData = new FunctionData(objType.FullName,methodName,type,extraBuffer);
            
             // run on this Client
-            if (type == FunctionType.All)
+            if (type == FunctionType.All || type == FunctionType.Buffered)
                 ActionUtil.ApplyFunction(functionData : functionData);
 
             SenderUtil.NetworkRunFunction(functionData);
+            
         }
         
     }

@@ -87,6 +87,34 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
         }
 
 
+        internal static GsWriteStream GetWriteStreamForParams(params object[] data)
+        {
+            if(data == null)
+                throw new GameServiceException("Params Cant Be Null");
+            
+            if(data.Length == 0)
+                throw new GameServiceException("Params Cant Be Empty");
+
+            var writeStream = new GsWriteStream();
+            foreach (var obj in data)
+                writeStream.WriteNext(obj);
+
+            return writeStream;
+        }
+
+
+        internal static string GetParameterTypes(object[] parameters)
+        {
+            var typeString = "(";
+            if (parameters == null)
+                return typeString + ")";
+            
+            foreach (var parameter in parameters)
+                typeString += parameter.GetType() + ",";
+            
+            return typeString.Remove(typeString.Length - 1) + ")";
+        }
+
         internal static void Dispose()
         {
             ObjectsCache?.Clear();
