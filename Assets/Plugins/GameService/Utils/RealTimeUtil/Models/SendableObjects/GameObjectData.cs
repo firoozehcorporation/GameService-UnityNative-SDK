@@ -40,14 +40,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 
         public void OnGsLiveRead(GsReadStream readStream)
         {
-            IsTag = (bool) readStream.ReadNext();
             ObjectNameOrTag = (string) readStream.ReadNext();
+            IsTag = (bool) readStream.ReadNext();
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
         {
-            writeStream.WriteNext(IsTag);
             writeStream.WriteNext(ObjectNameOrTag);
+            writeStream.WriteNext(IsTag);
         }
     }
 }

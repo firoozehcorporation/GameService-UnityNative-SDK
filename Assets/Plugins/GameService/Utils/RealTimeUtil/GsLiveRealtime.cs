@@ -29,7 +29,6 @@ using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils;
 using UnityEngine;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
@@ -141,7 +140,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// <param name="parameters">The Parameters that the Function method has.</param>
         public static void RunFunction<TFrom>(string methodName,FunctionType type, params object[] parameters)
         {
-            
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
 
@@ -157,7 +155,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
                 ActionUtil.ApplyFunction(functionData : functionData);
 
             SenderUtil.NetworkRunFunction(functionData);
-            
         }
         
     }
