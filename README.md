@@ -35,3 +35,4 @@
 
 ### کتابخانه های استفاده شده :
 - [Async Await Support](https://assetstore.unity.com/packages/tools/integration/async-await-support-101056)
+- [NaughtyAttributes](https://assetstore.unity.com/packages/tools/utilities/naughtyattributes-129996)
