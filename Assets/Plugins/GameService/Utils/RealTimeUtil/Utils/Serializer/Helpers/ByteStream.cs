@@ -30,7 +30,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
     /// </summary>
     public class ByteStream : Stream
     {
-        protected byte[] SrcByteArray;
+        private byte[] _srcByteArray;
 
         public override long Position
         {
@@ -41,7 +41,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         {
             get
             {
-                return SrcByteArray.Length;
+                return _srcByteArray.Length;
             }
         }
 
@@ -65,7 +65,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         /// </summary>
         public void SetStreamSource(byte[] sourceBuffer)
         {
-            this.SrcByteArray = sourceBuffer;
+            this._srcByteArray = sourceBuffer;
             this.Position = 0;
         }
 
@@ -177,7 +177,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
             long pos = this.Position;
             long len = this.Length;
             for (int i = 0; i < count && pos < len; i++) {
-                buffer[i + offset] = SrcByteArray[pos++];
+                buffer[i + offset] = _srcByteArray[pos++];
                 readBytes++;
             }
 
@@ -188,7 +188,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         public new byte ReadByte()
         {
             long pos = this.Position;
-            byte val = SrcByteArray[pos++];
+            byte val = _srcByteArray[pos++];
             this.Position = pos;
 
             return val;
@@ -203,7 +203,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
         public override void WriteByte(byte value)
         {
             long pos = this.Position;
-            SrcByteArray[pos++] = value;
+            _srcByteArray[pos++] = value;
             this.Position = pos;
         }
 
@@ -291,18 +291,25 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers
 
         public override void Flush()
         {
+            _srcByteArray = null;
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            if (origin == SeekOrigin.Begin)
-                this.Position = offset;
-            else if (origin == SeekOrigin.Current)
-                this.Position += offset;
-            else
-                this.Position = this.Length - offset - 1;
+            switch (origin)
+            {
+                case SeekOrigin.Begin:
+                    Position = offset;
+                    break;
+                case SeekOrigin.Current:
+                    Position += offset;
+                    break;
+                default:
+                    Position = Length - offset - 1;
+                    break;
+            }
 
-            return this.Position;
+            return Position;
         }
 
         public override void SetLength(long value)

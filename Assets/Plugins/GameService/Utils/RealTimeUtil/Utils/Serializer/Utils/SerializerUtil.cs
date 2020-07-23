@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FiroozehGameService.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts;
@@ -32,46 +31,91 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
 {
     internal static class SerializerUtil
     {
-        private static List<ObjectInfo> GetInfos(GsWriteStream writeStream)
+        private static Tuple<ushort,List<ObjectInfo>> GetInfos(GsWriteStream writeStream)
         {
             var infos = new List<ObjectInfo>();
+            var bufferSize = sizeof(byte); // Size of ObjectsInfo
+            
             while (writeStream.CanRead())
             {
+                bufferSize += sizeof(byte); // Add Type Size
                 var obj = writeStream.GetObject();
                 switch (obj)
                 {
-                    case bool _: infos.Add(new ObjectInfo(obj,Types.Bool,sizeof(byte))); break;
-                    case byte _: infos.Add(new ObjectInfo(obj,Types.Byte,sizeof(byte))); break;
-                    case char _: infos.Add(new ObjectInfo(obj,Types.Char,sizeof(char))); break;
-                    case double _: infos.Add(new ObjectInfo(obj,Types.Double,sizeof(double))); break;
-                    case float _: infos.Add(new ObjectInfo(obj,Types.Float,sizeof(float))); break;
-                    case int _: infos.Add(new ObjectInfo(obj,Types.Int,sizeof(int))); break;
-                    case long _: infos.Add(new ObjectInfo(obj,Types.Long,sizeof(long))); break;
-                    case short _: infos.Add(new ObjectInfo(obj,Types.Short,sizeof(short))); break;
-                    case uint _: infos.Add(new ObjectInfo(obj,Types.Uint,sizeof(uint))); break;
-                    case ushort _: infos.Add(new ObjectInfo(obj,Types.Ushort,sizeof(ushort))); break;
-                    case string s: infos.Add(new ObjectInfo(obj,Types.String,(ushort) s.Length)); break;
-                    case byte[] ba: infos.Add(new ObjectInfo(obj,Types.ByteArray,(ushort) ba.Length)); break;
-                    case ObjectSerializer<object> o : infos.Add(new ObjectInfo(obj,Types.CustomObject,0)); break;
+                    case bool _: 
+                        infos.Add(new ObjectInfo(obj,Types.Bool));
+                        bufferSize += sizeof(byte);
+                        break;
+                    case byte _: 
+                        infos.Add(new ObjectInfo(obj,Types.Byte));
+                        bufferSize += sizeof(byte);
+                        break;
+                    case char _: 
+                        infos.Add(new ObjectInfo(obj,Types.Char));
+                        bufferSize += sizeof(char);
+                        break;
+                    case double _: 
+                        infos.Add(new ObjectInfo(obj,Types.Double));
+                        bufferSize += sizeof(double);
+                        break;
+                    case float _: 
+                        infos.Add(new ObjectInfo(obj,Types.Float));
+                        bufferSize += sizeof(float);
+                        break;
+                    case int _: 
+                        infos.Add(new ObjectInfo(obj,Types.Int));
+                        bufferSize += sizeof(int);
+                        break;
+                    case long _:
+                        infos.Add(new ObjectInfo(obj,Types.Long));
+                        bufferSize += sizeof(long);
+                        break;
+                    case short _: 
+                        infos.Add(new ObjectInfo(obj,Types.Short)); 
+                        bufferSize += sizeof(short);
+                        break;
+                    case uint _: 
+                        infos.Add(new ObjectInfo(obj,Types.Uint));
+                        bufferSize += sizeof(uint);
+                        break;
+                    case ushort _: 
+                        infos.Add(new ObjectInfo(obj,Types.Ushort));
+                        bufferSize += sizeof(ushort);
+                        break;
+                    case string s:
+                        var buffer = GetBuffer(s, true);
+                        infos.Add(new ObjectInfo(buffer,Types.String));
+                        bufferSize += sizeof(ushort) + buffer.Length;
+                        break;
+                    case byte[] ba: 
+                        infos.Add(new ObjectInfo(obj,Types.ByteArray));
+                        bufferSize += sizeof(ushort) + ba.Length;
+                        break;
+                    case BaseSerializer _ :
+                        infos.Add(new ObjectInfo(obj,Types.CustomObject));
+                        break;
                     default: throw new GameServiceException("SerializerUtil -> The Type " + obj.GetType() + " is Not Supported");
                 }
             }
+            
+            
+            if(bufferSize >= ushort.MaxValue)
+                throw new GameServiceException("SerializerUtil -> The Buffer is Too Large!");
 
-            return infos;
+            return Tuple.Create((ushort)bufferSize,infos);
         }
         
         internal static byte[] Serialize(GsWriteStream writeStream)
         {
-            var objsInfo = GetInfos(writeStream);
-            var bufferSize = objsInfo.Sum(o => o.Size);
+            var (bufferSize,objectInfos) = GetInfos(writeStream);
             
             var packetBuffer = BufferPool.GetBuffer(bufferSize);
             using (var packetWriter = ByteArrayReaderWriter.Get(packetBuffer))
             {
                 
-                packetWriter.Write((byte) objsInfo.Count);
+                packetWriter.Write((byte) objectInfos.Count);
                 
-                foreach (var objectInfo in objsInfo)
+                foreach (var objectInfo in objectInfos)
                 {
                     packetWriter.Write((byte) objectInfo.Type);
                     switch (objectInfo.Type)
@@ -90,19 +134,21 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                             if ((bool) objectInfo.Src) data = 0x1;
                             packetWriter.Write(data);
                             break;
-                        case Types.String: 
-                            packetWriter.Write(objectInfo.Size);
-                            packetWriter.Write(GetBuffer((string) objectInfo.Src,true));
-                            break;
+                        case Types.String:
                         case Types.ByteArray:
-                            packetWriter.Write(objectInfo.Size);
-                            packetWriter.Write((byte[]) objectInfo.Src);
+                            var bufferDataArray = (byte[]) objectInfo.Src;
+                            packetWriter.Write((ushort) bufferDataArray.Length);
+                            packetWriter.Write(bufferDataArray);
                             break;
                         case Types.CustomObject:
-                            var (id, gsWriteStream) = TypeUtil.GetWriteStream(objectInfo.Src);
+                            var (hash, gsWriteStream) = TypeUtil.GetWriteStream(objectInfo.Src);
                             var buffer = Serialize(gsWriteStream);
+
+                            // Increase Buffer Size
+                            var newSize = 2 * sizeof(ushort) + bufferSize + buffer.Length;
+                            Array.Resize(ref packetBuffer,newSize);
                             
-                            packetWriter.Write(id);
+                            packetWriter.Write(hash);
                             packetWriter.Write((ushort)buffer.Length);
                             packetWriter.Write(buffer);
                             break;
@@ -142,7 +188,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
                         case Types.String: readStream.Add(GetStringFromBuffer(packetReader.ReadBytes(packetReader.ReadUInt16()),true)); break;
                         case Types.ByteArray: readStream.Add(packetReader.ReadBytes(packetReader.ReadUInt16())); break;
                          case Types.CustomObject:
-                             var id = packetReader.ReadUInt16();
+                             var id = packetReader.ReadInt32();
                              var bufferData = packetReader.ReadBytes(packetReader.ReadUInt16());
                              readStream.Add(TypeUtil.GetFinalObject(id, Deserialize(bufferData)));
                              break;

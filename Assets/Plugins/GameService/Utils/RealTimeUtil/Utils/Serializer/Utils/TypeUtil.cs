@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FiroozehGameService.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Abstracts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
@@ -31,55 +30,55 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
 {
     public static class TypeUtil
     {
-        private static readonly Dictionary<Type,BaseSerializer> ObjectsCache = new Dictionary<Type, BaseSerializer>();
-        private static readonly List<Tuple<ushort,Type>> Types = new List<Tuple<ushort,Type>>();
+        
+        private static readonly Dictionary<int,BaseSerializer> ObjectsCache = new Dictionary<int, BaseSerializer>();
+        private static readonly Dictionary<int,Type> HashToType = new Dictionary<int, Type>();
+        private static readonly Dictionary<Type,int> TypeToHash = new Dictionary<Type,int>();
 
         internal static void RegisterNewType<T>(ObjectSerializer<T> serializer)
         {
             var type = typeof(T);
-            if(Types.Any(t => t.Item2 == type))
+            if(TypeToHash.ContainsKey(type))
                 throw new GameServiceException("The Type " + type + " is Exist!");
+
+            var typeHash = HashUtil.GetHashFromType(type);
+            if(HashToType.ContainsKey(typeHash))
+                throw new GameServiceException("The Type " + type + " Hash is Exist!");
             
-            Types.Add(Tuple.Create((ushort)Types.Count,type));
-            ObjectsCache.Add(type,serializer);
+            TypeToHash.Add(type,typeHash);
+            HashToType.Add(typeHash,type);
+            ObjectsCache.Add(typeHash,serializer);
         }
 
         
-        public static Tuple<ushort,GsWriteStream> GetWriteStream(object obj)
+        public static Tuple<int,GsWriteStream> GetWriteStream(object obj)
         {
             var type = obj.GetType();
-            var typeCache = Types.FirstOrDefault(t => t.Item2 == type);
-            if(typeCache == null)
+            
+            if(!TypeToHash.ContainsKey(type))
                 throw new GameServiceException("The Type " + type + " is Not Registered as New Type!");
-
-            if(!ObjectsCache.ContainsKey(type))
-                throw new GameServiceException("The Type " + typeCache.Item2 + " is Not Registered as New Type!");
-
-            var serializer = ObjectsCache[type];
+            
+            var serializer = ObjectsCache[TypeToHash[type]];
+            
             if(!serializer.CanSerializeModel(obj))
-                throw new GameServiceException("The Type " + typeCache.Item2 + " Not Serializable!");
+                throw new GameServiceException("The Type " + type + " Not Serializable!");
 
             
             var writeStream = new GsWriteStream();
             serializer.SerializeObject(obj,writeStream);
-            return Tuple.Create(typeCache.Item1,writeStream);
+            return Tuple.Create(TypeToHash[type],writeStream);
         }
 
         
-        public static object GetFinalObject(ushort id,GsReadStream readStream)
+        public static object GetFinalObject(int hash,GsReadStream readStream)
         {
-            var typeCache = Types.FirstOrDefault(t => t.Item1 == id);
-            if(typeCache == null)
-                throw new GameServiceException("The Type is Not Registered as New Type!");
-           
-            if(!ObjectsCache.ContainsKey(typeCache.Item2))
-                throw new GameServiceException("The Type " + typeCache.Item2 + " is Not Registered as New Type!");
+            if(!HashToType.ContainsKey(hash))
+                throw new GameServiceException("Type With Hash " + hash + " is Not Registered!");
             
-            var serializer = ObjectsCache[typeCache.Item2];
+            var serializer = ObjectsCache[hash];
+            if(!serializer.CanSerializeModel(HashToType[hash]))
+                throw new GameServiceException("Type With Hash " + hash + " is Not Serializable!");
             
-            if(!serializer.CanSerializeModel(typeCache.Item2))
-                throw new GameServiceException("The Type " + typeCache.Item2 + " Not Serializable!");
-
             return serializer.DeserializeObject(readStream);
         }
         

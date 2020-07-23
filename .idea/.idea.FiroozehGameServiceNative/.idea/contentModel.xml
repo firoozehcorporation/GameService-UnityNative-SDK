@@ -116,6 +116,7 @@
                       <e p="Types.cs" t="Include" />
                     </e>
                     <e p="Utils" t="Include">
+                      <e p="HashUtil.cs" t="Include" />
                       <e p="SerializerUtil.cs" t="Include" />
                       <e p="TypeUtil.cs" t="Include" />
                     </e>

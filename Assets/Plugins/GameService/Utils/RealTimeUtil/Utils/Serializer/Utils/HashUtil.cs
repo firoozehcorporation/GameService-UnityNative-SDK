@@ -1,4 +1,4 @@
-// <copyright file="ObjectInfo.cs" company="Firoozeh Technology LTD">
+// <copyright file="HashUtil.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +20,19 @@
 */
 
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Models
-{
-    internal class ObjectInfo
-    {
-        internal readonly object Src;
-        internal readonly Types Type;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
-        public ObjectInfo(object src,Types type)
+namespace Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils
+{
+    internal static class HashUtil
+    {
+        internal static int GetHashFromType(Type type)
         {
-            Type = type;
-            Src = src;
+            var md5Hasher = MD5.Create();
+            var hashed = md5Hasher.ComputeHash(Encoding.ASCII.GetBytes(type.Name));
+            return BitConverter.ToInt32(hashed, 0);
         }
     }
 }
