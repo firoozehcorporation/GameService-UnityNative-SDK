@@ -20,9 +20,9 @@
 */
 
 
+using FiroozehGameService.Utils.Serializer.Helpers;
+using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
 {

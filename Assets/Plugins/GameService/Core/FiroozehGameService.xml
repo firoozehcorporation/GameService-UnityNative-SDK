@@ -2131,5 +2131,204 @@
                 Represents System Info In Game Service
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Abstracts.BaseSerializer">
+            <summary>
+             Represents BaseSerializer In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1">
+            <summary>
+              Represents ObjectSerializer In Game Service Binary Serializer
+              You Can Make Your Object Serializable With Implement this Class 
+            </summary>
+            <typeparam name="T"> The Type of Object You Want To Serializable</typeparam>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1.WriteObject(`0,FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream)">
+            <summary>
+            the WriteObject Function You Can Write Every things Of T To writeStream
+            </summary>
+            <param name="obj">Your Serializable Object</param>
+            <param name="writeStream">The Write Stream for Writes Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1.ReadObject(FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
+            <summary>
+            the ReadObject Function You Can Read Every things Writes
+            </summary>
+            <param name="readStream">he Write Stream for Reads Data</param>
+            <returns></returns>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer">
+            <summary>
+            Represents GsSerializer In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry">
+            <summary>
+            Represents TypeRegistry In Gs Serializer Class
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry.Dispose">
+            <summary>
+            NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
+            Dispose The TypeUtil
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry.RegisterSerializer``1(FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer{``0})">
+            <summary>
+            Register New Type You Want To Working With Game Service Serializer
+            </summary>
+            <param name="serializer"> Your Object Serializer</param>
+            <typeparam name="T"> Your Object Base Type</typeparam>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException"> Throw If invalid Action Happened</exception>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.Function">
+            <summary>
+            NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
+            Represents Function In Gs Serializer Class
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.SerializeParams(System.Object[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get Buffer For object params
+            </summary>
+            <param name="data">the Objects</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.DeserializeParams(System.Byte[])">
+            <summary>
+            Get Parameters From Buffer
+            </summary>
+            <param name="buffer">The Parameter Buffer</param>
+            <returns>the Parameters</returns>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.GetParameterTypes(System.Object[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get String Object Types
+            </summary>
+            <param name="parameters">the Objects</param>
+            <returns></returns>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.Object">
+            <summary>
+            NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
+            Represents Object In Gs Serializer Class
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetBuffer(FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable)">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get Buffer From IGsLiveSerializable
+            </summary>
+            <param name="serializable"> The serializable Object</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.CallReadStream(FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable,System.Byte[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Update a Serializable Object With Buffer
+            </summary>
+            <param name="serializable">Serializable Object</param>
+            <param name="buffer">the Update Buffer</param>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Helpers.GsReadStream">
+            <summary>
+            Represents GsReadStream In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Helpers.GsReadStream.ReadNext">
+            <summary>
+            Read Your Data Writes To Stream
+            </summary>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">throw if Stream Queue Is Empty</exception>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream">
+            <summary>
+            Represents GsWriteStream In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream.WriteNext(System.Object)">
+            <summary>
+            Write Your Data In Stream
+            </summary>
+            <param name="data">Your Object Wants To Write in Stream</param>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable">
+            <summary>
+             Represents IGsLiveSerializable In Game Service Binary Serializer
+             You Can Make Your Class Observable Serializable With Implement this Class 
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable.OnGsLiveRead(FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
+            <summary>
+            the OnGsLiveRead Function You Can Read Your Data form readStream
+            </summary>
+            <param name="readStream"></param>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable.OnGsLiveWrite(FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream)">
+            <summary>
+            the OnGsLiveWrite Function You Can Write Your Data To writeStream
+            </summary>
+            <param name="writeStream"></param>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Utils.TypeUtil">
+            <summary>
+              Represents TypeUtil In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.RegisterNewType``1(FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer{``0})">
+            <summary>
+            Register New Type You Want To Working With Game Service Serializer
+            </summary>
+            <param name="serializer"> Your Object Serializer</param>
+            <typeparam name="T"> Your Object Base Type</typeparam>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException"> Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStream(System.Object)">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Internal Get Hash And WriteStream of Registered Object
+            </summary>
+            <param name="obj"> Your Object You Want To Get Stream</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetFinalObject(System.Int32,FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get Object From Hash and GsReadStream
+            </summary>
+            <param name="hash">the Object Hash</param>
+            <param name="readStream">The Read Stream To Read Object</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStreamForParams(System.Object[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get WriteStream For object params
+            </summary>
+            <param name="data">the Objects</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetParameterTypes(System.Object[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Get String Object Types
+            </summary>
+            <param name="parameters">the Objects</param>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.Dispose">
+            <summary>
+            NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
+            Dispose The TypeUtil
+            </summary>
+        </member>
     </members>
 </doc>

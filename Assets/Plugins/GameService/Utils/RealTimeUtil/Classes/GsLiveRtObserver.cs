@@ -22,13 +22,13 @@
 
 using System.Linq;
 using FiroozehGameService.Models;
+using FiroozehGameService.Utils.Serializer;
+using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using UnityEngine;
 using Event = FiroozehGameService.Utils.Event;
 
@@ -86,7 +86,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
             if (currentComponent == null)
                 throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
 
-            (currentComponent as IGsLiveSerializable)?.CallReadStream(data);
+            GsSerializer.Object.CallReadStream(currentComponent as IGsLiveSerializable,data);
         }
         
         

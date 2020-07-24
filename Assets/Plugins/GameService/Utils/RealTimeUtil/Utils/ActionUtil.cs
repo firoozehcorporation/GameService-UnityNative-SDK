@@ -21,10 +21,10 @@
 
 
 using System;
+using FiroozehGameService.Utils.Serializer;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
@@ -63,12 +63,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             {
                 case ObjectActions.Instantiate:
                     var instantiateData = new InstantiateData();
-                    instantiateData.CallReadStream(data);
+                    GsSerializer.Object.CallReadStream(instantiateData,data);
                     handler.Instantiate(instantiateData.PrefabName, instantiateData.Position, instantiateData.Rotation);
                     break;
                 case ObjectActions.Destroy:
                     var objectHandler = new GameObjectData();
-                    objectHandler.CallReadStream(data);
+                    GsSerializer.Object.CallReadStream(objectHandler,data);
                     if (objectHandler.IsTag) handler.DestroyWithTag(objectHandler.ObjectNameOrTag);
                     else handler.DestroyWithName(objectHandler.ObjectNameOrTag);
                     break;
@@ -85,7 +85,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             if (func == null && buffer != null)
             {
                 func = new FunctionData();
-                func.CallReadStream(buffer);
+                GsSerializer.Object.CallReadStream(func,buffer);
             }
             
             var haveBuffer = func.ExtraData != null;

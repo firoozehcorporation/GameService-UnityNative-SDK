@@ -20,10 +20,10 @@
 */
 
 using System;
+using FiroozehGameService.Utils.Serializer.Helpers;
+using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.Utility;
-using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Helpers;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers

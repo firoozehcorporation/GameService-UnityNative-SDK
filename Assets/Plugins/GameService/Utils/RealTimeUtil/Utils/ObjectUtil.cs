@@ -26,11 +26,11 @@ using System.Linq;
 using System.Reflection;
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils;
+using FiroozehGameService.Utils.Serializer;
 using Plugins.GameService.Utils.RealTimeUtil.Classes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer.Utils;
 using UnityEngine;
 using Event = FiroozehGameService.Utils.Event;
 
@@ -128,7 +128,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             var parameterLen = parameters?.Length ?? 0;
             var method = functions.Item2.FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == parameterLen);
             if(method == null)
-                throw new GameServiceException("Function " + methodName + " "+ TypeUtil.GetParameterTypes(parameters) +" Not Found! .You Must Set GsLiveFunction Attribute For Your Function");
+                throw new GameServiceException("Function " + methodName + " "+ GsSerializer.Function.GetParameterTypes(parameters) +" Not Found! .You Must Set GsLiveFunction Attribute For Your Function");
             
             _runableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
             if(monoBehaviour == null)

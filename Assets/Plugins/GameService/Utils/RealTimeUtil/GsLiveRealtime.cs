@@ -20,15 +20,14 @@
 */
 
 
-using System;
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.GSLive.RT;
+using FiroozehGameService.Utils.Serializer;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
-using Plugins.GameService.Utils.RealTimeUtil.Utils.Serializer;
 using UnityEngine;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
@@ -54,7 +53,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _functionHandler = new FunctionHandler();
             
             _monoBehaviourHandler.Init(monoBehaviour);
-            GsSerializer.TypeRegistry.Init();
+            TypeUtil.Init();
             ObjectUtil.Init();
             IsAvailable = true;
         }
@@ -64,7 +63,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _monoBehaviourHandler?.Dispose();
             _prefabHandler?.Dispose();
             
-            GsSerializer.TypeRegistry.Dispose();
+            TypeUtil.Dispose();
             ObjectUtil.Dispose();
             IsAvailable = false;
         }
