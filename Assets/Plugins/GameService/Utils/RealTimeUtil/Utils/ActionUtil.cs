@@ -21,7 +21,10 @@
 
 
 using System;
+using System.Collections.Generic;
+using FiroozehGameService.Models;
 using FiroozehGameService.Utils.Serializer;
+using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
@@ -49,6 +52,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             }
         }
         
+        
+        internal static void ApplySnapShot(IEnumerable<SnapShotData> datas,IPrefabHandler handler)
+        {
+            foreach (var shotData in datas)
+            {
+                switch (shotData.Type)
+                {
+                    case SnapShotType.Function: ApplyFunction(shotData.Buffer); break;
+                    case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,handler); break;
+                    default: throw new GameServiceException("Invalid SnapShot Type!");
+                }
+            }
+        }
+
 
         private static void ApplyTransform(byte observerId,byte serializableId,byte[] buffer)
         {

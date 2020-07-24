@@ -20,9 +20,11 @@
 */
 
 
+using System.Collections.Generic;
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.GSLive.RT;
 using FiroozehGameService.Utils.Serializer;
+using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
@@ -48,6 +50,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
         internal static void Init(MonoBehaviour monoBehaviour)
         {
+            
+            GsSerializer.OnNewEventHandler += OnNewEventHandler;
+            GsSerializer.OnNewSnapShotReceived += OnNewSnapShotReceived;
+            
             _monoBehaviourHandler = new MonoBehaviourHandler();
             _prefabHandler = new PrefabHandler();
             _functionHandler = new FunctionHandler();
@@ -58,20 +64,31 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             IsAvailable = true;
         }
 
+        
+        private static void OnNewEventHandler(object sender, EventData eventData)
+        {
+            var action = (Types) eventData.Caller[0];
+            ActionUtil.ApplyData(action,eventData.Caller,eventData.Data,_prefabHandler);
+        }
+        
+        private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotDatas)
+        {
+            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler);
+        }
+        
+        
+
         internal static void Dispose()
         {
+            GsSerializer.OnNewEventHandler = null;
+            GsSerializer.OnNewSnapShotReceived = null;
+            
             _monoBehaviourHandler?.Dispose();
             _prefabHandler?.Dispose();
             
             TypeUtil.Dispose();
             ObjectUtil.Dispose();
             IsAvailable = false;
-        }
-        
-        internal static void NewEventReceived(object sender, EventData eventData)
-        {
-            var action = (Types) eventData.Caller[0];
-            ActionUtil.ApplyData(action,eventData.Caller,eventData.Data,_prefabHandler);
         }
         
         

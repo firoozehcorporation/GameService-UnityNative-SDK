@@ -69,7 +69,6 @@ namespace Plugins.GameService.Utils
             {
                 // set RealTime Helper Listener & Init GsLiveRealtime
                 GsLiveRealtime.Init(this);
-                RealTimeEventHandlers.NewEventReceived += GsLiveRealtime.NewEventReceived;
                 Debug.Log("GsLiveRealtime Version : "+GsLiveRealtime.Version+" Initialized");
             }
 
@@ -78,13 +77,10 @@ namespace Plugins.GameService.Utils
             
             Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initialized");
         }
-
         
-
 
         private void OnDestroy()
         {
-            RealTimeEventHandlers.NewEventReceived = null;
             FiroozehGameService.Core.GameService.Logout();
             Debug.Log("GameService Logout Called");
 

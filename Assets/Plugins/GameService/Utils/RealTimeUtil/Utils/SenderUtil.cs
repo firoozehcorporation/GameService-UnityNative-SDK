@@ -41,7 +41,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             if(buffer == null) return;
             
             var caller = new[] {(byte) Types.ObserverActions,id, subId};
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.UnReliable);
+            
+            GsSerializer.Object.SendObject(caller,buffer);
         }
         
         internal static void NetworkInstantiate(InstantiateData instantiateData)
@@ -51,7 +52,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Instantiate,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(instantiateData);
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
+            
+            GsSerializer.Object.SendObject(caller,buffer);
         }
 
 
@@ -62,7 +64,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Destroy,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(gameObjectData);
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
+            
+            GsSerializer.Object.SendObject(caller,buffer);
         }
         
         
@@ -74,7 +77,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             var caller = new[] {(byte) Types.RunFunction,(byte) functionData.Type,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(functionData);
             
-            FiroozehGameService.Core.GameService.GSLive.RealTime.SendEvent(caller,buffer,GProtocolSendType.Reliable);
+            GsSerializer.Object.SendObject(caller,buffer);
         }
 
 

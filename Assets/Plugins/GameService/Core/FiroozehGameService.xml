@@ -728,15 +728,6 @@
             <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)"/>
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.NewEventReceived">
-            <summary>
-            Calls When SomeOne Send New Event In Current Room
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
-             NOTE : Do not use this EventHandler if you are using Real Time Utility
-                       , as critical errors may occur.
-            </summary>
-        </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">
             <summary>
             Returns Current Room Members Detail  When Call The Following Function :
@@ -2162,6 +2153,24 @@
             Represents GsSerializer In Game Service Binary Serializer
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.OnNewEventHandler">
+            <summary>
+            Calls When SomeOne Send New Event In Current Room
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
+             NOTE : Do not use this EventHandler if you are using Real Time Utility
+                       , as critical errors may occur.
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.OnNewSnapShotReceived">
+            <summary>
+            Calls When Server Send SnapShot In Current Room
+            This Event Handler Called By Following Functions :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
+             NOTE : Do not use this EventHandler if you are using Real Time Utility
+                       , as critical errors may occur.
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry">
             <summary>
             Represents TypeRegistry In Gs Serializer Class
@@ -2216,6 +2225,16 @@
             NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
             Represents Object In Gs Serializer Class
             </summary>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.SendObject(System.Byte[],System.Byte[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Send An Object Buffer Data
+            </summary>
+            <param name="caller"> The caller Data</param>
+            <param name="buffer"> The Buffer Data</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetBuffer(FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable)">
             <summary>
@@ -2275,6 +2294,36 @@
             </summary>
             <param name="writeStream"></param>
         </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Models.SnapShotType">
+            <summary>
+            Represents SnapShotType Data Model In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Function">
+            <summary>
+            SnapShot Function Type
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Object">
+            <summary>
+            SnapShot Object Type
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Utils.Serializer.Models.SnapShotData">
+            <summary>
+            Represents SnapShotData Data Model In Game Service Binary Serializer
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Type">
+            <summary>
+            Get Type of SnapShot
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Buffer">
+            <summary>
+            Get SnapShot Buffer Data
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Utils.TypeUtil">
             <summary>
               Represents TypeUtil In Game Service Binary Serializer
@@ -2307,7 +2356,7 @@
             <returns></returns>
             <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
         </member>
-        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStreamForParams(System.Object[])">
+        <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStreamFromParams(System.Object[])">
             <summary>
             NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
             Get WriteStream For object params
