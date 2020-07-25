@@ -31,11 +31,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
         /// <summary>Contains a GameObject per prefabId, to speed up instantiation.</summary>
         private readonly Dictionary<string, GameObject> _resourceCache = new Dictionary<string, GameObject>();
 
-        /// <summary>Returns an inactive instance of GameObject</summary>
+        /// <summary>Returns an inActive instance of GameObject</summary>
         /// <param name="prefabId">String identifier for instance object.</param>
         /// <param name="position">Location of the new object.</param>
         /// <param name="rotation">Rotation of the new object.</param>
-        public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation)
+        /// <param name="ownerId"> the Object OwnerId</param>
+        /// <param name="isMe"> True if Instantiate Called By Current Player</param>
+        public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation,string ownerId = null,bool isMe = false)
         {
             var cached = _resourceCache.TryGetValue(prefabId, out var res);
             if (!cached)
@@ -49,10 +51,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
 
             var wasActive = res.activeSelf;
             if (wasActive) res.SetActive(false);
-
+            
             var instance = GameObject.Instantiate(res, position, rotation);
-
+            var observer =  instance.GetComponent<GsLiveRtObserver>();
+            if (observer != null) observer.RegisterObserver(ownerId,isMe);
+            
             if (wasActive) res.SetActive(true);
+
             return instance;
         }
 

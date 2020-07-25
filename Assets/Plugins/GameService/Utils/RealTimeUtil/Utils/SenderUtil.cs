@@ -20,7 +20,6 @@
 */
 
 using FiroozehGameService.Models;
-using FiroozehGameService.Models.Enums;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;

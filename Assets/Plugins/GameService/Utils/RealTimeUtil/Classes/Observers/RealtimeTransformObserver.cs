@@ -40,9 +40,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         [BoxGroup("Config Values")]
         public float rotThreshold = 5;
         
-        [ShowIf(EConditionOperator.Or,"synchronizePosition","synchronizeRotation")]
+        [ShowIf("synchronizePosition")]
         [BoxGroup("Config Values")]
-        public float lerpRate = 10;
+        public float lerpRatePosition = 15;
+        
+        
+        [ShowIf("synchronizeRotation")]
+        [BoxGroup("Config Values")]
+        public float lerpRateRotation = 30;
         
         
         
@@ -85,8 +90,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         public void Update()
         {
-            _transform.position = Vector3.Lerp(_transform.position, _mNetworkPosition, Time.deltaTime * lerpRate);
-            _transform.rotation = Quaternion.Lerp(_transform.rotation,_mNetworkRotation, Time.deltaTime * lerpRate);
+            _transform.position = Vector3.Lerp(_transform.position, _mNetworkPosition, Time.deltaTime * lerpRatePosition);
+            _transform.rotation = Quaternion.Lerp(_transform.rotation,_mNetworkRotation, Time.deltaTime * lerpRateRotation);
             _transform.localScale = _mNetworkScale;
         }
         

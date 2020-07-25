@@ -157,6 +157,11 @@
                   <e p="IPrefabHandler.cs" t="Include" />
                 </e>
                 <e p="Models" t="Include">
+                  <e p="CallbackModels" t="Include">
+                    <e p="OnAfterInstantiate.cs" t="Include" />
+                    <e p="OnBeforeInstantiate.cs" t="Include" />
+                    <e p="OnDestroyObject.cs" t="Include" />
+                  </e>
                   <e p="SendableObjects" t="Include">
                     <e p="FunctionData.cs" t="Include" />
                     <e p="GameObjectData.cs" t="Include" />

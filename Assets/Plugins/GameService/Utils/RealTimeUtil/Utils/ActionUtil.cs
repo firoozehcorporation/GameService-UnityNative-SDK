@@ -27,6 +27,7 @@ using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
@@ -34,15 +35,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class ActionUtil
     {
-        internal static void ApplyData(Types types,byte[] subCaller,byte[] extra,IPrefabHandler handler = null)
+        internal static void ApplyData(Types types,string ownerId,byte[] subCaller,byte[] extra,IPrefabHandler handler = null)
         {
             switch (types)
             {
                 case Types.ObserverActions:
-                    ApplyTransform(subCaller[1],subCaller[2],extra);
+                    ApplyTransform(subCaller[1],subCaller[2],ownerId,extra);
                     break;
                 case Types.ObjectsActions:
-                    ApplyObject(subCaller[1],extra,handler);
+                    ApplyObject(subCaller[1],extra,ownerId,handler);
                     break;
                 case Types.RunFunction:
                     ApplyFunction(extra);
@@ -60,20 +61,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 switch (shotData.Type)
                 {
                     case SnapShotType.Function: ApplyFunction(shotData.Buffer); break;
-                    case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,handler); break;
+                    case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,shotData.OwnerId,handler); break;
                     default: throw new GameServiceException("Invalid SnapShot Type!");
                 }
             }
         }
 
 
-        private static void ApplyTransform(byte observerId,byte serializableId,byte[] buffer)
+        private static void ApplyTransform(byte observerId,byte serializableId,string ownerId,byte[] buffer)
         {
-            var observer = ObjectUtil.GetGsLiveObserver(observerId);
-            observer?.ApplyData(serializableId,buffer);
+            var observer = ObjectUtil.GetGsLiveObserver(observerId,ownerId);
+            observer?.ApplyData(serializableId,ownerId,buffer);
         }
 
-        private static void ApplyObject(byte objectAction,byte[] data,IPrefabHandler handler)
+        private static void ApplyObject(byte objectAction,byte[] data,string ownerId,IPrefabHandler handler)
         {
             var action = (ObjectActions) objectAction;
             switch (action)
@@ -81,11 +82,25 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 case ObjectActions.Instantiate:
                     var instantiateData = new InstantiateData();
                     GsSerializer.Object.CallReadStream(instantiateData,data);
-                    handler.Instantiate(instantiateData.PrefabName, instantiateData.Position, instantiateData.Rotation);
+                    
+                    // Call Callback
+                    GsLiveRealtime.Callbacks.OnBeforeInstantiateHandler?.Invoke(null,
+                        new OnBeforeInstantiate(instantiateData.PrefabName,instantiateData.Position,instantiateData.Rotation));
+                    
+                    var obj = handler.Instantiate(instantiateData.PrefabName, instantiateData.Position, instantiateData.Rotation,ownerId,ownerId == GsLiveRealtime.CurrentPlayerMemberId);
+                    
+                    // Call Callback
+                    GsLiveRealtime.Callbacks.OnAfterInstantiateHandler?.Invoke(null,
+                        new OnAfterInstantiate(obj,instantiateData.PrefabName,instantiateData.Position,instantiateData.Rotation));
                     break;
                 case ObjectActions.Destroy:
                     var objectHandler = new GameObjectData();
                     GsSerializer.Object.CallReadStream(objectHandler,data);
+                    
+                    // Call Callback
+                    GsLiveRealtime.Callbacks.OnDestroyObjectHandler?.Invoke(null,
+                        new OnDestroyObject(objectHandler.ObjectNameOrTag,objectHandler.IsTag));
+                    
                     if (objectHandler.IsTag) handler.DestroyWithTag(objectHandler.ObjectNameOrTag);
                     else handler.DestroyWithName(objectHandler.ObjectNameOrTag);
                     break;

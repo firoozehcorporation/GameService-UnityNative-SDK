@@ -20,6 +20,7 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using FiroozehGameService.Models;
 using FiroozehGameService.Models.GSLive.RT;
@@ -28,6 +29,7 @@ using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
@@ -47,6 +49,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         public static bool IsAvailable;
 
         public const string Version = "Alpha 1.0.0";
+        
+        public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
+        
+        public class Callbacks
+        {
+            public static EventHandler<OnBeforeInstantiate> OnBeforeInstantiateHandler;
+            public static EventHandler<OnAfterInstantiate> OnAfterInstantiateHandler;
+            
+            public static EventHandler<OnDestroyObject> OnDestroyObjectHandler;
+        }
 
         internal static void Init(MonoBehaviour monoBehaviour)
         {
@@ -68,7 +80,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static void OnNewEventHandler(object sender, EventData eventData)
         {
             var action = (Types) eventData.Caller[0];
-            ActionUtil.ApplyData(action,eventData.Caller,eventData.Data,_prefabHandler);
+            ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler);
         }
         
         private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotDatas)
@@ -102,7 +114,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
                 throw new GameServiceException("RealTime is Not Available");
             
             var instantiateData = new InstantiateData(prefabName,position,rotation);
-            var gameObject = _prefabHandler.Instantiate(prefabName, position, rotation);
+            var gameObject = _prefabHandler.Instantiate(prefabName, position, rotation,CurrentPlayerMemberId,true);
             
             SenderUtil.NetworkInstantiate(instantiateData);
             return gameObject;

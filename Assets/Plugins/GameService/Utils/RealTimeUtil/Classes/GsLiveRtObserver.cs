@@ -24,6 +24,7 @@ using System.Linq;
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Interfaces;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
@@ -40,10 +41,19 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         [ValidateInput("CheckId", "The ID Must Grater Than Zero And Lower Than 256")]
         public byte id;
         
+        [BoxGroup("Observer Infos (Set By Server)")]
+        [ReadOnly]
+        public string ownerId;
+
+        [BoxGroup("Observer Infos (Set By Server)")]
+        [ReadOnly]
+        public bool forMe;
+
         [ReorderableList]
         [BoxGroup("Add Your Components that You Want To Serialize")]
         [ValidateInput("CheckComponents", "The Component Must Implements IGsLiveSerializable")]
         public MonoBehaviour[] serializableComponents;
+
 
         private Event _callerEvent;
         
@@ -54,9 +64,18 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 
             if (serializableComponents?.Length > Sizes.MaxId)
                 throw new GameServiceException("SerializableComponents Count is Too Large!");
+        }
+
+
+        internal void RegisterObserver(string ownerMemberId,bool isMe = false)
+        {
+            ownerId = ownerMemberId;
+            forMe = isMe;
             
             // register Observer
             _callerEvent = ObjectUtil.RegisterObserver(this);
+            
+            if(!isMe) return;
             _callerEvent.EventHandler += OnUpdate;
             _callerEvent.Start();
         }
@@ -77,16 +96,18 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         }
         
 
-        internal void ApplyData(byte componentId,byte[] data)
+        internal void ApplyData(byte componentId,string ownerId,byte[] data)
         {
-            if (componentId > serializableComponents.Length) 
-                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
+            if (ownerId != this.ownerId) return;
             
+            if (componentId > serializableComponents.Length)
+                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
+
             var currentComponent = serializableComponents[componentId];
             if (currentComponent == null)
                 throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
 
-            GsSerializer.Object.CallReadStream(currentComponent as IGsLiveSerializable,data);
+            GsSerializer.Object.CallReadStream(currentComponent as IGsLiveSerializable, data);
         }
         
         

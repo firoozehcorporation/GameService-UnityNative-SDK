@@ -1899,6 +1899,16 @@
             </summary>
             <value>the Event Data Buffer</value>
         </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.ReceiverId">
+            <summary>
+            the Receiver Id (Current Client Member ID)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.SenderId">
+            <summary>
+            the Sender Id (Owner Member ID)
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.RT.Message">
             <summary>
                 Represents Message Data Model In GameService RealTime MultiPlayer System
@@ -2253,6 +2263,12 @@
             <param name="serializable">Serializable Object</param>
             <param name="buffer">the Update Buffer</param>
         </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetCurrentPlayerMemberId">
+            <summary>
+            Get Current Player MemberId 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Helpers.GsReadStream">
             <summary>
             Represents GsReadStream In Game Service Binary Serializer
@@ -2322,6 +2338,11 @@
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Buffer">
             <summary>
             Get SnapShot Buffer Data
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.OwnerId">
+            <summary>
+            The Snapshot OwnerId
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Utils.TypeUtil">

@@ -41,16 +41,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         private static Dictionary<Type, List<MethodInfo>> _runableCache;
         private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
-        private static Dictionary<byte, GsLiveRtObserver> _observerCache;
-        private static Dictionary<byte, Event> _observerEventCache;
+        private static Dictionary<Tuple<byte,string>, GsLiveRtObserver> _observerCache;
+        private static Dictionary<Tuple<byte,string>, Event> _observerEventCache;
 
 
         internal static void Init()
         {
             _runableCache = new Dictionary<Type, List<MethodInfo>>();
             _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
-            _observerCache = new Dictionary<byte, GsLiveRtObserver>();
-            _observerEventCache = new Dictionary<byte, Event>();
+            _observerCache = new Dictionary<Tuple<byte,string>, GsLiveRtObserver>();
+            _observerEventCache = new Dictionary<Tuple<byte,string>, Event>();
 
             UpdateFunctions();
         }
@@ -141,13 +141,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
         internal static Event RegisterObserver(GsLiveRtObserver observer)
         {
-            if(_observerCache.ContainsKey(observer.id))
-                throw new GameServiceException("Observer Id Must Be Unique");
+            var key = Tuple.Create(observer.id, observer.ownerId);
+            if(_observerCache.ContainsKey(key))
+                throw new GameServiceException("Observer (Id,Owner) Must Be Unique");
 
             var newEvent = EventCallerUtil.CreateNewEvent(Sizes.EventInterval);
             
-            _observerCache.Add(observer.id,observer);
-            _observerEventCache.Add(observer.id,newEvent);
+            _observerCache.Add(key,observer);
+            _observerEventCache.Add(key,newEvent);
             return newEvent;
         }
 
@@ -156,19 +157,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             if (_observerCache == null || _observerEventCache == null) return;
             
-            if (!_observerCache.ContainsKey(observer.id))
+            var key = Tuple.Create(observer.id, observer.ownerId);
+            if (!_observerCache.ContainsKey(key))
                 throw new GameServiceException("Observer Not Exist!");
 
-            _observerCache.Remove(observer.id);
+            _observerCache.Remove(key);
 
-            _observerEventCache[observer.id]?.Dispose();
-            _observerEventCache.Remove(observer.id);
+            _observerEventCache[key]?.Dispose();
+            _observerEventCache.Remove(key);
         }
 
 
-        internal static GsLiveRtObserver GetGsLiveObserver(byte id)
+        internal static GsLiveRtObserver GetGsLiveObserver(byte id,string owner)
         {
-            _observerCache.TryGetValue(id,out var observer);
+            _observerCache.TryGetValue(Tuple.Create(id,owner),out var observer);
             return observer;
         }
 

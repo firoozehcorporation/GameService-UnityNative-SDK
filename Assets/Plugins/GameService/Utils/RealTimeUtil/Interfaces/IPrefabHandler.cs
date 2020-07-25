@@ -27,13 +27,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
     public interface IPrefabHandler
     {
         /// <summary>
-        /// Called to get an instance of a prefab. Must return valid, disabled GameObject
+        /// Called to get an instance of a prefab. Must return valid, Disabled GameObject
         /// </summary>
         /// <param name="prefabId">The id of this prefab.</param>
         /// <param name="position">The position for the instance.</param>
         /// <param name="rotation">The rotation for the instance.</param>
-        /// <returns>A disabled instance to use by GSLive or null if the prefabId is unknown.</returns>
-        GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation);
+        /// <param name="ownerId"> The Object OwnerID</param>
+        /// <param name="isMe"> True if Instantiate Called By Current Player</param>
+        /// <returns>A Disabled instance to use by GSLive or null if the prefabId is unknown.</returns>
+        GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation,string ownerId = null,bool isMe = false);
 
         /// <summary>
         /// Called to destroy the instance of a prefab.
