@@ -51,6 +51,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         public const string Version = "Alpha 1.0.0";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
+
+        public static short SerializationRate => 10;
         
         public class Callbacks
         {

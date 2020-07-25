@@ -21,7 +21,6 @@
 
 
 using FiroozehGameService.Builder;
-using FiroozehGameService.Handlers;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
 using Plugins.GameService.Utils.RealTimeUtil;
@@ -41,7 +40,7 @@ namespace Plugins.GameService.Utils
         public string ClientSecret;
         
         [BoxGroup("Enable this feature only when you need RealTime")]
-        public bool RealTimeUtilEnabled = false;
+        public bool RealTimeUtilEnabled;
 
         private void OnEnable()
         {

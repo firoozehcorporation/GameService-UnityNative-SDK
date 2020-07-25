@@ -23,7 +23,6 @@ using System;
 using FiroozehGameService.Utils.Serializer.Helpers;
 using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
-using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.Utility;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
@@ -33,25 +32,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
     {
         
         [BoxGroup("Config Values")]
-        [ShowIf("synchronizePosition")]
-        public float posThreshold = 0.5f;
-        
-        [ShowIf("synchronizeRotation")]
-        [BoxGroup("Config Values")]
-        public float rotThreshold = 5;
-        
-        [ShowIf("synchronizePosition")]
-        [BoxGroup("Config Values")]
-        public float lerpRatePosition = 15;
-        
-        
-        [ShowIf("synchronizeRotation")]
-        [BoxGroup("Config Values")]
-        public float lerpRateRotation = 30;
-        
-        
-        
-        [BoxGroup("Config Values")]
         public bool synchronizePosition = true;
         
         [BoxGroup("Config Values")]
@@ -59,94 +39,119 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         [BoxGroup("Config Values")]
         public bool synchronizeScale;
-
+        
+        
+        
+        private float _mDistance;
+        private float _mAngle;
 
         
-        private Transform _transform;
-
         
+        private Vector3 _mDirection;
         private Vector3 _mNetworkPosition;
+        private Vector3 _mStoredPosition;
+        
         private Quaternion _mNetworkRotation;
-        private Vector3 _mNetworkScale;
 
-        private Vector3 _oldPosition;
-        private Quaternion _oldRotation;
-
+        private bool _mFirstTake;
+        
 
         public void Start()
         {
-            _transform = GetComponent<Transform>();
-            var position = _transform.position;
-            var rotation = _transform.rotation;
-            var scale = _transform.localScale;
-            
-            _oldPosition = position;
-            _oldRotation = rotation;
-
-            _mNetworkPosition = position;
-            _mNetworkRotation = rotation;
-            _mNetworkScale = scale;
+            _mStoredPosition = transform.position;
+            _mNetworkPosition = Vector3.zero;
+            _mNetworkRotation = Quaternion.identity;
         }
         
         public void Update()
         {
-            _transform.position = Vector3.Lerp(_transform.position, _mNetworkPosition, Time.deltaTime * lerpRatePosition);
-            _transform.rotation = Quaternion.Lerp(_transform.rotation,_mNetworkRotation, Time.deltaTime * lerpRateRotation);
-            _transform.localScale = _mNetworkScale;
+            transform.position = Vector3.MoveTowards(transform.position, _mNetworkPosition, _mDistance * (1.0f / GsLiveRealtime.SerializationRate));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _mNetworkRotation, _mAngle * (1.0f / GsLiveRealtime.SerializationRate));
         }
+        
+        
         
         public void OnGsLiveRead(GsReadStream readStream)
         {
-            bool havePos, haveRot, haveScale;
+            try
+            {
+                if (synchronizePosition)
+                {
+                    _mNetworkPosition = (Vector3) readStream.ReadNext();
+                    _mDirection       = (Vector3) readStream.ReadNext();
+                    var sendTimeStamp = (double) readStream.ReadNext();
+                    
+                    if (_mFirstTake)
+                    {
+                        transform.position = _mNetworkPosition;
+                        _mDistance = 0f;
+                    }
+                    else
+                    {
+                        var lag  = (float) Math.Abs(GetTimestamp() - sendTimeStamp - 100) / 1000;
+                        _mNetworkPosition += _mDirection * lag;
+                        _mDistance = Vector3.Distance(transform.position, _mNetworkPosition);
+                    }
+                }
 
-            havePos   = (bool) readStream.ReadNext();
-            haveRot   = (bool) readStream.ReadNext();
-            haveScale = (bool) readStream.ReadNext();
+                if (synchronizeRotation)
+                {
+                    _mNetworkRotation = (Quaternion) readStream.ReadNext();
 
-            if (havePos)    _mNetworkPosition = (Vector3)    readStream.ReadNext();
-            if (haveRot)    _mNetworkRotation = (Quaternion) readStream.ReadNext();
-            if (haveScale)  _mNetworkScale    = (Vector3)    readStream.ReadNext();
+                    if (_mFirstTake)
+                    {
+                        _mAngle = 0f;
+                        transform.rotation = _mNetworkRotation;
+                    }
+                    else
+                        _mAngle = Quaternion.Angle(transform.rotation, _mNetworkRotation);
+                    
+                }
+
+                if (synchronizeScale)
+                    transform.localScale = (Vector3) readStream.ReadNext();
+                
+
+                if (_mFirstTake)
+                    _mFirstTake = false;
+                
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("GSLiveTransformObserver OnGsLiveRead Error : " + e);
+            }
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
         {
              try
              {
-                 // send to server
-                 var newPos = _transform.position;
-                 var newRot = _transform.rotation;
-                 var newScale = _transform.localScale;
+                 if (synchronizePosition)
+                 {
+                     _mDirection = transform.position - _mStoredPosition;
+                     _mStoredPosition = transform.position;
 
-                 bool havePos = false, haveRot = false, haveScale = false;
+                     writeStream.WriteNext(transform.position);
+                     writeStream.WriteNext(_mDirection);
+                     writeStream.WriteNext(GetTimestamp());
+                 }
+
+                 if (synchronizeRotation)
+                     writeStream.WriteNext(transform.rotation);
                  
-                 if (Vector3.Distance(_oldPosition, newPos) > posThreshold)
-                 {
-                     _oldPosition = newPos;
-                     if (synchronizePosition) havePos = true;
-                 }
-
-                 if (Quaternion.Angle(_oldRotation, newRot) > rotThreshold)
-                 {
-                     _oldRotation = newRot;
-                     if (synchronizeRotation) haveRot = true;
-                 }
-
                  if (synchronizeScale)
-                     haveScale = true;
+                     writeStream.WriteNext(transform.localScale);
                  
-                 writeStream.WriteNext(havePos);
-                 writeStream.WriteNext(haveRot);
-                 writeStream.WriteNext(haveScale);
-                 
-                 if(havePos)   writeStream.WriteNext(newPos);
-                 if(haveRot)   writeStream.WriteNext(newRot);
-                 if(haveScale) writeStream.WriteNext(newScale);
-
              }
              catch (Exception e)
              {
                  Debug.LogError("GSLiveTransformObserver OnGsLiveWrite Error : " + e);
              }
+        }
+
+        private static double GetTimestamp()
+        {
+            return DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
         }
     }
 }
