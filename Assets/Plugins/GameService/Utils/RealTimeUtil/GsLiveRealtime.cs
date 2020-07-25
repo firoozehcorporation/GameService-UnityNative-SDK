@@ -60,7 +60,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             public static EventHandler<OnDestroyObject> OnDestroyObjectHandler;
         }
 
-        internal static void Init(MonoBehaviour monoBehaviour)
+        internal static void Init()
         {
             
             GsSerializer.OnNewEventHandler += OnNewEventHandler;
@@ -70,7 +70,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _prefabHandler = new PrefabHandler();
             _functionHandler = new FunctionHandler();
             
-            _monoBehaviourHandler.Init(monoBehaviour);
+            _monoBehaviourHandler.Init();
             TypeUtil.Init();
             ObjectUtil.Init();
             IsAvailable = true;
@@ -80,12 +80,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static void OnNewEventHandler(object sender, EventData eventData)
         {
             var action = (Types) eventData.Caller[0];
-            ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler);
+            ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler,_monoBehaviourHandler);
         }
         
         private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotDatas)
         {
-            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler);
+            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler,_monoBehaviourHandler);
         }
         
         
@@ -163,24 +163,27 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// <summary>
         /// Run a Function method on remote clients of this room (or on all, including this client).
         /// </summary>
-        /// <param name="methodName">The name of a fitting method that was has the GsLiveFunction attribute.</param>
+        /// <param name="functionName">The name of a fitting function that was has the GsLiveFunction attribute.</param>
         /// <param name="type">The group of targets and the way the Function gets sent.</param>
         /// <param name="parameters">The Parameters that the Function method has.</param>
-        public static void RunFunction<TFrom>(string methodName,FunctionType type, params object[] parameters)
+        public static void RunFunction<TFrom>(string functionName,FunctionType type, params object[] parameters)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-
+            
             var objType = typeof(TFrom);
-            var isOk = _functionHandler.RunFunction(methodName,objType,type,parameters);
+            
+            _monoBehaviourHandler.RefreshMonoBehaviourCache();
+            var isOk = _functionHandler.RunFunction(functionName,objType,type,parameters);
             if (!isOk) return;
 
+
             var extraBuffer = GsSerializer.Function.SerializeParams(parameters);
-            var functionData = new FunctionData(objType.FullName,methodName,type,extraBuffer);
+            var functionData = new FunctionData(objType.FullName,functionName,type,extraBuffer);
            
             // run on this Client
             if (type == FunctionType.All || type == FunctionType.Buffered)
-                ActionUtil.ApplyFunction(functionData : functionData);
+                ActionUtil.ApplyFunction(functionData : functionData,monoBehaviourHandler : _monoBehaviourHandler);
 
             SenderUtil.NetworkRunFunction(functionData);
         }

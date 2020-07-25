@@ -68,7 +68,7 @@ namespace Plugins.GameService.Utils
             if (RealTimeUtilEnabled)
             {
                 // set RealTime Helper Listener & Init GsLiveRealtime
-                GsLiveRealtime.Init(this);
+                GsLiveRealtime.Init();
                 Debug.Log("GsLiveRealtime Version : "+GsLiveRealtime.Version+" Initialized");
             }
 

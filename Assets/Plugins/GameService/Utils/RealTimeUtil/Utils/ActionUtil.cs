@@ -35,7 +35,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class ActionUtil
     {
-        internal static void ApplyData(Types types,string ownerId,byte[] subCaller,byte[] extra,IPrefabHandler handler = null)
+        internal static void ApplyData(Types types,string ownerId,byte[] subCaller,byte[] extra,IPrefabHandler handler = null,IMonoBehaviourHandler monoBehaviourHandler = null)
         {
             switch (types)
             {
@@ -46,7 +46,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                     ApplyObject(subCaller[1],extra,ownerId,handler);
                     break;
                 case Types.RunFunction:
-                    ApplyFunction(extra);
+                    ApplyFunction(extra,monoBehaviourHandler : monoBehaviourHandler);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(types), types, null);
@@ -54,13 +54,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
         
         
-        internal static void ApplySnapShot(IEnumerable<SnapShotData> datas,IPrefabHandler handler)
+        internal static void ApplySnapShot(IEnumerable<SnapShotData> datas,IPrefabHandler handler = null ,IMonoBehaviourHandler monoBehaviourHandler =null)
         {
             foreach (var shotData in datas)
             {
                 switch (shotData.Type)
                 {
-                    case SnapShotType.Function: ApplyFunction(shotData.Buffer); break;
+                    case SnapShotType.Function: ApplyFunction(shotData.Buffer,monoBehaviourHandler : monoBehaviourHandler); break;
                     case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,shotData.OwnerId,handler); break;
                     default: throw new GameServiceException("Invalid SnapShot Type!");
                 }
@@ -109,7 +109,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             }
         }
         
-        internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null)
+        internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null,IMonoBehaviourHandler monoBehaviourHandler =null)
         {
             var func = functionData;
             object[] parameters = null;
@@ -124,6 +124,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             if (haveBuffer)
                 parameters = GsSerializer.Function.DeserializeParams(func.ExtraData);
             
+            monoBehaviourHandler.RefreshMonoBehaviourCache();
             var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,parameters);
             
             info.Invoke(baseObj,parameters);

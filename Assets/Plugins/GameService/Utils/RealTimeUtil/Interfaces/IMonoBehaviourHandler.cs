@@ -19,15 +19,12 @@
 * @author Alireza Ghodrati
 */
 
-
-using UnityEngine;
-
 namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
 {
     internal interface IMonoBehaviourHandler
     {
 
-        void Init(MonoBehaviour monoBehaviour);
+        void Init();
 
         void Dispose();
         /// <summary>

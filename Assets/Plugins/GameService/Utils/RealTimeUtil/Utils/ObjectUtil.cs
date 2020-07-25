@@ -92,6 +92,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         internal static bool HaveFunctions(Type from)
         {
+            UpdateFunctions();
             if(_runableCache.Count == 0) return false;
             _runableCache.TryGetValue(from, out var methodInfos);
             if (methodInfos != null)
