@@ -23,6 +23,7 @@ using System;
 using FiroozehGameService.Utils.Serializer.Helpers;
 using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
+using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.Utility;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
@@ -72,7 +73,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         private Quaternion _oldRotation;
 
 
-        public void Start()
+        public void Awake()
         {
             _transform = GetComponent<Transform>();
             var position = _transform.position;
@@ -96,9 +97,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         public void OnGsLiveRead(GsReadStream readStream)
         {
-            if (synchronizePosition) _mNetworkPosition = (Vector3)    readStream.ReadNext();
-            if (synchronizeRotation) _mNetworkRotation = (Quaternion) readStream.ReadNext();
-            if (synchronizeScale)    _mNetworkScale    = (Vector3)    readStream.ReadNext();
+            try
+            {
+                if (synchronizePosition) _mNetworkPosition = (Vector3)    readStream.ReadNext();
+                if (synchronizeRotation) _mNetworkRotation = (Quaternion) readStream.ReadNext();
+                if (synchronizeScale)    _mNetworkScale    = (Vector3)    readStream.ReadNext();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("RealtimeSmoothMoveObserver OnGsLiveRead Error : " + e);
+            }
+           
         }
 
         public void OnGsLiveWrite(GsWriteStream writeStream)
@@ -125,7 +134,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
              }
              catch (Exception e)
              {
-                 Debug.LogError("GSLiveTransformObserver OnGsLiveWrite Error : " + e);
+                 Debug.LogError("RealtimeSmoothMoveObserver OnGsLiveWrite Error : " + e);
              }
         }
     }

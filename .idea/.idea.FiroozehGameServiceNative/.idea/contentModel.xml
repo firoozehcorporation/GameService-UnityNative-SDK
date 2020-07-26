@@ -142,6 +142,8 @@
                     <e p="PrefabHandler.cs" t="Include" />
                   </e>
                   <e p="Observers" t="Include">
+                    <e p="RealtimeRigidbody2DObserver.cs" t="Include" />
+                    <e p="RealtimeRigidbodyObserver.cs" t="Include" />
                     <e p="RealtimeSmoothMoveObserver.cs" t="Include" />
                     <e p="RealtimeTransformObserver.cs" t="Include" />
                   </e>

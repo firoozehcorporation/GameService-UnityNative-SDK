@@ -31,7 +31,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
     internal static class SenderUtil
     {
         
-        internal static void NetworkObserver(byte id,byte subId,IGsLiveSerializable serializable)
+        internal static void NetworkObserver(byte id,IGsLiveSerializable serializable)
         {
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
@@ -39,7 +39,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             var buffer = GsSerializer.Object.GetBuffer(serializable);
             if(buffer == null) return;
             
-            var caller = new[] {(byte) Types.ObserverActions,id, subId};
+            var caller = new[] {(byte) Types.ObserverActions,id, (byte) Internals.Padding};
             
             GsSerializer.Object.SendObject(caller,buffer);
         }

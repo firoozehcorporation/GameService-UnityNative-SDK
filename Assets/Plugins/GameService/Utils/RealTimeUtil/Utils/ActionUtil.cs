@@ -40,7 +40,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             switch (types)
             {
                 case Types.ObserverActions:
-                    ApplyTransform(subCaller[1],subCaller[2],ownerId,extra);
+                    ApplyTransform(subCaller[1],ownerId,extra);
                     break;
                 case Types.ObjectsActions:
                     ApplyObject(subCaller[1],extra,ownerId,handler);
@@ -68,10 +68,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        private static void ApplyTransform(byte observerId,byte serializableId,string ownerId,byte[] buffer)
+        private static void ApplyTransform(byte observerId,string ownerId,byte[] buffer)
         {
             var observer = ObjectUtil.GetGsLiveObserver(observerId,ownerId);
-            observer?.ApplyData(serializableId,ownerId,buffer);
+            observer?.ApplyData(ownerId,buffer);
         }
 
         private static void ApplyObject(byte objectAction,byte[] data,string ownerId,IPrefabHandler handler)

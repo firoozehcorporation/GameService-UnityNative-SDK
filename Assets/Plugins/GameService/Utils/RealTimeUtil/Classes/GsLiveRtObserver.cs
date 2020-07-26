@@ -20,7 +20,6 @@
 */
 
 
-using System.Linq;
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Interfaces;
@@ -28,7 +27,6 @@ using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
-using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
 using Event = FiroozehGameService.Utils.Event;
@@ -41,18 +39,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         [ValidateInput("CheckId", "The ID Must Grater Than Zero And Lower Than 256")]
         public byte id;
         
-        [BoxGroup("Observer Infos (Set By Server)")]
+        [BoxGroup("Observer Info (Set Automatically By Server)")]
         [ReadOnly]
         public string ownerId;
 
-        [BoxGroup("Observer Infos (Set By Server)")]
+        [BoxGroup("Observer Info (Set Automatically By Server)")]
         [ReadOnly]
-        public bool forMe;
+        public bool isMine;
 
-        [ReorderableList]
-        [BoxGroup("Add Your Components that You Want To Serialize")]
-        [ValidateInput("CheckComponents", "The Component Must Implements IGsLiveSerializable")]
-        public MonoBehaviour[] serializableComponents;
+        [BoxGroup("Add Your Component that You Want To Serialize")]
+        [ValidateInput("CheckComponent", "The Component Must Implements IGsLiveSerializable")]
+        public MonoBehaviour serializableComponent;
 
 
         private Event _callerEvent;
@@ -61,16 +58,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         {
             if(!GsLiveRealtime.IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available!");
-
-            if (serializableComponents?.Length > Sizes.MaxId)
-                throw new GameServiceException("SerializableComponents Count is Too Large!");
         }
 
 
         internal void RegisterObserver(string ownerMemberId,bool isMe = false)
         {
             ownerId = ownerMemberId;
-            forMe = isMe;
+            isMine = isMe;
             
             // register Observer
             _callerEvent = ObjectUtil.RegisterObserver(this);
@@ -89,25 +83,19 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 
         private void OnUpdate(object sender, Event e)
         {
-            if (serializableComponents == null) return;
-            byte idCounter = 0;
-            foreach (var component in serializableComponents)
-               SenderUtil.NetworkObserver(id,idCounter++,component as IGsLiveSerializable);
+            if (serializableComponent == null) return;
+            SenderUtil.NetworkObserver(id,serializableComponent as IGsLiveSerializable);
         }
         
 
-        internal void ApplyData(byte componentId,string ownerId,byte[] data)
+        internal void ApplyData(string ownerMemberId,byte[] data)
         {
-            if (ownerId != this.ownerId) return;
+            if(ownerId != null && ownerId != ownerMemberId)  return;
             
-            if (componentId > serializableComponents.Length)
-                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
+            if (serializableComponent == null)
+                throw new GameServiceException("Cant Apply Data , Because Component is Null!");
 
-            var currentComponent = serializableComponents[componentId];
-            if (currentComponent == null)
-                throw new GameServiceException("Cant Apply Data , Because Component With This id Not Found");
-
-            GsSerializer.Object.CallReadStream(currentComponent as IGsLiveSerializable, data);
+            GsSerializer.Object.CallReadStream(serializableComponent as IGsLiveSerializable, data);
         }
         
         
@@ -115,9 +103,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         
         private bool CheckId(byte value) => value > 0;
 
-        private bool CheckComponents(MonoBehaviour[] sc)
+        private bool CheckComponent(MonoBehaviour sc)
         {
-            return sc != null && sc.All(component => component is IGsLiveSerializable);
+            return sc != null &&  sc is IGsLiveSerializable;
         }
         
     }

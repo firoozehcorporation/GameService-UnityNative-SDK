@@ -56,7 +56,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         private bool _mFirstTake;
         
 
-        public void Start()
+        public void Awake()
         {
             _mStoredPosition = transform.position;
             _mNetworkPosition = Vector3.zero;
@@ -79,7 +79,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                 {
                     _mNetworkPosition = (Vector3) readStream.ReadNext();
                     _mDirection       = (Vector3) readStream.ReadNext();
-                    var sendTimeStamp = (double) readStream.ReadNext();
                     
                     if (_mFirstTake)
                     {
@@ -88,10 +87,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                     }
                     else
                     {
-                        var lag  = (float) Math.Abs(GetTimestamp() - sendTimeStamp - 100) / 1000;
+                        var lag  = (float) GsLiveRealtime.GetPing() / 100;
                         _mNetworkPosition += _mDirection * lag;
                         _mDistance = Vector3.Distance(transform.position, _mNetworkPosition);
                     }
+
+
                 }
 
                 if (synchronizeRotation)
@@ -133,7 +134,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
 
                      writeStream.WriteNext(transform.position);
                      writeStream.WriteNext(_mDirection);
-                     writeStream.WriteNext(GetTimestamp());
                  }
 
                  if (synchronizeRotation)
@@ -147,11 +147,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
              {
                  Debug.LogError("GSLiveTransformObserver OnGsLiveWrite Error : " + e);
              }
-        }
-
-        private static double GetTimestamp()
-        {
-            return DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
         }
     }
 }
