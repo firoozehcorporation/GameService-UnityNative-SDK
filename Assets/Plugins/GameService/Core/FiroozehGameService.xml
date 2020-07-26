@@ -484,16 +484,6 @@
                 Get The Ping
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)">
-            <summary>
-                Send An Event To Another Players in Room
-                NOTE : Do not use this function if you are using Real Time Utility
-                       , as critical errors may occur.
-            </summary>
-            <param name="caller">(NOTNULL) Caller Info Data </param>
-            <param name="data">(NOTNULL) Data To Send By Event </param>
-            <param name="sendType">Send Type </param>
-        </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveTB">
             <summary>
                 Represents Game Service TurnBased MultiPlayer System
@@ -2237,6 +2227,16 @@
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.SendObject(System.Byte[],System.Byte[])">
+            <summary>
+            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+            Send An Object Buffer Data
+            </summary>
+            <param name="caller"> The caller Data</param>
+            <param name="buffer"> The Buffer Data</param>
+            <returns></returns>
+            <exception cref="T:FiroozehGameService.Models.GameServiceException">Throw If invalid Action Happened</exception>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.SendObserver(System.Byte[],System.Byte[])">
             <summary>
             NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
             Send An Object Buffer Data

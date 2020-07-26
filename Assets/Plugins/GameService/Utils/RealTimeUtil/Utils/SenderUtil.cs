@@ -41,7 +41,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             
             var caller = new[] {(byte) Types.ObserverActions,id, (byte) Internals.Padding};
             
-            GsSerializer.Object.SendObject(caller,buffer);
+            GsSerializer.Object.SendObserver(caller,buffer);
         }
         
         internal static void NetworkInstantiate(InstantiateData instantiateData)
