@@ -30,18 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Ex
     {
         protected override void WriteObject(Plane obj, GsWriteStream writeStream)
         {
-            // NOTE : Must Register Type Vector3 Before this
-            writeStream.WriteNext(obj.normal);
-            writeStream.WriteNext(obj.distance);
+            writeStream.WriteNext(new []{obj.normal.x,obj.normal.y,obj.normal.z,obj.distance});
         }
 
         protected override Plane ReadObject(GsReadStream readStream)
         {
-            // NOTE : Must Register Type Vector3 Before this
-            var normal    = (Vector3) readStream.ReadNext();
-            var distance  = (float)   readStream.ReadNext();
-
-            return new Plane(normal,distance);
+            var data = (float[]) readStream.ReadNext();
+            return new Plane(new Vector3(data[0],data[1],data[2]),data[3]);
         }
     }
 }

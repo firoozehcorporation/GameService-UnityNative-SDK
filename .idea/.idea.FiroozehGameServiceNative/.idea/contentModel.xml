@@ -138,8 +138,10 @@
                   <e p="GsLiveRtObserver.cs" t="Include" />
                   <e p="Handlers" t="Include">
                     <e p="FunctionHandler.cs" t="Include" />
+                    <e p="MemberHandler.cs" t="Include" />
                     <e p="MonoBehaviourHandler.cs" t="Include" />
                     <e p="PrefabHandler.cs" t="Include" />
+                    <e p="PropertyHandler.cs" t="Include" />
                   </e>
                   <e p="Observers" t="Include">
                     <e p="RealtimeRigidbody2DObserver.cs" t="Include" />
@@ -156,19 +158,24 @@
                 <e p="GsLiveRealtime.cs" t="Include" />
                 <e p="Interfaces" t="Include">
                   <e p="IFunctionHandler.cs" t="Include" />
+                  <e p="IMemberHandler.cs" t="Include" />
                   <e p="IMonoBehaviourHandler.cs" t="Include" />
                   <e p="IPrefabHandler.cs" t="Include" />
+                  <e p="IPropertyHandler.cs" t="Include" />
                 </e>
                 <e p="Models" t="Include">
                   <e p="CallbackModels" t="Include">
                     <e p="OnAfterInstantiate.cs" t="Include" />
                     <e p="OnBeforeInstantiate.cs" t="Include" />
                     <e p="OnDestroyObject.cs" t="Include" />
+                    <e p="OnPropertyEvent.cs" t="Include" />
                   </e>
+                  <e p="Property.cs" t="Include" />
                   <e p="SendableObjects" t="Include">
                     <e p="FunctionData.cs" t="Include" />
                     <e p="GameObjectData.cs" t="Include" />
                     <e p="InstantiateData.cs" t="Include" />
+                    <e p="PropertyData.cs" t="Include" />
                   </e>
                   <e p="UnitySerializerModels" t="Include">
                     <e p="ExtendedPrimitives" t="Include">

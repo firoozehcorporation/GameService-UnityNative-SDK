@@ -30,20 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Pr
     {
         protected override void WriteObject(Color32 obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.r);
-            writeStream.WriteNext(obj.g);
-            writeStream.WriteNext(obj.b);
-            writeStream.WriteNext(obj.a);
+            writeStream.WriteNext(new[]{obj.r,obj.g,obj.b,obj.a});
         }
 
         protected override Color32 ReadObject(GsReadStream readStream)
         {
-            var r = (byte) readStream.ReadNext();
-            var g = (byte) readStream.ReadNext();
-            var b = (byte) readStream.ReadNext();
-            var a = (byte) readStream.ReadNext();
-            
-            return new Color32(r,g,b,a);
+            var data = (byte[]) readStream.ReadNext();
+            return new Color32(data[0],data[1],data[2],data[3]);
         }
     }
 }

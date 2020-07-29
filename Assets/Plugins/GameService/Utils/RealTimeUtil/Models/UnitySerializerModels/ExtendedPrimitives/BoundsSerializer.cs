@@ -30,16 +30,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Ex
     {
         protected override void WriteObject(Bounds obj, GsWriteStream writeStream)
         {
-            // NOTE : Must Register Type Vector3 Before this
-            writeStream.WriteNext(obj.center);
-            writeStream.WriteNext(obj.size);
+            writeStream.WriteNext(new []{obj.center.x,obj.center.y,obj.center.z,obj.size.x,obj.size.y,obj.size.z});
         }
 
         protected override Bounds ReadObject(GsReadStream readStream)
         {
-            // NOTE : Must Register Type Vector3 Before this
-            var center = (Vector3) readStream.ReadNext();
-            var size   = (Vector3) readStream.ReadNext();
+            var data = (float[]) readStream.ReadNext();
+            
+            var center = new Vector3(data[0],data[1],data[2]);
+            var size = new Vector3(data[3],data[4],data[5]);
 
             return new Bounds(center,size);
         }

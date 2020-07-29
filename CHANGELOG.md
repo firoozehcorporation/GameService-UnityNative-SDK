@@ -4,7 +4,30 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [5.0.0] - 2020-07-25
+
+
+## [5.1.0] Alpha - 2020-07-29
+
+### Added
+
+- Added Ability To Set Property
+- Added Some Error Handling
+
+
+
+### Changed
+
+- Changed Unity Serializers Classes  To Improve Performance and Network Transmit
+
+
+
+### Fixed
+
+- Fixed RigidBody2D Observer
+
+
+
+## [5.0.0] Alpha - 2020-07-25
 
 ### Added
 

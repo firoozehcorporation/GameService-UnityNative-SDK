@@ -1,4 +1,4 @@
-// <copyright file="ColorSerializer.cs" company="Firoozeh Technology LTD">
+// <copyright file="Property.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,26 @@
 */
 
 
-using FiroozehGameService.Utils.Serializer.Abstracts;
-using FiroozehGameService.Utils.Serializer.Helpers;
-using UnityEngine;
+using System;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Primitives
+namespace Plugins.GameService.Utils.RealTimeUtil.Models
 {
-    internal class ColorSerializer : ObjectSerializer<Color>
+    [Serializable]
+    public class Property
     {
-        protected override void WriteObject(Color obj, GsWriteStream writeStream)
+        internal string PropertyName;
+        internal object PropertyData;
+
+        public Property(string propertyName,object propertyData)
         {
-            writeStream.WriteNext(new[]{obj.r,obj.g,obj.b,obj.a});
+            PropertyName = propertyName;
+            PropertyData = propertyData;
         }
 
-        protected override Color ReadObject(GsReadStream readStream)
+        public override bool Equals(object obj)
         {
-            var data = (float[]) readStream.ReadNext();
-            return new Color(data[0],data[1],data[2],data[3]);
+            var property = (Property) obj;
+            return property != null && PropertyName == property.PropertyName && PropertyData.Equals(property.PropertyData);
         }
     }
 }

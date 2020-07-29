@@ -21,14 +21,19 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using FiroozehGameService.Handlers;
 using FiroozehGameService.Models;
+using FiroozehGameService.Models.GSLive;
+using FiroozehGameService.Models.GSLive.Command;
 using FiroozehGameService.Models.GSLive.RT;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
@@ -42,13 +47,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil
     /// </summary>
     public static class GsLiveRealtime
     {
-
         private static IPrefabHandler _prefabHandler;
         private static IFunctionHandler _functionHandler;
         private static IMonoBehaviourHandler _monoBehaviourHandler;
+        private static IPropertyHandler _propertyHandler;
+        private static IMemberHandler _memberHandler;
+        
         public static bool IsAvailable;
-
-        public const string Version = "Alpha 1.0.0";
+        public const string Version = "Alpha 1.1.0";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
         public static short GetPing() => FiroozehGameService.Core.GameService.GSLive.RealTime.GetPing();
@@ -61,6 +67,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             public static EventHandler<OnAfterInstantiate> OnAfterInstantiateHandler;
             
             public static EventHandler<OnDestroyObject> OnDestroyObjectHandler;
+
+            public static EventHandler<OnPropertyEvent> OnPropertyEvent;
         }
 
         internal static void Init()
@@ -68,27 +76,69 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             
             GsSerializer.OnNewEventHandler += OnNewEventHandler;
             GsSerializer.OnNewSnapShotReceived += OnNewSnapShotReceived;
+            GsSerializer.CurrentPlayerLeftRoom += CurrentPlayerLeftRoom;
+            GsSerializer.CurrentPlayerJoinRoom += CurrentPlayerJoinRoom;
+
+
+            RealTimeEventHandlers.JoinedRoom += JoinedRoom;
+            RealTimeEventHandlers.LeftRoom += LeftRoom;
+            RealTimeEventHandlers.RoomMembersDetailReceived += RoomMembersDetailReceived;
+            
             
             _monoBehaviourHandler = new MonoBehaviourHandler();
             _prefabHandler = new PrefabHandler();
             _functionHandler = new FunctionHandler();
+            _propertyHandler = new PropertyHandler();
+            _memberHandler = new MemberHandler();
+            
             
             _monoBehaviourHandler.Init();
+            _memberHandler.Init();
+            _propertyHandler.Init(_memberHandler);
+            
             TypeUtil.Init();
             ObjectUtil.Init();
             IsAvailable = true;
         }
 
+       
+        private static void LeftRoom(object sender, Member member)
+        {
+            _memberHandler?.RemoveMember(member);
+        }
+
+        private static void CurrentPlayerLeftRoom(object sender, EventArgs e)
+        {
+            _propertyHandler?.Dispose();
+            _memberHandler?.Dispose();
+        }
+
+        private static void RoomMembersDetailReceived(object sender, List<Member> members)
+        {
+            foreach (var member in members) _memberHandler?.AddMember(member);
+        }
+
         
+        private static void CurrentPlayerJoinRoom(object sender, EventArgs e)
+        {
+            FiroozehGameService.Core.GameService.GSLive.RealTime.GetRoomMembersDetail();
+        }
+        
+        private static void JoinedRoom(object sender, JoinEvent eEvent)
+        {
+            _memberHandler?.AddMember(eEvent.JoinData.JoinedMember);
+        }
+
+
         private static void OnNewEventHandler(object sender, EventData eventData)
         {
             var action = (Types) eventData.Caller[0];
-            ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler,_monoBehaviourHandler);
+            ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler,_monoBehaviourHandler,_propertyHandler);
         }
         
         private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotDatas)
         {
-            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler,_monoBehaviourHandler);
+            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler,_monoBehaviourHandler,_propertyHandler);
         }
         
         
@@ -100,6 +150,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             
             _monoBehaviourHandler?.Dispose();
             _prefabHandler?.Dispose();
+            _propertyHandler?.Dispose();
+            _memberHandler?.Dispose();
             
             TypeUtil.Dispose();
             ObjectUtil.Dispose();
@@ -113,8 +165,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// </summary>
         public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation)
         {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
+            
             
             var instantiateData = new InstantiateData(prefabName,position,rotation);
             var gameObject = _prefabHandler.Instantiate(prefabName, position, rotation,CurrentPlayerMemberId,true);
@@ -131,9 +187,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// <param name="gameObjTag"> the Game Object Tag You Want To Destroy</param>
         public static void DestroyWithTag(string gameObjTag)
         {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+
             if (string.IsNullOrEmpty(gameObjTag))
                throw new GameServiceException("Failed to Destroy GameObject because gameObjTag Is NullOrEmpty");
 
+            
             var isDone = _prefabHandler.DestroyWithTag(gameObjTag);
             if (!isDone) 
                 throw new GameServiceException("Failed to Destroy GameObject because GameObject With this Tag Not Found!");
@@ -150,6 +213,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// <param name="gameObjName"> the Game Object Name You Want To Destroy</param>
         public static void DestroyWithName(string gameObjName)
         {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+
             if (string.IsNullOrEmpty(gameObjName))
                 throw new GameServiceException("Failed to Destroy GameObject because gameObjName Is NullOrEmpty");
 
@@ -171,9 +240,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         /// <param name="parameters">The Parameters that the Function method has.</param>
         public static void RunFunction<TFrom>(string functionName,FunctionType type, params object[] parameters)
         {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
-            
+
             var objType = typeof(TFrom);
             
             _monoBehaviourHandler.RefreshMonoBehaviourCache();
@@ -190,6 +262,123 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
             SenderUtil.NetworkRunFunction(functionData);
         }
+
+
+        /// <summary>
+        /// Apply a Property ,You Can Add or Edit A Property
+        /// </summary>
+        /// <param name="property">The Property You Want To Add or Edit</param>
+        public static void SetProperty(Property property)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            _propertyHandler.ApplyProperty(CurrentPlayerMemberId,property);
+           
+            var propertyData = new PropertyData(property.PropertyName,property.PropertyData);
+            SenderUtil.NetworkProperty(propertyData,PropertyActions.Apply);
+        }
         
+        
+        /// <summary>
+        /// Remove a Property With propertyName
+        /// </summary>
+        /// <param name="propertyName">The name of a Property You Want To Remove it</param>
+        public static void RemoveProperty(string propertyName)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            _propertyHandler.RemoveProperty(CurrentPlayerMemberId,propertyName);
+            
+            var property = new PropertyData(propertyName);
+            SenderUtil.NetworkProperty(property,PropertyActions.Remove);
+        }
+        
+        
+        /// <summary>
+        /// Get All Property For a Member With Id
+        /// </summary>
+        /// <param name="memberId">The id of a Member You Want To get All Data</param>
+        public static Dictionary<string,object> GetMemberProperties(string memberId)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetMemberProperties(memberId);
+        }
+        
+        
+        /// <summary>
+        /// Get All Members have This Property
+        /// </summary>
+        /// <param name="property">The Property You Want To Find it</param>
+        public static List<Member> GetPropertyMembers(Property property)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetPropertyMembers(property);
+        }
+        
+        
+        /// <summary>
+        /// Get All Members have This Property
+        /// </summary>
+        /// <param name="propertyName">The name of a Property You Want To Find</param>
+        public static List<Member> GetPropertyMembers(string propertyName)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetPropertyMembers(propertyName);
+        }
+        
+        
+        /// <summary>
+        /// Get All Values have This property Name
+        /// </summary>
+        /// <param name="propertyName">The name of a Property You Want To Find</param>
+        public static List<object> GetPropertyValues(string propertyName)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetPropertyValues(propertyName);
+        }
+        
+        
+        /// <summary>
+        /// Get Room Members
+        /// </summary>
+        public static List<Member> GetRoomMembers()
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+
+            return _memberHandler.GetAllMembers();
+        }
+
     }
 }

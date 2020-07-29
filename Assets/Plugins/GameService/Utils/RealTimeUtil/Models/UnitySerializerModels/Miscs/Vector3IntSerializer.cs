@@ -31,18 +31,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Mi
     {
         protected override void WriteObject(Vector3Int obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.x);
-            writeStream.WriteNext(obj.y);
-            writeStream.WriteNext(obj.z);
+            writeStream.WriteNext(new []{obj.x,obj.y,obj.z});
         }
 
         protected override Vector3Int ReadObject(GsReadStream readStream)
         {
-            var x = (int) readStream.ReadNext();
-            var y = (int) readStream.ReadNext();
-            var z = (int) readStream.ReadNext();
-
-            return new Vector3Int(x,y,z);
+            var data = (int[]) readStream.ReadNext();
+            return new Vector3Int(data[0],data[1],data[2]);
         }
     }
 #endif

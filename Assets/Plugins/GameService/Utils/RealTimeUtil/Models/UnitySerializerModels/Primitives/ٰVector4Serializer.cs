@@ -30,20 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Pr
     {
         protected override void WriteObject(Vector4 obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.x);
-            writeStream.WriteNext(obj.y);
-            writeStream.WriteNext(obj.z);
-            writeStream.WriteNext(obj.w);
+            writeStream.WriteNext(new[]{obj.x,obj.y,obj.z,obj.w});
         }
 
         protected override Vector4 ReadObject(GsReadStream readStream)
         {
-            var x = (float) readStream.ReadNext();
-            var y = (float) readStream.ReadNext();
-            var z = (float) readStream.ReadNext();
-            var w = (float) readStream.ReadNext();
-            
-            return new Vector4(x,y,z,w);
+            var data = (float[]) readStream.ReadNext();
+            return new Vector4(data[0],data[1],data[2],data[3]);
         }
     }
 }

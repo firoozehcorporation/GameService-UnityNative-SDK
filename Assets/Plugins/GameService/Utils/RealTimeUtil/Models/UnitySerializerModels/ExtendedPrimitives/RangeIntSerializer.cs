@@ -30,16 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Ex
     {
         protected override void WriteObject(RangeInt obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.start);
-            writeStream.WriteNext(obj.length);
+            writeStream.WriteNext(new []{obj.start,obj.length});
         }
 
         protected override RangeInt ReadObject(GsReadStream readStream)
         {
-            var start  = (int) readStream.ReadNext();
-            var length = (int) readStream.ReadNext();
-
-            return new RangeInt(start,length);
+            var data  = (int[]) readStream.ReadNext();
+            return new RangeInt(data[0],data[1]);
         }
     }
 }

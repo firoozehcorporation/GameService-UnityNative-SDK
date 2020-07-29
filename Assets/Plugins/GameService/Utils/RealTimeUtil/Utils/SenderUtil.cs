@@ -46,9 +46,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         internal static void NetworkInstantiate(InstantiateData instantiateData)
         {
-            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
-                throw new GameServiceException("RealTime is Not Available");
-
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Instantiate,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(instantiateData);
             
@@ -58,9 +55,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
         internal static void NetworkDestroy(GameObjectData gameObjectData)
         {
-            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
-                throw new GameServiceException("RealTime is Not Available");
-
             var caller = new[] {(byte) Types.ObjectsActions,(byte) ObjectActions.Destroy,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(gameObjectData);
             
@@ -70,15 +64,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         internal static void NetworkRunFunction(FunctionData functionData)
         {
-            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
-                throw new GameServiceException("RealTime is Not Available");
-            
             var caller = new[] {(byte) Types.RunFunction,(byte) functionData.Type,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(functionData);
             
             GsSerializer.Object.SendObject(caller,buffer);
         }
-
-
+        
+        
+        internal static void NetworkProperty(PropertyData propertyData,PropertyActions actions)
+        {
+            var caller = new[] {(byte) Types.Property,(byte) actions,(byte) Internals.Padding};
+            var buffer = GsSerializer.Object.GetBuffer(propertyData);
+            
+            GsSerializer.Object.SendObject(caller,buffer);
+        }
+        
     }
 }

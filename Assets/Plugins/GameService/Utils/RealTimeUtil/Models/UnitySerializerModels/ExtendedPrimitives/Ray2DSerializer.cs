@@ -30,17 +30,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Ex
     {
         protected override void WriteObject(Ray2D obj, GsWriteStream writeStream)
         {
-            // NOTE : Must Register Type Vector2 Before this
-            writeStream.WriteNext(obj.origin);
-            writeStream.WriteNext(obj.direction);
+            writeStream.WriteNext(new []{obj.origin.x,obj.origin.y,obj.direction.x,obj.direction.y});
+
         }
 
         protected override Ray2D ReadObject(GsReadStream readStream)
         {
-            // NOTE : Must Register Type Vector2 Before this
-            var origin    = (Vector2) readStream.ReadNext();
-            var direction = (Vector2) readStream.ReadNext();
-
+            var data      = (float[]) readStream.ReadNext();
+            var origin    = new Vector2(data[0], data[1]);
+            var direction = new Vector2(data[2], data[3]);
+            
             return new Ray2D(origin,direction);
         }
     }

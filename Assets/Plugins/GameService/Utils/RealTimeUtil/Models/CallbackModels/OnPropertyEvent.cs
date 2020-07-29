@@ -1,4 +1,4 @@
-// <copyright file="ColorSerializer.cs" company="Firoozeh Technology LTD">
+// <copyright file="OnPropertyEvent.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,26 @@
 */
 
 
-using FiroozehGameService.Utils.Serializer.Abstracts;
-using FiroozehGameService.Utils.Serializer.Helpers;
+using System;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using UnityEngine;
 
-namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Primitives
+namespace Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels
 {
-    internal class ColorSerializer : ObjectSerializer<Color>
+    [Serializable]
+    public class OnPropertyEvent
     {
-        protected override void WriteObject(Color obj, GsWriteStream writeStream)
-        {
-            writeStream.WriteNext(new[]{obj.r,obj.g,obj.b,obj.a});
-        }
+        public string propertyName;
+        public string ownerMemberId;
+        public object propertyData;
+        public PropertyActions actions;
 
-        protected override Color ReadObject(GsReadStream readStream)
+        public OnPropertyEvent(string propertyName,string ownerMemberId, PropertyActions actions, object propertyData = null)
         {
-            var data = (float[]) readStream.ReadNext();
-            return new Color(data[0],data[1],data[2],data[3]);
+            this.propertyName = propertyName;
+            this.ownerMemberId = ownerMemberId;
+            this.propertyData = propertyData;
+            this.actions = actions;
         }
     }
 }

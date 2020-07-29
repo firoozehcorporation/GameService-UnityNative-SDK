@@ -27,6 +27,7 @@ using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
@@ -35,7 +36,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
     internal static class ActionUtil
     {
-        internal static void ApplyData(Types types,string ownerId,byte[] subCaller,byte[] extra,IPrefabHandler handler = null,IMonoBehaviourHandler monoBehaviourHandler = null)
+        internal static void ApplyData(Types types,string ownerId,byte[] subCaller,byte[] extra,IPrefabHandler handler = null,IMonoBehaviourHandler monoBehaviourHandler = null,IPropertyHandler propertyHandler = null)
         {
             switch (types)
             {
@@ -48,13 +49,16 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 case Types.RunFunction:
                     ApplyFunction(extra,monoBehaviourHandler : monoBehaviourHandler);
                     break;
+                case Types.Property:
+                    ApplyProperty(subCaller[1],extra,ownerId,propertyHandler);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(types), types, null);
             }
         }
         
         
-        internal static void ApplySnapShot(IEnumerable<SnapShotData> datas,IPrefabHandler handler = null ,IMonoBehaviourHandler monoBehaviourHandler =null)
+        internal static void ApplySnapShot(IEnumerable<SnapShotData> datas,IPrefabHandler handler = null ,IMonoBehaviourHandler monoBehaviourHandler =null,IPropertyHandler propertyHandler = null)
         {
             foreach (var shotData in datas)
             {
@@ -62,6 +66,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 {
                     case SnapShotType.Function: ApplyFunction(shotData.Buffer,monoBehaviourHandler : monoBehaviourHandler); break;
                     case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,shotData.OwnerId,handler); break;
+                    case SnapShotType.Property: ApplyProperty((byte) PropertyActions.Apply,shotData.Buffer,shotData.OwnerId,propertyHandler);break;
                     default: throw new GameServiceException("Invalid SnapShot Type!");
                 }
             }
@@ -128,6 +133,28 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,parameters);
             
             info.Invoke(baseObj,parameters);
+        }
+
+        private static void ApplyProperty(byte action,byte[] data,string ownerId,IPropertyHandler handler)
+        {
+            var actions = (PropertyActions) action;
+            
+            var property = new PropertyData();
+            GsSerializer.Object.CallReadStream(property,data);
+            
+            switch (actions)
+            {
+                case PropertyActions.Apply:
+                    handler.ApplyProperty(ownerId,new Property(property.Name,property.Data));
+                    GsLiveRealtime.Callbacks.OnPropertyEvent?.Invoke(null,new OnPropertyEvent(property.Name,ownerId,actions, property.Data));
+                    break;
+                case PropertyActions.Remove:
+                    handler.RemoveProperty(ownerId,property.Name);
+                    GsLiveRealtime.Callbacks.OnPropertyEvent?.Invoke(null,new OnPropertyEvent(property.Name,ownerId,actions));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

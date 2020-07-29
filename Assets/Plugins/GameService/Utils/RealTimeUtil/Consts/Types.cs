@@ -30,13 +30,21 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
     internal enum Types : byte
     {
         ObserverActions = 0x0,
-        ObjectsActions = 0x1,
-        RunFunction = 0x2
+        ObjectsActions,
+        RunFunction,
+        Property
     }
 
     internal enum ObjectActions : byte
     {
         Instantiate = 0x0,
-        Destroy = 0x1
+        Destroy
     }
+    
+    public enum PropertyActions : byte
+    {
+        Apply = 0x0,
+        Remove
+    }
+    
 }

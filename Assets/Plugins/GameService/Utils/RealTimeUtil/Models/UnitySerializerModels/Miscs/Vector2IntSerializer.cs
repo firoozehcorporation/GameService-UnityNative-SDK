@@ -31,16 +31,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Mi
     {
         protected override void WriteObject(Vector2Int obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.x);
-            writeStream.WriteNext(obj.y);
+            writeStream.WriteNext(new []{obj.x,obj.y});
         }
 
         protected override Vector2Int ReadObject(GsReadStream readStream)
         {
-            var x = (int) readStream.ReadNext();
-            var y = (int) readStream.ReadNext();
-
-            return new Vector2Int(x,y);
+            var data = (int[]) readStream.ReadNext();
+            return new Vector2Int(data[0],data[1]);
         }
     }
 #endif

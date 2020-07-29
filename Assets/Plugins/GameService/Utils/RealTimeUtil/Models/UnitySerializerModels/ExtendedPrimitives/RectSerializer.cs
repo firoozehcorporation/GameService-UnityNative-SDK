@@ -30,18 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Ex
     {
         protected override void WriteObject(Rect obj, GsWriteStream writeStream)
         {
-            // NOTE : Must Register Type Vector2 Before this
-            writeStream.WriteNext(obj.position);
-            writeStream.WriteNext(obj.size);
+            writeStream.WriteNext(new []{obj.position.x,obj.position.y,obj.size.x,obj.size.y});
         }
 
         protected override Rect ReadObject(GsReadStream readStream)
         {
-            // NOTE : Must Register Type Vector2 Before this
-            var position = (Vector2) readStream.ReadNext();
-            var size     = (Vector2) readStream.ReadNext();
-
-            return new Rect(position,size);
+            var data = (float[]) readStream.ReadNext();
+            return new Rect(data[0],data[1],data[2],data[3]);
         }
     }
 }

@@ -2171,6 +2171,20 @@
                        , as critical errors may occur.
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.CurrentPlayerLeftRoom">
+            <summary>
+            Calls When Current Player Left the Current Room
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom"/>
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.CurrentPlayerJoinRoom">
+            <summary>
+            Calls When Current Player Left the Current Room
+            This Event Handler Called By Following Function :
+            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)"/>
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry">
             <summary>
             Represents TypeRegistry In Gs Serializer Class
@@ -2323,6 +2337,11 @@
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Object">
             <summary>
             SnapShot Object Type
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Property">
+            <summary>
+            SnapShot Property Type
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Models.SnapShotData">

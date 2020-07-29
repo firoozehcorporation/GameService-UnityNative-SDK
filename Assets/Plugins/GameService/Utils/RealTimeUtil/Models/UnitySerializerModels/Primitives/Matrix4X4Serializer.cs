@@ -32,20 +32,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Pr
 
         protected override void WriteObject(Matrix4x4 obj, GsWriteStream writeStream)
         {
-            // NOTE : Must Register Type Vector4 Before this
-            for (var i = 0; i < ColumnCount; i++)
-                writeStream.WriteNext(obj.GetColumn(i));
+            var data = new float[ColumnCount * ColumnCount];
+            for (var i = 0; i < ColumnCount * ColumnCount; i++) data[i] = obj[i];
+            writeStream.WriteNext(data);
         }
 
         protected override Matrix4x4 ReadObject(GsReadStream readStream)
         {
-            var columns = new Vector4[ColumnCount];
+            var data = (float[]) readStream.ReadNext();
+            var mat = new Matrix4x4();
             
-            // NOTE : Must Register Type Vector4 Before this
-            for (var i = 0; i < ColumnCount; i++)
-                columns[i] = (Vector4) readStream.ReadNext();
+            for (var i = 0; i < data.Length; i++)
+                mat[i] = data[i];
             
-            return new Matrix4x4(columns[0],columns[1],columns[2],columns[3]);
+            return mat;
         }
     }
 }

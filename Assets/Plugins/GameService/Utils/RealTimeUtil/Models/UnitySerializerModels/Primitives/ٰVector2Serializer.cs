@@ -30,16 +30,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.UnitySerializerModels.Pr
     {
         protected override void WriteObject(Vector2 obj, GsWriteStream writeStream)
         {
-            writeStream.WriteNext(obj.x);
-            writeStream.WriteNext(obj.y);
+            writeStream.WriteNext(new[]{obj.x,obj.y});
         }
 
         protected override Vector2 ReadObject(GsReadStream readStream)
         {
-            var x = (float) readStream.ReadNext();
-            var y = (float) readStream.ReadNext();
-            
-            return new Vector2(x,y);
+            var data = (float[]) readStream.ReadNext();
+            return new Vector2(data[0],data[1]);
         }
     }
 }

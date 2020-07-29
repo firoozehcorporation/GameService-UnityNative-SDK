@@ -1,4 +1,4 @@
-// <copyright file="IMonoBehaviourHandler.cs" company="Firoozeh Technology LTD">
+// <copyright file="IMemberHandler.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +19,21 @@
 * @author Alireza Ghodrati
 */
 
+using System.Collections.Generic;
+using FiroozehGameService.Models.GSLive;
+
 namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
 {
-    internal interface IMonoBehaviourHandler
+    internal interface IMemberHandler
     {
         void Init();
 
         void Dispose();
-        /// <summary>
-        /// Can be used to refresh the list of MonoBehaviours on this GameObject
-        /// </summary>
-        void RefreshMonoBehaviourCache();
+        
+        void AddMember(Member member);
+        
+        void RemoveMember(Member member);
+
+        List<Member> GetAllMembers();
     }
 }
