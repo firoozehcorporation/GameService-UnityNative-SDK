@@ -41,7 +41,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
         Destroy
     }
     
-    public enum PropertyActions : byte
+    public enum PropertyAction : byte
     {
         Apply = 0x0,
         Remove

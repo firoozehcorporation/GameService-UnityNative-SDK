@@ -279,7 +279,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _propertyHandler.ApplyProperty(CurrentPlayerMemberId,property);
            
             var propertyData = new PropertyData(property.PropertyName,property.PropertyData);
-            SenderUtil.NetworkProperty(propertyData,PropertyActions.Apply);
+            SenderUtil.NetworkProperty(propertyData,PropertyAction.Apply);
         }
         
         
@@ -298,7 +298,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             _propertyHandler.RemoveProperty(CurrentPlayerMemberId,propertyName);
             
             var property = new PropertyData(propertyName);
-            SenderUtil.NetworkProperty(property,PropertyActions.Remove);
+            SenderUtil.NetworkProperty(property,PropertyAction.Remove);
         }
         
         

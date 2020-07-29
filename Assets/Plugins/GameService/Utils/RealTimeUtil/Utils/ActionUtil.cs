@@ -30,6 +30,7 @@ using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
 using Plugins.GameService.Utils.RealTimeUtil.Models;
 using Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels;
 using Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects;
+using UnityEngine;
 using Types = Plugins.GameService.Utils.RealTimeUtil.Consts.Types;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
@@ -66,7 +67,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 {
                     case SnapShotType.Function: ApplyFunction(shotData.Buffer,monoBehaviourHandler : monoBehaviourHandler); break;
                     case SnapShotType.Object:   ApplyObject((byte) ObjectActions.Instantiate,shotData.Buffer,shotData.OwnerId,handler); break;
-                    case SnapShotType.Property: ApplyProperty((byte) PropertyActions.Apply,shotData.Buffer,shotData.OwnerId,propertyHandler);break;
+                    case SnapShotType.Property: ApplyProperty((byte) PropertyAction.Apply,shotData.Buffer,shotData.OwnerId,propertyHandler);break;
                     default: throw new GameServiceException("Invalid SnapShot Type!");
                 }
             }
@@ -137,18 +138,18 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
         private static void ApplyProperty(byte action,byte[] data,string ownerId,IPropertyHandler handler)
         {
-            var actions = (PropertyActions) action;
+            var actions = (PropertyAction) action;
             
             var property = new PropertyData();
             GsSerializer.Object.CallReadStream(property,data);
             
             switch (actions)
             {
-                case PropertyActions.Apply:
+                case PropertyAction.Apply:
                     handler.ApplyProperty(ownerId,new Property(property.Name,property.Data));
                     GsLiveRealtime.Callbacks.OnPropertyEvent?.Invoke(null,new OnPropertyEvent(property.Name,ownerId,actions, property.Data));
                     break;
-                case PropertyActions.Remove:
+                case PropertyAction.Remove:
                     handler.RemoveProperty(ownerId,property.Name);
                     GsLiveRealtime.Callbacks.OnPropertyEvent?.Invoke(null,new OnPropertyEvent(property.Name,ownerId,actions));
                     break;

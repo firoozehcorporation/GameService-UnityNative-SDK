@@ -32,14 +32,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels
         public string propertyName;
         public string ownerMemberId;
         public object propertyData;
-        public PropertyActions actions;
+        public PropertyAction action;
 
-        public OnPropertyEvent(string propertyName,string ownerMemberId, PropertyActions actions, object propertyData = null)
+        public OnPropertyEvent(string propertyName,string ownerMemberId, PropertyAction action, object propertyData = null)
         {
             this.propertyName = propertyName;
             this.ownerMemberId = ownerMemberId;
             this.propertyData = propertyData;
-            this.actions = actions;
+            this.action = action;
         }
     }
 }

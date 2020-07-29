@@ -71,9 +71,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
         
         
-        internal static void NetworkProperty(PropertyData propertyData,PropertyActions actions)
+        internal static void NetworkProperty(PropertyData propertyData,PropertyAction action)
         {
-            var caller = new[] {(byte) Types.Property,(byte) actions,(byte) Internals.Padding};
+            var caller = new[] {(byte) Types.Property,(byte) action,(byte) Internals.Padding};
             var buffer = GsSerializer.Object.GetBuffer(propertyData);
             
             GsSerializer.Object.SendObject(caller,buffer);

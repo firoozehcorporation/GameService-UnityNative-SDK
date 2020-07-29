@@ -51,8 +51,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
             _observerCache = new Dictionary<Tuple<byte,string>, GsLiveRtObserver>();
             _observerEventCache = new Dictionary<Tuple<byte,string>, Event>();
-
-            UpdateFunctions();
         }
 
         internal static void Dispose()
@@ -63,12 +61,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         private static void UpdateFunctions()
         {
-            
             var monoBehaviours = MonoBehaviourHandler.MonoBehaviours;
-            
             foreach (var monoBehaviour in monoBehaviours)
             {
-                
                 if (monoBehaviour == null)
                 {
                     Debug.LogError("ERROR You have missing MonoBehaviours on your GameObjects!");
@@ -78,11 +73,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 var type = monoBehaviour.GetType();
                 var methods = GetMethods(type, typeof(GsLiveFunction));
                 
-                var methodsOfTypeInCache = _runableCache.TryGetValue(type, out _);
-                if (methodsOfTypeInCache) continue;
-                
-                
                 if (_runableCache.ContainsKey(type)) continue;
+                
                 _runableCache.Add(type, methods);
                 _runableCacheMono.Add(type, monoBehaviour);
             }
@@ -104,14 +96,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         private static Tuple<Type,List<MethodInfo>> GetFunctions(string fullName)
         {
             if(_runableCache.Count == 0) return null;
+            
+            var data = _runableCache
+                .FirstOrDefault(rc => rc.Key.FullName == fullName);
 
-           var data = _runableCache
-               .FirstOrDefault(rc => rc.Key.FullName == fullName);
+            if (data.Key == null || data.Value == null)
+                return null;
 
-           if (data.Key == null || data.Value == null)
-               return null;
-
-           return Tuple.Create(data.Key, data.Value);
+            return Tuple.Create(data.Key, data.Value);
         }
         
 
@@ -123,7 +115,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             var functions = GetFunctions(fullName);
             
             if(functions?.Item2 == null || functions.Item2?.Count == 0)
-                throw new GameServiceException("this Type " + fullName + " Have No Runable Methods");
+                throw new GameServiceException("this Type " + fullName + " Have No GsLiveFunction");
 
 
             var parameterLen = parameters?.Length ?? 0;
