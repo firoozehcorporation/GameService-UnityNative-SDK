@@ -143,6 +143,7 @@
                     <e p="PrefabHandler.cs" t="Include" />
                     <e p="PropertyHandler.cs" t="Include" />
                   </e>
+                  <e p="MonoBehaviourGsLive.cs" t="Include" />
                   <e p="Observers" t="Include">
                     <e p="RealtimeRigidbody2DObserver.cs" t="Include" />
                     <e p="RealtimeRigidbodyObserver.cs" t="Include" />
