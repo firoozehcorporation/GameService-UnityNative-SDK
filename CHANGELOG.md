@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [5.1.1] Alpha - 2020-07-30
+
+### Added
+
+- Added Ability To Parallel Download in Download Manager
+- Added Some Download EventHandlers
+- Added Cancel Download Functions
+
+
+### Fixed
+
+- Fixed ReadTime System
+
 
 
 ## [5.1.0] Alpha - 2020-07-29

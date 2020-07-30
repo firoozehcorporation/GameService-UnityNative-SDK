@@ -201,9 +201,19 @@
             </summary>
             <param name="info">(Not NULL)Specifies the Asset Info</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.StopAllDownloadAsset">
+        <member name="M:FiroozehGameService.Core.GameService.CancelAllDownloadAsset">
             <summary>
-                Stop All Current Download Assets
+                Cancel All Current Download Assets
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.CancelDownloadAsset(System.String)">
+            <summary>
+                Cancel Download Asset With Asset Tag
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.CancelDownloadAsset(FiroozehGameService.Models.Internal.AssetInfo)">
+            <summary>
+                Cancel Download Asset With Asset Info
             </summary>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.ExecuteCloudFunction(System.String,System.Object,System.Boolean)">
@@ -680,6 +690,11 @@
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadCompleted">
             <summary>
             Calls When Download Completed
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadCancelled">
+            <summary>
+            Calls When Download Cancelled
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError">
@@ -1365,6 +1380,23 @@
             Represents MessageType Of RealTime System
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs">
+            <summary>
+            Represents DownloadProgressArgs
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs.AssetInfo">
+            <summary>
+            Gets the Asset Info
+            </summary>
+            <value>the Asset Info</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs.SavePath">
+            <summary>
+            Gets the Save Path
+            </summary>
+            <value>the Save Path</value>
+        </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadCompleteArgs">
             <summary>
             Represents DownloadCompleteArgs
@@ -1383,6 +1415,29 @@
             Notes : Only Available When Use this Function <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)"/>
             </summary>
             <value>the Downloaded Asset Path </value>
+        </member>
+        <member name="T:FiroozehGameService.Models.EventArgs.DownloadErrorArgs">
+            <summary>
+            Represents DownloadErrorArgs
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.AssetInfo">
+            <summary>
+            Gets the Asset Info
+            </summary>
+            <value>the Asset Info</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.SavePath">
+            <summary>
+            Gets the Save Path
+            </summary>
+            <value>the Save Path</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.Error">
+            <summary>
+            Gets the Error
+            </summary>
+            <value>the Error</value>
         </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadProgressArgs">
             <summary>
