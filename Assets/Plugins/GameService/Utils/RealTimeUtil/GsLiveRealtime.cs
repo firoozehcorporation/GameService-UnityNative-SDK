@@ -54,7 +54,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "Alpha 1.1.0";
+        public const string Version = "Alpha 1.2.0";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
         public static short GetPing() => FiroozehGameService.Core.GameService.GSLive.RealTime.GetPing();
