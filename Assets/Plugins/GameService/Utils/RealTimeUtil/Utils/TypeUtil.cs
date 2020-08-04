@@ -39,6 +39,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             GsSerializer.TypeRegistry.RegisterSerializer(new ColorSerializer());
             GsSerializer.TypeRegistry.RegisterSerializer(new Color32Serializer());
             GsSerializer.TypeRegistry.RegisterSerializer(new Matrix4X4Serializer());
+            
+            
+            
+            // Register Primitive Array Types
+            GsSerializer.TypeRegistry.RegisterSerializer(new Vector2ArraySerializer());
+            GsSerializer.TypeRegistry.RegisterSerializer(new Vector3ArraySerializer());
+            GsSerializer.TypeRegistry.RegisterSerializer(new Vector4ArraySerializer());
+            GsSerializer.TypeRegistry.RegisterSerializer(new QuaternionArraySerializer());
 
 
             // Register Extended Primitive Types
@@ -53,6 +61,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             #if UNITY_2017_2_OR_NEWER
             GsSerializer.TypeRegistry.RegisterSerializer(new Vector2IntSerializer());
             GsSerializer.TypeRegistry.RegisterSerializer(new Vector3IntSerializer());
+            
+            GsSerializer.TypeRegistry.RegisterSerializer(new Vector2IntArraySerializer());
+            GsSerializer.TypeRegistry.RegisterSerializer(new Vector3IntArraySerializer());
             #endif
         }
 

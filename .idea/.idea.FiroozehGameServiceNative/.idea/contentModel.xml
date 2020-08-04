@@ -188,16 +188,22 @@
                       <e p="RectSerializer.cs" t="Include" />
                     </e>
                     <e p="Miscs" t="Include">
+                      <e p="Vector2IntArraySerializer.cs" t="Include" />
                       <e p="Vector2IntSerializer.cs" t="Include" />
+                      <e p="Vector3IntArraySerializer.cs" t="Include" />
                       <e p="Vector3IntSerializer.cs" t="Include" />
                     </e>
                     <e p="Primitives" t="Include">
                       <e p="Color32Serializer.cs" t="Include" />
                       <e p="ColorSerializer.cs" t="Include" />
                       <e p="Matrix4X4Serializer.cs" t="Include" />
+                      <e p="QuaternionArraySerializer.cs" t="Include" />
                       <e p="QuaternionSerializer.cs" t="Include" />
+                      <e p="ٰVector2ArraySerializer.cs" t="Include" />
                       <e p="ٰVector2Serializer.cs" t="Include" />
+                      <e p="ٰVector3ArraySerializer.cs" t="Include" />
                       <e p="ٰVector3Serializer.cs" t="Include" />
+                      <e p="ٰVector4ArraySerializer.cs" t="Include" />
                       <e p="ٰVector4Serializer.cs" t="Include" />
                     </e>
                   </e>
