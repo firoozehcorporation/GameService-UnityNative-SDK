@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 
 
+
+
+## [5.2.0] Alpha - 2020-08-04
+
+### Added
+
+- Added GetCurrentPlayerScore Function
+
+- Added Some Array Serializers
+
+  
+
+### Changed
+
+- Changed HttpRequestObserver to 9 Requests per 3 Secs
+
+
+
+### Fixed
+
+- Fixed RealTime System To Improved Network Transmit
+
+
+
+
+
+
+
 ## [5.1.1] Alpha - 2020-07-30
 
 ### Added

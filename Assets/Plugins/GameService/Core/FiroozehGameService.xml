@@ -79,6 +79,14 @@
             <param name="scoreLimit">(Min = 10,Max = 50) The Score List Limits</param>
             <value> return LeaderBoardDetails </value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetCurrentPlayerScore(System.String)">
+            <summary>
+                With this command you can get Current Player Score with the ID of the LeaderBoard id
+                you registered in the Developer panel.
+            </summary>
+            <param name="leaderBoardId">(Not NULL)The ID of leaderBoard you Want To get Score</param>
+            <value> return Score </value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.GetCurrentPlayer">
             <summary>
                 With this command you can get information about the current player is playing
@@ -1141,18 +1149,6 @@
                 Represents Score Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Score.Game">
-            <summary>
-                Gets the Game id.
-            </summary>
-            <value>the Game id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Score.Rank">
-            <summary>
-                Gets the Rank of This Score.
-            </summary>
-            <value>the Rank of This Score</value>
-        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Score.Submitter">
             <summary>
                 Gets the Member Submit this Score.
@@ -1170,6 +1166,12 @@
                 Gets the Value of This Score.
             </summary>
             <value>the Value of This Score</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Rank">
+            <summary>
+                Gets the Rank of This Score.
+            </summary>
+            <value>the Rank of This Score</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.SubmitScoreResponse">
             <summary>
