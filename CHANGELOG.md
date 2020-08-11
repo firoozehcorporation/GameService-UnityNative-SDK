@@ -6,7 +6,23 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [5.2.0] Alpha - 2020-08-04
+## [5.3.0] Alpha - 2020-08-11
+
+### Added
+
+- Added SendLoginCodeWithSms Function
+- Added LoginWithPhoneNumber Function
+- Added CanLoginWithPhoneNumber Function
+
+
+
+### Fixed
+
+- Fixed RealTime & GProtocol System 
+
+
+
+## [5.2.0] Stable - 2020-08-04
 
 ### Added
 

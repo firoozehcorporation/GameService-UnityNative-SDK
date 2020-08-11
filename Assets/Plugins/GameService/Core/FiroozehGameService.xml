@@ -173,6 +173,12 @@
             </summary>
             <value> return The Current Times</value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.CanLoginWithPhoneNumber">
+            <summary>
+                This command Check Can Login With Phone Number
+            </summary>
+            <value> return The Status</value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.GetAssetInfo(System.String)">
             <summary>
                 Gets Asset Info With AssetTag
@@ -234,6 +240,14 @@
             <param name="isPublic">Specifies the Function Visibility Type that Set in Developers Panel</param>
             <value> return Result in String </value>
         </member>
+        <member name="M:FiroozehGameService.Core.GameService.SendLoginCodeWithSms(System.String)">
+            <summary>
+                Send Login Code With SMS , If you want to LoginWithPhoneNumber, You Must Call This Function first
+                It May Throw Exception
+                <param name="phoneNumber">(Not NULL)Specifies the Phone Number</param>
+            </summary>
+            <value> return true if Send Successfully </value>
+        </member>
         <member name="M:FiroozehGameService.Core.GameService.Login(System.String,System.String)">
             <summary>
                 Normal Login (InFirstOnly) To Game Service
@@ -254,6 +268,18 @@
                 <param name="idToken">(Not NULL)Specifies the idToken From GoogleSignInUser Class.</param>
             </summary>
             <value> return UserToken if Login Successfully </value>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.LoginWithPhoneNumber(System.String,System.String,System.String)">
+             <summary>
+                 Normal Login With Phone Number To Game Service
+                 You Must Call SendLoginCodeWithSms First, to get SMS Code.
+                 It May Throw Exception
+            
+                 <param name="nickName">(Not NULL)Specifies Nick Name </param>
+                 <param name="phoneNumber">(Not NULL)Specifies the Phone Number</param>
+                 <param name="smsCode">(Not NULL)Specifies SMS Code</param>
+             </summary>
+             <value> return UserToken if Login Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login">
             <summary>
