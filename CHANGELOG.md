@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Added SendLoginCodeWithSms Function
 - Added LoginWithPhoneNumber Function
 - Added CanLoginWithPhoneNumber Function
+- Added Download With Certificates (Secure Download)
 
 
 
