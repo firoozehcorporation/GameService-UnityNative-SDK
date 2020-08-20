@@ -6,6 +6,22 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [5.4.0] Stable - 2020-08-20
+
+### Added
+
+- Added Phone Number To Edit User
+- Added Extra Data To Send With AutoMatch & Create Room & Invites
+- Added GetLastLoginMemberInfo Function
+
+
+
+### Fixed
+
+- Fixed CanLoginWithPhoneNumber Return Value
+
+
+
 ## [5.3.0] Alpha - 2020-08-11
 
 ### Added

@@ -6,7 +6,7 @@
     <members>
         <member name="T:FiroozehGameService.Builder.GameServiceClientConfiguration">
             <summary>
-            Represents ClientConfiguration For Game Service 
+                Represents ClientConfiguration For Game Service
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.DownloadManager">
@@ -105,6 +105,12 @@
                 With this command you can get a Member Data with the Member ID
             </summary>
             <param name="memberId">(Not NULL)The ID of Member you Want To get Detail</param>
+            <value> return Member Data </value>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetLastLoginMemberInfo">
+            <summary>
+                With this command you can get The Last Login Member Info
+            </summary>
             <value> return Member Data </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.EditCurrentPlayerProfile(FiroozehGameService.Models.BasicApi.EditUserProfile)">
@@ -270,16 +276,15 @@
             <value> return UserToken if Login Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.LoginWithPhoneNumber(System.String,System.String,System.String)">
-             <summary>
-                 Normal Login With Phone Number To Game Service
-                 You Must Call SendLoginCodeWithSms First, to get SMS Code.
-                 It May Throw Exception
-            
-                 <param name="nickName">(Not NULL)Specifies Nick Name </param>
-                 <param name="phoneNumber">(Not NULL)Specifies the Phone Number</param>
-                 <param name="smsCode">(Not NULL)Specifies SMS Code</param>
-             </summary>
-             <value> return UserToken if Login Successfully </value>
+            <summary>
+                Normal Login With Phone Number To Game Service
+                You Must Call SendLoginCodeWithSms First, to get SMS Code.
+                It May Throw Exception
+                <param name="nickName">(Not NULL)Specifies Nick Name </param>
+                <param name="phoneNumber">(Not NULL)Specifies the Phone Number</param>
+                <param name="smsCode">(Not NULL)Specifies SMS Code</param>
+            </summary>
+            <value> return UserToken if Login Successfully </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.Login">
             <summary>
@@ -399,7 +404,7 @@
                 Represents GSLive AutoMatchOption
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption.#ctor(System.String,System.Int32,System.Int32,System.Boolean)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption.#ctor(System.String,System.Int32,System.Int32,System.Boolean,System.String)">
             <summary>
                 Specifies the AutoMatch Options
             </summary>
@@ -407,6 +412,7 @@
             <param name="minPlayer">Specifies the Room min player limit (MIN=2)</param>
             <param name="maxPlayer">Specifies the Room max player limit (MAX=8)</param>
             <param name="isPersist">Specifies the Room Persistence</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption">
             <inheritdoc />
@@ -414,7 +420,7 @@
                 Represents GSLive CreateRoomOption
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption.#ctor(System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption.#ctor(System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.String)">
             <summary>
                 Specifies the CreateRoom Options
             </summary>
@@ -424,6 +430,7 @@
             <param name="maxPlayer">Specifies the Room max player limit (MAX=8)</param>
             <param name="isPrivate">Specifies the Room Privacy</param>
             <param name="isPersist">Specifies the Room Persistence</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLiveRT">
             <summary>
@@ -447,11 +454,12 @@
                 Cancel Current AutoMatch
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String,System.String)">
             <summary>
                 Join In Room With RoomID
             </summary>
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom">
             <summary>
@@ -509,12 +517,13 @@
             <param name="roomId">(NOTNULL) (Type : RoomID)Room's ID</param>
             <param name="userId">(NOTNULL) (Type : UserID)User's ID</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.AcceptInvite(System.String)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.AcceptInvite(System.String,System.String)">
             <summary>
                 Accept a Specific Invite With Invite ID
                 Note: After accepting the invitation, you will be automatically entered into the game room
             </summary>
             <param name="inviteId">(NOTNULL) (Type : InviteID) Invite's ID</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveRT.FindMember(System.String,System.Int32)">
             <summary>
@@ -550,11 +559,12 @@
                 Cancel Current AutoMatch
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String,System.String)">
             <summary>
                 Join In Room With RoomID
             </summary>
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetAvailableRooms(System.String)">
             <summary>
@@ -619,12 +629,13 @@
             <param name="roomId">(NOTNULL) (Type : RoomID)Room's ID</param>
             <param name="userId">(NOTNULL) (Type : UserID)User's ID</param>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.AcceptInvite(System.String)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.AcceptInvite(System.String,System.String)">
             <summary>
                 Accept a Specific Invite With Invite ID
                 Note: After accepting the invitation, you will be automatically entered into the game room
             </summary>
             <param name="inviteId">(NOTNULL) (Type : InviteID) Invite's ID</param>
+            <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
         </member>
         <member name="M:FiroozehGameService.Core.GSLive.GSLiveTB.FindMember(System.String,System.Int32)">
             <summary>
@@ -713,64 +724,64 @@
         </member>
         <member name="T:FiroozehGameService.Handlers.DownloadEventHandlers">
             <summary>
-            Represents DownloadEventHandlers
+                Represents DownloadEventHandlers
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadProgress">
             <summary>
-            Calls When New Download Progress Event Received
+                Calls When New Download Progress Event Received
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadCompleted">
             <summary>
-            Calls When Download Completed
+                Calls When Download Completed
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadCancelled">
             <summary>
-            Calls When Download Cancelled
+                Calls When Download Cancelled
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.DownloadEventHandlers.DownloadError">
             <summary>
-            Calls When An Error Occured 
+                Calls When An Error Occured
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.RealTimeEventHandlers">
             <inheritdoc />
             <summary>
-            Represents RealTimeEventHandlers In MultiPlayer System
+                Represents RealTimeEventHandlers In MultiPlayer System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.JoinedRoom">
             <summary>
-            Calls When SomeOne Join To Current Room
-            It Maybe Current Player or Another
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)"/>
+                Calls When SomeOne Join To Current Room
+                It Maybe Current Player or Another
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.LeftRoom">
             <summary>
-            Calls When SomeOne Left the Current Room
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom"/>
+                Calls When SomeOne Left the Current Room
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.NewMessageReceived">
             <summary>
-            Calls When SomeOne Send Message In Current Room
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.String,FiroozehGameService.Models.Enums.GProtocolSendType)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)"/>
+                Calls When SomeOne Send Message In Current Room
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPublicMessage(System.String,FiroozehGameService.Models.Enums.GProtocolSendType)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendPrivateMessage(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">
             <summary>
-            Returns Current Room Members Detail  When Call The Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetRoomMembersDetail"/>
+                Returns Current Room Members Detail  When Call The Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.GetRoomMembersDetail" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CommandEventHandler">
@@ -827,62 +838,62 @@
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
             <inheritdoc />
             <summary>
-            Represents TurnBasedEventHandlers In MultiPlayer System
+                Represents TurnBasedEventHandlers In MultiPlayer System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.JoinedRoom">
             <summary>
-            Calls When SomeOne Join To Current Room
-            It Maybe Current Player or Another
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)"/>
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)"/>
+                Calls When SomeOne Join To Current Room
+                It Maybe Current Player or Another
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.JoinRoom(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.LeftRoom">
             <summary>
-            Calls When SomeOne Left the Current Room
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.LeaveRoom(System.String)"/>
+                Calls When SomeOne Left the Current Room
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.LeaveRoom(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.TakeTurn">
             <summary>
-            Returns New Turn With Data From Another Players When Call The Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.TakeTurn(System.String,System.String)"/>
+                Returns New Turn With Data From Another Players When Call The Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.TakeTurn(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.ChoosedNext">
             <summary>
-            Returns New Turn From Another Players When Call The Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.ChooseNext(System.String)"/>
+                Returns New Turn From Another Players When Call The Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.ChooseNext(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.Finished">
             <summary>
-            Calls When SomeOne Announced To Finish Game
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Finish(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})"/>
+                Calls When SomeOne Announced To Finish Game
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Finish(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.Completed">
             <summary>
-            Calls When The Game Is Finished
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Complete(System.String)"/>
+                Calls When The Game Is Finished
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.Complete(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.RoomMembersDetailReceived">
             <summary>
-            Returns Current Room Members Detail  When Call The Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetRoomMembersDetail"/>
+                Returns Current Room Members Detail  When Call The Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetRoomMembersDetail" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.CurrentTurnMemberReceived">
             <summary>
-            Returns Current Turn Member Received When Call The Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetCurrentTurnMember"/>
+                Returns Current Turn Member Received When Call The Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveTB.GetCurrentTurnMember" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Achievement">
@@ -970,7 +981,7 @@
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketOption">
             <summary>
-            Represents BucketOption Model In Game Service Basic API
+                Represents BucketOption Model In Game Service Basic API
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Constraint">
@@ -1026,12 +1037,6 @@
                 Represents EditUserProfile In Game Service Basic API
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.AllowAutoAddToGame">
-            <summary>
-                Set Allow Auto Add To Game For CurrentPlayer.
-            </summary>
-            <value> Allow Auto Add To Game For CurrentPlayer</value>
-        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Logo">
             <summary>
                 Set New ProfileLogo(BytesBuffer) For CurrentPlayer.
@@ -1044,27 +1049,19 @@
             </summary>
             <value> New NickName For CurrentPlayer</value>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowGroupActivity">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.PhoneNumber">
             <summary>
-                Set Show Group Activity For CurrentPlayer.
+                Set New PhoneNumber For CurrentPlayer.
             </summary>
-            <value> Allow Show Group Activity For CurrentPlayer</value>
+            <value> New PhoneNumber For CurrentPlayer</value>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.ShowPublicActivity">
-            <summary>
-                Set Show Public Activity For CurrentPlayer.
-            </summary>
-            <value> Allow Show Public Activity For CurrentPlayer</value>
-        </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.String)">
             <summary>
                 EditUserProfile Data Model
             </summary>
             <param name="nickName">the value of nickName you want to update</param>
             <param name="logo">the value of logo you want to update</param>
-            <param name="allowAutoAddToGame">the value of allowAutoAddToGame you want to update</param>
-            <param name="showPublicActivity">the value of showPublicActivity you want to update</param>
-            <param name="showGroupActivity">the value of showGroupActivity you want to update</param>
+            <param name="phoneNumber">the value of phoneNumber you want to update</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.LeaderBoard">
             <summary>
@@ -1141,6 +1138,42 @@
             </summary>
             <value>the List Of Scores</value>
         </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.MemberInfo">
+            <summary>
+                Represents User Data Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.MemberInfo.Email">
+            <summary>
+                Gets the Member Email.
+            </summary>
+            <value>the Member Email</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.MemberInfo.Id">
+            <summary>
+                Gets the Member ID
+                You Can Use it In MultiPlayer Functions that Needs Member id
+            </summary>
+            <value>the Member ID</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.MemberInfo.Logo">
+            <summary>
+                Gets the Member Logo URL.
+            </summary>
+            <value>the Member Logo URL</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.MemberInfo.Name">
+            <summary>
+                Gets the Member Name.
+            </summary>
+            <value>the Member Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.MemberInfo.PhoneNumber">
+            <summary>
+                Gets the Member Phone Number.
+            </summary>
+            <value>the Member Phone Number</value>
+        </member>
         <member name="T:FiroozehGameService.Models.BasicApi.SaveDetails">
             <summary>
                 Represents SaveDetails Data Model In Game Service Basic API
@@ -1175,6 +1208,12 @@
                 Represents Score Data Model In Game Service Basic API
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Score.Rank">
+            <summary>
+                Gets the Rank of This Score.
+            </summary>
+            <value>the Rank of This Score</value>
+        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Score.Submitter">
             <summary>
                 Gets the Member Submit this Score.
@@ -1192,12 +1231,6 @@
                 Gets the Value of This Score.
             </summary>
             <value>the Value of This Score</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Score.Rank">
-            <summary>
-                Gets the Rank of This Score.
-            </summary>
-            <value>the Rank of This Score</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.SubmitScoreResponse">
             <summary>
@@ -1364,141 +1397,141 @@
         </member>
         <member name="T:FiroozehGameService.Models.Enums.BucketOwnershipTypes">
             <summary>
-            Represents BucketOwnershipTypes Model In Game Service Basic API
+                Represents BucketOwnershipTypes Model In Game Service Basic API
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.BucketSortOrder">
             <summary>
-            Represents BucketSortOrder Model In Game Service Basic API
+                Represents BucketSortOrder Model In Game Service Basic API
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GProtocolSendType">
             <summary>
-            Represents GProtocolSendType Of Game Service RealTime
-            if is Reliable , the Packet Loss is Minimized.
+                Represents GProtocolSendType Of Game Service RealTime
+                if is Reliable , the Packet Loss is Minimized.
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.AutoMatchStatus">
             <summary>
-            Represents AutoMatchStatus Of GSLive System
+                Represents AutoMatchStatus Of GSLive System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.Command.AutoMatchCancel">
             <summary>
-            Represents AutoMatchCancel
+                Represents AutoMatchCancel
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.Command.MarketType">
             <summary>
-            Represents MarketType Model In Notification
+                Represents MarketType Model In Notification
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.GSLiveType">
             <summary>
-            Represents GSLiveType Of GSLive System
+                Represents GSLiveType Of GSLive System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.JoinType">
             <summary>
-            Represents JoinType Of GSLive System
+                Represents JoinType Of GSLive System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.RT.MessageType">
             <summary>
-            Represents MessageType Of RealTime System
+                Represents MessageType Of RealTime System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs">
             <summary>
-            Represents DownloadProgressArgs
+                Represents DownloadProgressArgs
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs.AssetInfo">
             <summary>
-            Gets the Asset Info
+                Gets the Asset Info
             </summary>
             <value>the Asset Info</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadCancelledArgs.SavePath">
             <summary>
-            Gets the Save Path
+                Gets the Save Path
             </summary>
             <value>the Save Path</value>
         </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadCompleteArgs">
             <summary>
-            Represents DownloadCompleteArgs
+                Represents DownloadCompleteArgs
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadCompleteArgs.DownloadedAssetAsBytes">
             <summary>
-            Gets the Downloaded Asset As Bytes
-            Notes : Only Available When Use this Function <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String)"/>
+                Gets the Downloaded Asset As Bytes
+                Notes : Only Available When Use this Function <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String)" />
             </summary>
             <value>the Downloaded Assets As Bytes</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadCompleteArgs.DownloadedAssetPath">
             <summary>
-            Gets the Downloaded Asset Path 
-            Notes : Only Available When Use this Function <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)"/>
+                Gets the Downloaded Asset Path
+                Notes : Only Available When Use this Function <see cref="M:FiroozehGameService.Core.GameService.DownloadAsset(System.String,System.String)" />
             </summary>
             <value>the Downloaded Asset Path </value>
         </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadErrorArgs">
             <summary>
-            Represents DownloadErrorArgs
+                Represents DownloadErrorArgs
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.AssetInfo">
             <summary>
-            Gets the Asset Info
+                Gets the Asset Info
             </summary>
             <value>the Asset Info</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.SavePath">
             <summary>
-            Gets the Save Path
+                Gets the Save Path
             </summary>
             <value>the Save Path</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadErrorArgs.Error">
             <summary>
-            Gets the Error
+                Gets the Error
             </summary>
             <value>the Error</value>
         </member>
         <member name="T:FiroozehGameService.Models.EventArgs.DownloadProgressArgs">
             <summary>
-            Represents DownloadProgressArgs
+                Represents DownloadProgressArgs
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadProgressArgs.FileTag">
             <summary>
-            Gets the File Name.
+                Gets the File Name.
             </summary>
             <value>the File Name</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadProgressArgs.BytesReceived">
             <summary>
-            Gets Downloaded File BytesReceived
+                Gets Downloaded File BytesReceived
             </summary>
             <value>Downloaded File BytesReceived</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadProgressArgs.TotalBytesToReceive">
             <summary>
-            Gets Download File TotalBytesToReceive
+                Gets Download File TotalBytesToReceive
             </summary>
             <value>Download File TotalBytesToReceive</value>
         </member>
         <member name="P:FiroozehGameService.Models.EventArgs.DownloadProgressArgs.ProgressPercentage">
             <summary>
-            Gets Downloaded File ProgressPercentage
+                Gets Downloaded File ProgressPercentage
             </summary>
             <value>Downloaded File ProgressPercentage</value>
         </member>
         <member name="T:FiroozehGameService.Models.GameServiceException">
             <summary>
-            Represents Game Service Exception
+                Represents Game Service Exception
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
@@ -1544,52 +1577,52 @@
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent">
             <summary>
-            Represents AutoMatchEvent When AutoMatch Update Status in GSLive
+                Represents AutoMatchEvent When AutoMatch Update Status in GSLive
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent.Status">
             <summary>
-            Gets the AutoMatchStatus
+                Gets the AutoMatchStatus
             </summary>
             <value>the AutoMatchStatus</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent.Players">
             <summary>
-            Gets the AutoMatch Players Queue
+                Gets the AutoMatch Players Queue
             </summary>
             <value>the AutoMatch Players Queue</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Command.ErrorEvent">
             <summary>
-            Represents ErrorEvent When Error Happened in GSLive
+                Represents ErrorEvent When Error Happened in GSLive
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.ErrorEvent.Type">
             <summary>
-            Gets the Error Happened Type
+                Gets the Error Happened Type
             </summary>
             <value>Error Happened Type</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.ErrorEvent.Error">
             <summary>
-            Gets the Error Text
+                Gets the Error Text
             </summary>
             <value>the Error Text</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Command.JoinEvent">
             <summary>
-            Represents JoinEvent
+                Represents JoinEvent
             </summary>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.JoinEvent.Type">
             <summary>
-            Gets the GSLive Type for JoinEvent
+                Gets the GSLive Type for JoinEvent
             </summary>
             <value>the GSLive Type for JoinEvent</value>
         </member>
         <member name="P:FiroozehGameService.Models.GSLive.Command.JoinEvent.JoinData">
             <summary>
-            Gets the Join Data
+                Gets the Join Data
             </summary>
             <value>the Join Data</value>
         </member>
@@ -1776,6 +1809,16 @@
             <summary>
                 Represents Member Data Model In GameService MultiPlayer System (GSLive)
             </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Extra">
+            <summary>
+                Gets the Member Extra Data (NULLABLE).
+                NOTE : The Extra Data Only Available in :
+                1 - AutoMatch
+                2 - Join Room
+                3 - Member Details
+            </summary>
+            <value>the Member Extra</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Member.Id">
             <summary>
@@ -1974,12 +2017,12 @@
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.ReceiverId">
             <summary>
-            the Receiver Id (Current Client Member ID)
+                the Receiver Id (Current Client Member ID)
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.SenderId">
             <summary>
-            the Sender Id (Owner Member ID)
+                the Sender Id (Owner Member ID)
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.RT.Message">
@@ -2207,81 +2250,81 @@
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Abstracts.BaseSerializer">
             <summary>
-             Represents BaseSerializer In Game Service Binary Serializer
+                Represents BaseSerializer In Game Service Binary Serializer
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1">
             <summary>
-              Represents ObjectSerializer In Game Service Binary Serializer
-              You Can Make Your Object Serializable With Implement this Class 
+                Represents ObjectSerializer In Game Service Binary Serializer
+                You Can Make Your Object Serializable With Implement this Class
             </summary>
             <typeparam name="T"> The Type of Object You Want To Serializable</typeparam>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1.WriteObject(`0,FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream)">
             <summary>
-            the WriteObject Function You Can Write Every things Of T To writeStream
+                the WriteObject Function You Can Write Every things Of T To writeStream
             </summary>
             <param name="obj">Your Serializable Object</param>
             <param name="writeStream">The Write Stream for Writes Data</param>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer`1.ReadObject(FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
             <summary>
-            the ReadObject Function You Can Read Every things Writes
+                the ReadObject Function You Can Read Every things Writes
             </summary>
             <param name="readStream">he Write Stream for Reads Data</param>
             <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer">
             <summary>
-            Represents GsSerializer In Game Service Binary Serializer
+                Represents GsSerializer In Game Service Binary Serializer
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.OnNewEventHandler">
             <summary>
-            Calls When SomeOne Send New Event In Current Room
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
-             NOTE : Do not use this EventHandler if you are using Real Time Utility
-                       , as critical errors may occur.
+                Calls When SomeOne Send New Event In Current Room
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)" />
+                NOTE : Do not use this EventHandler if you are using Real Time Utility
+                , as critical errors may occur.
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.OnNewSnapShotReceived">
             <summary>
-            Calls When Server Send SnapShot In Current Room
-            This Event Handler Called By Following Functions :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)"/>
-             NOTE : Do not use this EventHandler if you are using Real Time Utility
-                       , as critical errors may occur.
+                Calls When Server Send SnapShot In Current Room
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.SendEvent(System.Byte[],System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)" />
+                NOTE : Do not use this EventHandler if you are using Real Time Utility
+                , as critical errors may occur.
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.CurrentPlayerLeftRoom">
             <summary>
-            Calls When Current Player Left the Current Room
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom"/>
+                Calls When Current Player Left the Current Room
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.LeaveRoom" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.GsSerializer.CurrentPlayerJoinRoom">
             <summary>
-            Calls When Current Player Left the Current Room
-            This Event Handler Called By Following Function :
-            <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String)"/>
+                Calls When Current Player Left the Current Room
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Core.GSLive.GSLiveRT.JoinRoom(System.String,System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry">
             <summary>
-            Represents TypeRegistry In Gs Serializer Class
+                Represents TypeRegistry In Gs Serializer Class
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry.Dispose">
             <summary>
-            NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
-            Dispose The TypeUtil
+                NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
+                Dispose The TypeUtil
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.TypeRegistry.RegisterSerializer``1(FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer{``0})">
             <summary>
-            Register New Type You Want To Working With Game Service Serializer
+                Register New Type You Want To Working With Game Service Serializer
             </summary>
             <param name="serializer"> Your Object Serializer</param>
             <typeparam name="T"> Your Object Base Type</typeparam>
@@ -2289,14 +2332,14 @@
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.Function">
             <summary>
-            NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
-            Represents Function In Gs Serializer Class
+                NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
+                Represents Function In Gs Serializer Class
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.SerializeParams(System.Object[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get Buffer For object params
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get Buffer For object params
             </summary>
             <param name="data">the Objects</param>
             <returns></returns>
@@ -2304,29 +2347,29 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.DeserializeParams(System.Byte[])">
             <summary>
-            Get Parameters From Buffer
+                Get Parameters From Buffer
             </summary>
             <param name="buffer">The Parameter Buffer</param>
             <returns>the Parameters</returns>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Function.GetParameterTypes(System.Object[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get String Object Types
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get String Object Types
             </summary>
             <param name="parameters">the Objects</param>
             <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.GsSerializer.Object">
             <summary>
-            NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
-            Represents Object In Gs Serializer Class
+                NOTE : Dont Use This Class Functions , Functions Calls By GsLiveRealtime SDK.
+                Represents Object In Gs Serializer Class
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.SendObject(System.Byte[],System.Byte[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Send An Object Buffer Data
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Send An Object Buffer Data
             </summary>
             <param name="caller"> The caller Data</param>
             <param name="buffer"> The Buffer Data</param>
@@ -2335,8 +2378,8 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.SendObserver(System.Byte[],System.Byte[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Send An Object Buffer Data
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Send An Object Buffer Data
             </summary>
             <param name="caller"> The caller Data</param>
             <param name="buffer"> The Buffer Data</param>
@@ -2345,8 +2388,8 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetBuffer(FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable)">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get Buffer From IGsLiveSerializable
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get Buffer From IGsLiveSerializable
             </summary>
             <param name="serializable"> The serializable Object</param>
             <returns></returns>
@@ -2354,107 +2397,107 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.CallReadStream(FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable,System.Byte[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Update a Serializable Object With Buffer
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Update a Serializable Object With Buffer
             </summary>
             <param name="serializable">Serializable Object</param>
             <param name="buffer">the Update Buffer</param>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetCurrentPlayerMemberId">
             <summary>
-            Get Current Player MemberId 
+                Get Current Player MemberId
             </summary>
             <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Helpers.GsReadStream">
             <summary>
-            Represents GsReadStream In Game Service Binary Serializer
+                Represents GsReadStream In Game Service Binary Serializer
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Helpers.GsReadStream.ReadNext">
             <summary>
-            Read Your Data Writes To Stream
+                Read Your Data Writes To Stream
             </summary>
             <returns></returns>
             <exception cref="T:FiroozehGameService.Models.GameServiceException">throw if Stream Queue Is Empty</exception>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream">
             <summary>
-            Represents GsWriteStream In Game Service Binary Serializer
+                Represents GsWriteStream In Game Service Binary Serializer
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream.WriteNext(System.Object)">
             <summary>
-            Write Your Data In Stream
+                Write Your Data In Stream
             </summary>
             <param name="data">Your Object Wants To Write in Stream</param>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable">
             <summary>
-             Represents IGsLiveSerializable In Game Service Binary Serializer
-             You Can Make Your Class Observable Serializable With Implement this Class 
+                Represents IGsLiveSerializable In Game Service Binary Serializer
+                You Can Make Your Class Observable Serializable With Implement this Class
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable.OnGsLiveRead(FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
             <summary>
-            the OnGsLiveRead Function You Can Read Your Data form readStream
+                the OnGsLiveRead Function You Can Read Your Data form readStream
             </summary>
             <param name="readStream"></param>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Interfaces.IGsLiveSerializable.OnGsLiveWrite(FiroozehGameService.Utils.Serializer.Helpers.GsWriteStream)">
             <summary>
-            the OnGsLiveWrite Function You Can Write Your Data To writeStream
+                the OnGsLiveWrite Function You Can Write Your Data To writeStream
             </summary>
             <param name="writeStream"></param>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Models.SnapShotType">
             <summary>
-            Represents SnapShotType Data Model In Game Service Binary Serializer
+                Represents SnapShotType Data Model In Game Service Binary Serializer
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Function">
             <summary>
-            SnapShot Function Type
+                SnapShot Function Type
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Object">
             <summary>
-            SnapShot Object Type
+                SnapShot Object Type
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotType.Property">
             <summary>
-            SnapShot Property Type
+                SnapShot Property Type
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Models.SnapShotData">
             <summary>
-            Represents SnapShotData Data Model In Game Service Binary Serializer
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Type">
-            <summary>
-            Get Type of SnapShot
+                Represents SnapShotData Data Model In Game Service Binary Serializer
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Buffer">
             <summary>
-            Get SnapShot Buffer Data
+                Get SnapShot Buffer Data
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.OwnerId">
             <summary>
-            The Snapshot OwnerId
+                The Snapshot OwnerId
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Utils.Serializer.Models.SnapShotData.Type">
+            <summary>
+                Get Type of SnapShot
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Utils.TypeUtil">
             <summary>
-              Represents TypeUtil In Game Service Binary Serializer
+                Represents TypeUtil In Game Service Binary Serializer
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.RegisterNewType``1(FiroozehGameService.Utils.Serializer.Abstracts.ObjectSerializer{``0})">
             <summary>
-            Register New Type You Want To Working With Game Service Serializer
+                Register New Type You Want To Working With Game Service Serializer
             </summary>
             <param name="serializer"> Your Object Serializer</param>
             <typeparam name="T"> Your Object Base Type</typeparam>
@@ -2462,8 +2505,8 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStream(System.Object)">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Internal Get Hash And WriteStream of Registered Object
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Internal Get Hash And WriteStream of Registered Object
             </summary>
             <param name="obj"> Your Object You Want To Get Stream</param>
             <returns></returns>
@@ -2471,8 +2514,8 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetFinalObject(System.Int32,FiroozehGameService.Utils.Serializer.Helpers.GsReadStream)">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get Object From Hash and GsReadStream
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get Object From Hash and GsReadStream
             </summary>
             <param name="hash">the Object Hash</param>
             <param name="readStream">The Read Stream To Read Object</param>
@@ -2481,8 +2524,8 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetWriteStreamFromParams(System.Object[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get WriteStream For object params
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get WriteStream For object params
             </summary>
             <param name="data">the Objects</param>
             <returns></returns>
@@ -2490,16 +2533,16 @@
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.GetParameterTypes(System.Object[])">
             <summary>
-            NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
-            Get String Object Types
+                NOTE : Dont Use This Function, This Function Called By GsLiveRealtime SDK.
+                Get String Object Types
             </summary>
             <param name="parameters">the Objects</param>
             <returns></returns>
         </member>
         <member name="M:FiroozehGameService.Utils.Serializer.Utils.TypeUtil.Dispose">
             <summary>
-            NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
-            Dispose The TypeUtil
+                NOTE : Dont Use This Function , This Function Called By GsLiveRealtime SDK.
+                Dispose The TypeUtil
             </summary>
         </member>
     </members>
