@@ -117,7 +117,7 @@
             <summary>
                 With this command you can Edit information about the current player is playing
             </summary>
-            <value> return Edited Current Member Data Data </value>
+            <value> return Edited Current Member Info Data </value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.RemoveLastSave">
             <summary>
@@ -1055,13 +1055,21 @@
             </summary>
             <value> New PhoneNumber For CurrentPlayer</value>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.String)">
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Email">
             <summary>
+                Set New Email For CurrentPlayer.
+            </summary>
+            <value> New Email For CurrentPlayer</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+            
                 EditUserProfile Data Model
             </summary>
             <param name="nickName">the value of nickName you want to update</param>
             <param name="logo">the value of logo you want to update</param>
             <param name="phoneNumber">the value of phoneNumber you want to update</param>
+            <param name="email">the value of email you want to update</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.LeaderBoard">
             <summary>
@@ -1291,6 +1299,18 @@
                 Gets the User Name.
             </summary>
             <value>the User Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Email">
+            <summary>
+                Gets the User Email.(NULLABLE)
+            </summary>
+            <value>the User Email</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.User.PhoneNumber">
+            <summary>
+                Gets the User Phone Number.(NULLABLE)
+            </summary>
+            <value>the User Phone Number</value>
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.User.Point">
             <summary>

@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [5.4.1] Stable - 2020-08-22
+
+### Added
+
+- Added Email To Edit User
+- Added Email and Phone Number To User Data Model
+
+
+
+
+
 ## [5.4.0] Stable - 2020-08-20
 
 ### Added
