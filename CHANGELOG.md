@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [5.4.2] Stable - 2020-11-01
+
+### Changed
+
+- Changed HttpRequest Limiter to 15 Requests per 3 Secs
+- Changed OnUserJoined To OnUserUpdated Stat in AutoMatch
+
 
 
 ## [5.4.1] Stable - 2020-08-22
