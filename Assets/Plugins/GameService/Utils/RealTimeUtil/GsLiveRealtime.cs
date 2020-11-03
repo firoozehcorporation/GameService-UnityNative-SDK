@@ -61,7 +61,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
         public static short SerializationRate => 10;
         
-        public class Callbacks
+        public static class Callbacks
         {
             public static EventHandler<OnBeforeInstantiate> OnBeforeInstantiateHandler;
             public static EventHandler<OnAfterInstantiate> OnAfterInstantiateHandler;

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 
+## [5.4.3] Stable - 2020-11-03
+
+### Fixed
+
+- Fixed OnDestroy In GameServiceInitializer Script
+- Fixed Dispose Issues In Realtime And TurnedBase System
+- Fixed Some Issues
+
 
 ## [5.4.2] Stable - 2020-11-01
 
