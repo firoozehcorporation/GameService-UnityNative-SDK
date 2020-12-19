@@ -21,15 +21,14 @@
 
 
 using FiroozehGameService.Models;
+using FiroozehGameService.Utils;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes;
-using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.DrawerAttributes_SpecialCase;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.ValidatorAttributes;
 using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
-using Event = FiroozehGameService.Utils.Event;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 {
@@ -46,13 +45,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         [BoxGroup("Observer Info (Set Automatically By Server)")]
         [ReadOnly]
         public bool isMine;
+        
+        [BoxGroup("Observer Info (Set Automatically By Server)")]
+        [ReadOnly]
+        public bool isAvailable;
 
         [BoxGroup("Add Your Component that You Want To Serialize")]
         [ValidateInput("CheckComponent", "The Component Must Implements IGsLiveSerializable")]
         public MonoBehaviour serializableComponent;
 
 
-        private Event _callerEvent;
+        private EventUtil _callerEvent;
         
         private void Start()
         {
@@ -81,10 +84,15 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         }
 
 
-        private void OnUpdate(object sender, Event e)
+        private void OnUpdate(object sender, EventUtil e)
         {
             if (serializableComponent == null) return;
-            SenderUtil.NetworkObserver(id,serializableComponent as IGsLiveSerializable);
+            if (FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+            {
+                SenderUtil.NetworkObserver(id, serializableComponent as IGsLiveSerializable);
+                isAvailable = true;
+            }
+            else isAvailable = false;
         }
         
 

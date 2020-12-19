@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 
 
+
+
+
+## [6.0.0] Alpha - 2020-12-19
+
+### Added
+
+- Added Friend System
+- Added Party System
+- Added Debugger System
+- Added RoomPassword in Create Room
+- Added RoomInfo To TurnBased and RealTime
+- Added Devices And Ability To Revoke Them
+- Added Change Password Function
+- Added Get Current Game Function
+- Added Get Buckets in Global Mode
+- Added Friend Option To LeaderBoard
+- Added Reconnect Event To TurnBased and RealTime
+- Added Errors to GameServiceErrors Class
+
+
+
+### Changed
+
+- Renamed Finish Function To Vote in TurnBased System
+- Removed Default Value Ignore in Update Bucket
+- Increase HttpRequest Limit To 20 Request Per 3 Seconds
+
+
+
+### Fixed
+
+- Fixed Reconnect Command and TurnBased and RealTime
+- Fixed Plugin Warnings 
+- Fixed GProtocol
+- Fixed Reported Issues
+
+
+
+
+
+
 ## [5.4.3] Stable - 2020-11-03
 
 ### Fixed

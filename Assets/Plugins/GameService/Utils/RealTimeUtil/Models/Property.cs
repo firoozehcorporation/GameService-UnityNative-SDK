@@ -27,8 +27,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models
     [Serializable]
     public class Property
     {
-        internal string PropertyName;
-        internal object PropertyData;
+        internal readonly string PropertyName;
+        internal readonly object PropertyData;
 
         public Property(string propertyName,object propertyData)
         {
@@ -36,10 +36,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models
             PropertyData = propertyData;
         }
 
-        public override bool Equals(object obj)
+        protected bool Equals(Property other)
         {
-            var property = (Property) obj;
-            return property != null && PropertyName == property.PropertyName && PropertyData.Equals(property.PropertyData);
+            return PropertyName == other.PropertyName && Equals(PropertyData, other.PropertyData);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((PropertyName != null ? PropertyName.GetHashCode() : 0) * 397) ^ (PropertyData != null ? PropertyData.GetHashCode() : 0);
+            }
         }
     }
 }

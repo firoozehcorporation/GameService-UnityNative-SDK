@@ -32,7 +32,6 @@ using Plugins.GameService.Utils.RealTimeUtil.Classes.Attributes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using UnityEngine;
-using Event = FiroozehGameService.Utils.Event;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 {
@@ -42,7 +41,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         private static Dictionary<Type, List<MethodInfo>> _runableCache;
         private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
         private static Dictionary<Tuple<byte,string>, GsLiveRtObserver> _observerCache;
-        private static Dictionary<Tuple<byte,string>, Event> _observerEventCache;
+        private static Dictionary<Tuple<byte,string>, EventUtil> _observerEventCache;
 
 
         internal static void Init()
@@ -50,7 +49,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             _runableCache = new Dictionary<Type, List<MethodInfo>>();
             _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
             _observerCache = new Dictionary<Tuple<byte,string>, GsLiveRtObserver>();
-            _observerEventCache = new Dictionary<Tuple<byte,string>, Event>();
+            _observerEventCache = new Dictionary<Tuple<byte,string>, EventUtil>();
         }
 
         internal static void Dispose()
@@ -132,7 +131,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        internal static Event RegisterObserver(GsLiveRtObserver observer)
+        internal static EventUtil RegisterObserver(GsLiveRtObserver observer)
         {
             var key = Tuple.Create(observer.id, observer.ownerId);
             if(_observerCache.ContainsKey(key))

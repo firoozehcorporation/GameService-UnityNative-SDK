@@ -27,12 +27,6 @@
                   <e p="WaitForBackgroundThread.cs" t="Include" />
                   <e p="WaitForUpdate.cs" t="Include" />
                 </e>
-                <e p="Tests" t="Include">
-                  <e p="AsyncUtilTests.cs" t="Include" />
-                  <e p="Util" t="Include">
-                    <e p="TestButtonHandler.cs" t="Include" />
-                  </e>
-                </e>
               </e>
               <e p="NaughtyAttributes" t="Include">
                 <e p="Scripts" t="Include">

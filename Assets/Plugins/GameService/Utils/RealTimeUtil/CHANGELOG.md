@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 
+## [1.2.1] Alpha - 2020-12-19
+
+### Fixed
+
+- Fixed Code
+
+
 
 ## [1.2.0] Alpha - 2020-08-04
 
