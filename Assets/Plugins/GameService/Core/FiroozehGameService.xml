@@ -156,20 +156,22 @@
             </summary>
             <value> return true if Remove Successfully </value>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])">
+        <member name="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])">
             <summary>
                 This command will return all information about the bucket with a specific ID
             </summary>
             <param name="bucketId">(Not NULL)The ID of Bucket you Want To get Detail</param>
+            <param name="isGlobal">(Optional)If this Option Enabled, You Can Get Bucket Items Without Login</param>
             <param name="options">(Optional)The Bucket Options</param>
             <value> return List of all Bucket Items</value>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String)">
+        <member name="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String,System.Boolean)">
             <summary>
                 This command returns one of the Specific bucket information with a specific ID
             </summary>
             <param name="bucketId">(Not NULL)The ID of Bucket you Want To get Detail</param>
             <param name="itemId">(Not NULL)The ID of BucketItem you Want To get Detail</param>
+            <param name="isGlobal">(Optional)If this Option Enabled, You Can Get Bucket Items Without Login</param>
             <value> return a Bucket Item</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)">
@@ -2100,8 +2102,8 @@
                 Represents GameService Bucket HTTP Errors
                 Errors that occur in the following Functions:
                 <see cref="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)" />
-                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String)" />
-                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String,System.Boolean)" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])" />
                 <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)" />
                 <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)" />
                 <see cref="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)" />
