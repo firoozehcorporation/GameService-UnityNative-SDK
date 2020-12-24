@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [6.0.1] Alpha - 2020-12-24
+
+### Added
+
+- Added Current Device to ActiveDevice model
+- Added ValidationUtil to BucketOptions
+
+
+
+### Changed
+
+- Renamed Room Variables to Properties
+
+
+
+### Fixed
+
+- Fixed Reported Issues
+
+
+
 
 
 ## [6.0.0] Alpha - 2020-12-19

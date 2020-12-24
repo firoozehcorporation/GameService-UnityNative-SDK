@@ -1362,6 +1362,12 @@
             </summary>
             <value>the Device Operating System</value>
         </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.IsCurrentDevice">
+            <summary>
+                returns true if the Active Device For Current Player
+            </summary>
+            <value>returns true if the Active Device For Current Player</value>
+        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.LastLoginTime">
             <summary>
                 Gets the Last Login Time
@@ -3242,11 +3248,11 @@
             </summary>
             <value>the Room Persist Status</value>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Variables">
+        <member name="F:FiroozehGameService.Models.GSLive.RoomData.Properties">
             <summary>
-                Gets the Room Variables.
+                Gets the Room Properties.
             </summary>
-            <value>the Room Variables</value>
+            <value>the Room Properties</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.RoomData.CreateTime">
             <summary>
