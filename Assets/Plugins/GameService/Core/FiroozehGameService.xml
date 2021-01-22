@@ -156,7 +156,7 @@
             </summary>
             <value> return true if Remove Successfully </value>
         </member>
-        <member name="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])">
+        <member name="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.Options.BucketOption[])">
             <summary>
                 This command will return all information about the bucket with a specific ID
             </summary>
@@ -164,6 +164,13 @@
             <param name="isGlobal">(Optional)If this Option Enabled, You Can Get Bucket Items Without Login</param>
             <param name="options">(Optional)The Bucket Options</param>
             <value> return List of all Bucket Items</value>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.GetBucketItems``1(FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation)">
+            <summary>
+                This command will return all information about the bucket with a specific ID and Aggregations
+            </summary>
+            <param name="aggregation">(NotNULL)The aggregation of Bucket you Want To get Detail</param>
+            <value> return the BucketResult</value>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String,System.Boolean)">
             <summary>
@@ -378,17 +385,17 @@
         </member>
         <member name="F:FiroozehGameService.Core.GameService.OnDebugReceived">
             <summary>
-            Returns Debug Data
+                Returns Debug Data
             </summary>
         </member>
         <member name="P:FiroozehGameService.Core.GameService.GSLive">
             <summary>
-            The GameService GsLive System (like TurnBased , RealTime , ...)
+                The GameService GsLive System (like TurnBased , RealTime , ...)
             </summary>
         </member>
         <member name="P:FiroozehGameService.Core.GameService.Social">
             <summary>
-            The GameService Social System (like Friends , Parties)
+                The GameService Social System (like Friends , Parties)
             </summary>
         </member>
         <member name="T:FiroozehGameService.Core.GSLive.GSLive">
@@ -1380,6 +1387,102 @@
             </summary>
             <value>the First Login Time</value>
         </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.AggregationCore">
+            <summary>
+                Represents AggregationCore Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ConstraintAggregation">
+            <summary>
+                Represents ConstraintAggregation Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ConstraintAggregation.#ctor(System.Int32,System.Int32)">
+            <summary>
+                ConstraintAggregation
+            </summary>
+            <param name="skip">Skip Value for ConstraintAggregation</param>
+            <param name="limit">Limit Value for ConstraintAggregation</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.MatchAggregation">
+            <summary>
+                Represents MatchAggregation Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.MatchAggregation.#ctor(FiroozehGameService.Models.BasicApi.Buckets.Matcher.MatcherCore)">
+            <summary>
+                the MatchAggregation Data Class
+            </summary>
+            <param name="matcher"></param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ProjectAggregation">
+            <summary>
+                Represents ProjectAggregation Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ProjectAggregation.#ctor(System.String[])">
+            <summary>
+                ProjectAggregation
+            </summary>
+            <param name="rowNames">Set the Row Names to Project them</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.SortAggregation">
+            <summary>
+                Represents SortAggregation Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Aggregations.SortAggregation.#ctor(System.String,FiroozehGameService.Models.Enums.Buckets.BucketSortOrder)">
+            <summary>
+                the SortAggregation BucketOption
+            </summary>
+            <param name="elementName">the name of Element you want to Sort by it</param>
+            <param name="sortOrder">the sortOrder you want to Sort by it</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation">
+            <summary>
+                Represents BucketAggregation Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.Of(System.String)">
+            <summary>
+            </summary>
+            <param name="bucketId">the bucket id to create this aggregation</param>
+            <returns></returns>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder">
+            <summary>
+                Represents BucketAggregationBuilder Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.Match(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.MatchAggregation)">
+            <summary>
+                Set MatchAggregation For this BucketAggregationBuilder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.WithSort(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.SortAggregation)">
+            <summary>
+                Set SortAggregation For this BucketAggregationBuilder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.WithConstraint(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ConstraintAggregation)">
+            <summary>
+                Set ConstraintAggregation For this BucketAggregationBuilder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.WithProject(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.ProjectAggregation)">
+            <summary>
+                Set ProjectAggregation For this BucketAggregationBuilder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.Build">
+            <summary>
+                Build This BucketAggregationBuilder
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketCore">
             <summary>
                 Represents BucketCore Data Model In Game Service Basic API
@@ -1407,58 +1510,128 @@
                 To Prevent Serialize OwnerId Property
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketOption">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Matcher.MatcherCore">
+            <summary>
+                Represents MatcherCore Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Matcher.NumberMatcher">
+            <summary>
+                Represents NumberMatcher Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Matcher.NumberMatcher.#ctor(System.String,System.Object,FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes)">
+            <summary>
+                the NumberMatcher Aggregation
+            </summary>
+            <param name="name">the name of Element you want to Match it</param>
+            <param name="numberValue">the numberValue of Element you want to Match it</param>
+            <param name="matcherType">The Type of Number Match</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Matcher.ObjectMatcher">
+            <summary>
+                Represents ObjectMatcher Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Matcher.ObjectMatcher.#ctor(System.String,System.Object,FiroozehGameService.Models.Enums.Buckets.ObjectMatcherTypes)">
+            <summary>
+                the ObjectMatcher Aggregation
+            </summary>
+            <param name="name">the name of Element you want to Match it</param>
+            <param name="value">the value of Element you want to Match it</param>
+            <param name="matcherType">The Type of Object Match</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Operators.And">
+            <summary>
+                Represents And Operator Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Operators.And.#ctor(FiroozehGameService.Models.BasicApi.Buckets.Matcher.MatcherCore[])">
+            <summary>
+                the And Aggregation
+            </summary>
+            <param name="matchers">the matchers That you Want Match Them With And Operator</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Operators.Or">
+            <summary>
+                Represents Or Operator Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Operators.Or.#ctor(FiroozehGameService.Models.BasicApi.Buckets.Matcher.MatcherCore[])">
+            <summary>
+                the Or Operator Aggregation
+            </summary>
+            <param name="matchers">the matchers That you Want Match Them With Or Operator</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Options.BucketOption">
             <summary>
                 Represents BucketOption Model In Game Service Basic API
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Constraint">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Options.Constraint">
             <summary>
                 Represents ConstraintOptionData Model In Game Service Basic API
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Constraint.#ctor(System.Int32,System.Int32)">
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Options.Constraint.#ctor(System.Int32,System.Int32)">
             <summary>
                 Constraint BucketOption
             </summary>
             <param name="skip">Skip Value for Constraint BucketOption</param>
             <param name="limit">Limit Value for Constraint BucketOption</param>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.FindByElement`1">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Options.FindByElement`1">
             <summary>
                 Represents ElementOptionData Model In Game Service Basic API
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.FindByElement`1.#ctor(System.String,`0)">
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Options.FindByElement`1.#ctor(System.String,`0)">
             <summary>
                 FindByElement BucketOption
             </summary>
             <param name="name">the name of Element you want to find it</param>
             <param name="value">the value of Element you want to find it</param>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Ownership">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Options.Ownership">
             <summary>
                 Represents OwnershipOptionData Model In Game Service Basic API
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Ownership.#ctor(FiroozehGameService.Models.Enums.BucketOwnershipTypes,System.String)">
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Options.Ownership.#ctor(FiroozehGameService.Models.Enums.Buckets.BucketOwnershipTypes,System.String)">
             <summary>
                 the Ownership BucketOption
             </summary>
             <param name="ownershipTypes">type of ownership</param>
             <param name="ownerUserId">user id of BucketOwnershipTypes.Another type</param>
         </member>
-        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.SortByElement">
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.Options.SortByElement">
             <summary>
                 Represents SortByOptionData Model In Game Service Basic API
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.SortByElement.#ctor(System.String,FiroozehGameService.Models.Enums.BucketSortOrder)">
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.Options.SortByElement.#ctor(System.String,FiroozehGameService.Models.Enums.Buckets.BucketSortOrder)">
             <summary>
                 the SortByElement BucketOption
             </summary>
             <param name="elementName">the name of Element you want to Sort by it</param>
             <param name="sortOrder">the sortOrder you want to Sort by it</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.BasicApi.Buckets.BucketResult`1">
+            <summary>
+                Represents Bucket Result Data Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Buckets.BucketResult`1.Count">
+            <summary>
+                Gets the Results Count
+            </summary>
+            <value>the Results Count</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Buckets.BucketResult`1.Items">
+            <summary>
+                Gets the Results
+            </summary>
+            <value>the Results</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.EditUserProfile">
             <summary>
@@ -2109,7 +2282,7 @@
                 Errors that occur in the following Functions:
                 <see cref="M:FiroozehGameService.Core.GameService.AddBucketItem``1(System.String,``0)" />
                 <see cref="M:FiroozehGameService.Core.GameService.GetBucketItem``1(System.String,System.String,System.Boolean)" />
-                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.BucketOption[])" />
+                <see cref="M:FiroozehGameService.Core.GameService.GetBucketItems``1(System.String,System.Boolean,FiroozehGameService.Models.BasicApi.Buckets.Options.BucketOption[])" />
                 <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItem(System.String,System.String)" />
                 <see cref="M:FiroozehGameService.Core.GameService.DeleteBucketItems(System.String)" />
                 <see cref="M:FiroozehGameService.Core.GameService.UpdateBucketItem``1(System.String,System.String,``0)" />
@@ -2477,24 +2650,74 @@
                 <see cref="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.Realtime.SetProperty" />
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Models.Enums.BucketOwnershipTypes">
+        <member name="T:FiroozehGameService.Models.Enums.Buckets.BucketOwnershipTypes">
             <summary>
                 Represents BucketOwnershipTypes Model In Game Service Basic API
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.Enums.BucketOwnershipTypes.Me">
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.BucketOwnershipTypes.Me">
             <summary>
-            Sets The Current Member OwnerShip
+                Sets The Current Member OwnerShip
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.Enums.BucketOwnershipTypes.Another">
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.BucketOwnershipTypes.Another">
             <summary>
-            Sets The Other Member OwnerShip
+                Sets The Other Member OwnerShip
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Models.Enums.BucketSortOrder">
+        <member name="T:FiroozehGameService.Models.Enums.Buckets.BucketSortOrder">
             <summary>
                 Represents BucketSortOrder Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.BucketSortOrder.Ascending">
+            <summary>
+                Use it When Need Ascending Sort
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.BucketSortOrder.Descending">
+            <summary>
+                Use it When Need Descending Sort
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes">
+            <summary>
+                Represents NumberMatcherTypes Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes.GraterThan">
+            <summary>
+                Use it When Need To GraterThan Number
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes.GraterThanOrEqual">
+            <summary>
+                Use it When Need To GraterThanOrEqual Number
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes.LessThan">
+            <summary>
+                Use it When Need To LessThan Number
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.NumberMatcherTypes.LessThanOrEqual">
+            <summary>
+                Use it When Need To LowerThanOrEqual Number
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.Buckets.ObjectMatcherTypes">
+            <summary>
+                Represents ObjectMatcherTypes Model In Game Service Basic API
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.ObjectMatcherTypes.Equal">
+            <summary>
+                Use it When Need To Equal Object
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.Buckets.ObjectMatcherTypes.NotEqual">
+            <summary>
+                Use it When Need To NotEqual Object
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.DebugLocation">

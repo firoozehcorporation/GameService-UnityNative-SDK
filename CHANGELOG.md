@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [6.1.0] Alpha - 2021-01-22
+
+### Added
+
+- Added New Bucket Aggregation System
+
+
+
+### Fixed
+
+- Fixed Reported Issues
+
+
+
+
+
 ## [6.0.1] Alpha - 2020-12-24
 
 ### Added
