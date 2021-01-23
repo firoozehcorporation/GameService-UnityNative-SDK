@@ -1454,7 +1454,7 @@
                 Represents BucketAggregationBuilder Model In Game Service Basic API
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.Match(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.MatchAggregation)">
+        <member name="M:FiroozehGameService.Models.BasicApi.Buckets.BucketAggregation.BucketAggregationBuilder.WithMatch(FiroozehGameService.Models.BasicApi.Buckets.Aggregations.MatchAggregation)">
             <summary>
                 Set MatchAggregation For this BucketAggregationBuilder
             </summary>
