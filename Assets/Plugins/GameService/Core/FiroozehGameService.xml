@@ -852,6 +852,13 @@
             </summary>
             <param name="partyId">(NOTNULL)the Party id</param>
         </member>
+        <member name="M:FiroozehGameService.Core.Social.Party.DeleteParty(System.String)">
+            <summary>
+                Delete The Party With PartyID
+                NOTE : Only Creator or Admins Can Call This Function
+            </summary>
+            <param name="partyId">(NOTNULL)the Party id</param>
+        </member>
         <member name="M:FiroozehGameService.Core.Social.Party.EditParty(System.String,FiroozehGameService.Core.Social.SocialOptions.PartyOption)">
             <summary>
                 Edit Party Data With Option Like : Name , description , logo

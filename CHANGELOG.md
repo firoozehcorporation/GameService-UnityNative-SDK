@@ -4,11 +4,13 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [6.1.1] Stable - 2021-02-12
+## [6.1.1] Stable - 2021-02-13
 
 ### Added
 
 - Added Server Leave Current Player When Room Members Reached To Min Players
+
+- Added Party Delete Function
 
   
 
