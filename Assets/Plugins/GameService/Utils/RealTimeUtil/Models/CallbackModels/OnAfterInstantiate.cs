@@ -32,10 +32,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.CallbackModels
         public string prefabName;
         public Vector3 position;
         public Quaternion rotation;
+        public string ownerMemberId;
 
-        internal OnAfterInstantiate(GameObject gameObject,string prefabName,Vector3 position,Quaternion rotation)
+        internal OnAfterInstantiate(GameObject gameObject,string prefabName,string ownerMemberId,Vector3 position,Quaternion rotation)
         {
             this.gameObject = gameObject;
+            this.ownerMemberId = ownerMemberId;
             this.prefabName = prefabName;
             this.position = position;
             this.rotation = rotation;

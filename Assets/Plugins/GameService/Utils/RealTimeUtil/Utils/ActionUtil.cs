@@ -91,13 +91,13 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                     
                     // Call Callback
                     GsLiveRealtime.Callbacks.OnBeforeInstantiateHandler?.Invoke(null,
-                        new OnBeforeInstantiate(instantiateData.PrefabName,instantiateData.Position,instantiateData.Rotation));
+                        new OnBeforeInstantiate(instantiateData.PrefabName,ownerId,instantiateData.Position,instantiateData.Rotation));
                     
                     var obj = handler.Instantiate(instantiateData.PrefabName, instantiateData.Position, instantiateData.Rotation,ownerId,ownerId == GsLiveRealtime.CurrentPlayerMemberId);
                     
                     // Call Callback
                     GsLiveRealtime.Callbacks.OnAfterInstantiateHandler?.Invoke(null,
-                        new OnAfterInstantiate(obj,instantiateData.PrefabName,instantiateData.Position,instantiateData.Rotation));
+                        new OnAfterInstantiate(obj,instantiateData.PrefabName,ownerId,instantiateData.Position,instantiateData.Rotation));
                     break;
                 case ObjectActions.Destroy:
                     var objectHandler = new GameObjectData();
