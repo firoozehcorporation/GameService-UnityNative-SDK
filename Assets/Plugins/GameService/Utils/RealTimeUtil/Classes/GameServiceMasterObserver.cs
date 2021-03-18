@@ -1,4 +1,4 @@
-// <copyright file="GsLiveRtObserver.cs" company="Firoozeh Technology LTD">
+// <copyright file="GameServiceMasterObserver.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 {
-    public class GsLiveRtObserver : MonoBehaviour
+    public class GameServiceMasterObserver : MonoBehaviour
     {
         [BoxGroup("Set a unique ID to send data from this observer")]
         [ValidateInput("CheckId", "The ID Must Grater Than Zero And Lower Than 256")]

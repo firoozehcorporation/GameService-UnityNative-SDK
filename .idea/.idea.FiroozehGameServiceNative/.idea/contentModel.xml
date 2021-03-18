@@ -130,7 +130,8 @@
                   <e p="Attributes" t="Include">
                     <e p="GsLiveRunable.cs" t="Include" />
                   </e>
-                  <e p="GsLiveRtObserver.cs" t="Include" />
+                  <e p="GameServiceMasterObserver.cs" t="Include" />
+                  <e p="GameServiceMonoBehaviour.cs" t="Include" />
                   <e p="Handlers" t="Include">
                     <e p="FunctionHandler.cs" t="Include" />
                     <e p="MemberHandler.cs" t="Include" />
@@ -138,7 +139,6 @@
                     <e p="PrefabHandler.cs" t="Include" />
                     <e p="PropertyHandler.cs" t="Include" />
                   </e>
-                  <e p="MonoBehaviourGsLive.cs" t="Include" />
                   <e p="Observers" t="Include">
                     <e p="RealtimeRigidbody2DObserver.cs" t="Include" />
                     <e p="RealtimeRigidbodyObserver.cs" t="Include" />

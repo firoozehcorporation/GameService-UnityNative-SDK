@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 
 
 
+
+
+## [7.0.0] Alpha - 2021-03-18
+
+### Added
+
+- Added **CloudComputing**
+- Added Description and LeaderboardOrderTypes in LeaderBoard
+- Added GetVariables and Delete Them By Creator and Admins to Parties
+- Added SaveName To Save System
+
+
+
+### Changed
+
+- Migrate **Functions To Providers**
+- Renamed LeftParty To LeaveParty
+- Renamed ChannelsRecentMessages to ChannelRecentMessages in Chat System
+- Renamed SetProperty to SetOrUpdateProperty in TurnBased System
+- Removed Deprecated Functions in RealTime
+- Achievements and LeaderBoards **Only Works With ID**
+
+
+
+### Fixed
+
+- Update GProtocol
+- Fixed Reported Issues
+
+
+
 ## [6.1.1] Stable - 2021-02-13
 
 ### Added

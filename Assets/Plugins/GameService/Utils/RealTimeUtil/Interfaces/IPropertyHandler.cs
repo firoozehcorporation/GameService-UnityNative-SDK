@@ -19,7 +19,6 @@
 * @author Alireza Ghodrati
 */
 
-using System;
 using System.Collections.Generic;
 using FiroozehGameService.Models.GSLive;
 using Plugins.GameService.Utils.RealTimeUtil.Models;
@@ -32,12 +31,20 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Interfaces
 
         void Dispose();
         
-        void ApplyProperty(string memberId,Property property);
+        void ApplyMemberProperty(string memberId,Property property);
         
-        void RemoveProperty(string memberId,string propertyName);
+        void RemoveMemberProperty(string memberId,string propertyName);
+        
+        void ApplyRoomProperty(Property property);
+        
+        void RemoveRoomProperty(string propertyName);
         
         Dictionary<string, object> GetMemberProperties(string memberId);
-
+        
+        Dictionary<string, object> GetRoomProperties();
+        
+        object GetRoomProperty(string propertyName);
+        
         List<Member> GetPropertyMembers(Property property);
         
         List<Member> GetPropertyMembers(string propertyName);

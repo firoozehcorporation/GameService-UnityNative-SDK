@@ -54,16 +54,17 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "Alpha 1.2.0";
+        public const string Version = "1.3.0 Alpha";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
-        public static short GetPing() => FiroozehGameService.Core.GameService.GSLive.RealTime.GetPing();
+        public static short GetPing() => FiroozehGameService.Core.GameService.GSLive.GetPing();
 
         public static short SerializationRate => 10;
         
         public static class Callbacks
         {
             public static EventHandler<OnBeforeInstantiate> OnBeforeInstantiateHandler;
+            
             public static EventHandler<OnAfterInstantiate> OnAfterInstantiateHandler;
             
             public static EventHandler<OnDestroyObject> OnDestroyObjectHandler;
@@ -121,7 +122,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         
         private static void CurrentPlayerJoinRoom(object sender, EventArgs e)
         {
-            FiroozehGameService.Core.GameService.GSLive.RealTime.GetRoomMembersDetail();
+            FiroozehGameService.Core.GameService.GSLive.RealTime().GetRoomMembersDetail();
         }
         
         private static void JoinedRoom(object sender, JoinEvent eEvent)
@@ -136,9 +137,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             ActionUtil.ApplyData(action,eventData.SenderId,eventData.Caller,eventData.Data,_prefabHandler,_monoBehaviourHandler,_propertyHandler);
         }
         
-        private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotDatas)
+        private static void OnNewSnapShotReceived(object sender, List<SnapShotData> snapShotData)
         {
-            ActionUtil.ApplySnapShot(snapShotDatas,_prefabHandler,_monoBehaviourHandler,_propertyHandler);
+            ActionUtil.ApplySnapShot(snapShotData,_prefabHandler,_monoBehaviourHandler,_propertyHandler);
         }
         
         
@@ -185,7 +186,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         ///  Destroy the GameObject For All PLayers in Room
         /// </summary>
         /// <param name="gameObjTag"> the Game Object Tag You Want To Destroy</param>
-        public static void DestroyWithTag(string gameObjTag)
+        public static bool DestroyWithTag(string gameObjTag)
         {
             if(!IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available");
@@ -203,6 +204,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             
             var gameObjData = new GameObjectData(true,gameObjTag);
             SenderUtil.NetworkDestroy(gameObjData);
+
+            return true;
         }
         
         
@@ -211,7 +214,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         ///  Destroy the GameObject For All PLayers in Room
         /// </summary>
         /// <param name="gameObjName"> the Game Object Name You Want To Destroy</param>
-        public static void DestroyWithName(string gameObjName)
+        public static bool DestroyWithName(string gameObjName)
         {
             if(!IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available");
@@ -228,6 +231,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             
             var gameObjData = new GameObjectData(false,gameObjName);
             SenderUtil.NetworkDestroy(gameObjData);
+
+            return true;
         }
 
         
@@ -265,10 +270,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
 
         /// <summary>
-        /// Apply a Property ,You Can Add or Edit A Property
+        /// Set Or Update Member Property ,You Can Add or Edit A Member Property
         /// </summary>
         /// <param name="property">The Property You Want To Add or Edit</param>
-        public static void SetProperty(Property property)
+        public static void SetOrUpdateMemberProperty(Property property)
         {
             if(!IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available");
@@ -276,18 +281,18 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
             
-            _propertyHandler.ApplyProperty(CurrentPlayerMemberId,property);
+            _propertyHandler.ApplyMemberProperty(CurrentPlayerMemberId,property);
            
             var propertyData = new PropertyData(property.PropertyName,property.PropertyData);
-            SenderUtil.NetworkProperty(propertyData,PropertyAction.Apply);
+            SenderUtil.NetworkProperty(propertyData,PropertyAction.SetOrUpdateMemberProperty);
         }
         
         
         /// <summary>
-        /// Remove a Property With propertyName
+        /// Remove a Member Property With propertyName
         /// </summary>
         /// <param name="propertyName">The name of a Property You Want To Remove it</param>
-        public static void RemoveProperty(string propertyName)
+        public static void RemoveMemberProperty(string propertyName)
         {
             if(!IsAvailable)
                 throw new GameServiceException("GsLiveRealtime is Not Available");
@@ -295,10 +300,49 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 throw new GameServiceException("RealTime is Not Available");
             
-            _propertyHandler.RemoveProperty(CurrentPlayerMemberId,propertyName);
+            _propertyHandler.RemoveMemberProperty(CurrentPlayerMemberId,propertyName);
             
             var property = new PropertyData(propertyName);
-            SenderUtil.NetworkProperty(property,PropertyAction.Remove);
+            SenderUtil.NetworkProperty(property,PropertyAction.RemoveMemberProperty);
+        }
+        
+        
+        
+        /// <summary>
+        /// Set Or Update Room Property  ,You Can Add or Edit A Property
+        /// </summary>
+        /// <param name="property">The Property You Want To Add or Edit</param>
+        public static void SetOrUpdateRoomProperty(Property property)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            _propertyHandler.ApplyRoomProperty(property);
+           
+            var propertyData = new PropertyData(property.PropertyName,property.PropertyData);
+            SenderUtil.NetworkProperty(propertyData,PropertyAction.SetOrUpdateRoomProperty);
+        }
+        
+        
+        /// <summary>
+        /// Remove a Room Property With propertyName
+        /// </summary>
+        /// <param name="propertyName">The name of a Property You Want To Remove it</param>
+        public static void RemoveRoomProperty(string propertyName)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            _propertyHandler.RemoveRoomProperty(propertyName);
+            
+            var property = new PropertyData(propertyName);
+            SenderUtil.NetworkProperty(property,PropertyAction.RemoveRoomProperty);
         }
         
         
@@ -315,6 +359,39 @@ namespace Plugins.GameService.Utils.RealTimeUtil
                 throw new GameServiceException("RealTime is Not Available");
             
             return _propertyHandler.GetMemberProperties(memberId);
+        }
+        
+        
+        
+        /// <summary>
+        /// Get All Room Properties
+        /// </summary>
+        public static Dictionary<string,object> GetRoomProperties()
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetRoomProperties();
+        }
+        
+        
+        
+        /// <summary>
+        /// Get room Property With propertyName
+        /// </summary>
+        /// <param name="propertyName">The name of a Property You Want To Find</param>
+        public static object GetRoomProperty(string propertyName)
+        {
+            if(!IsAvailable)
+                throw new GameServiceException("GsLiveRealtime is Not Available");
+            
+            if(!FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                throw new GameServiceException("RealTime is Not Available");
+            
+            return _propertyHandler.GetRoomProperty(propertyName);
         }
         
         

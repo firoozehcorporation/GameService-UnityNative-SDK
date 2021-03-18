@@ -40,7 +40,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         private static Dictionary<Type, List<MethodInfo>> _runableCache;
         private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
-        private static Dictionary<Tuple<byte,string>, GsLiveRtObserver> _observerCache;
+        private static Dictionary<Tuple<byte,string>, GameServiceMasterObserver> _observerCache;
         private static Dictionary<Tuple<byte,string>, EventUtil> _observerEventCache;
 
 
@@ -48,7 +48,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         {
             _runableCache = new Dictionary<Type, List<MethodInfo>>();
             _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
-            _observerCache = new Dictionary<Tuple<byte,string>, GsLiveRtObserver>();
+            _observerCache = new Dictionary<Tuple<byte,string>, GameServiceMasterObserver>();
             _observerEventCache = new Dictionary<Tuple<byte,string>, EventUtil>();
         }
 
@@ -131,7 +131,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        internal static EventUtil RegisterObserver(GsLiveRtObserver observer)
+        internal static EventUtil RegisterObserver(GameServiceMasterObserver observer)
         {
             var key = Tuple.Create(observer.id, observer.ownerId);
             if(_observerCache.ContainsKey(key))
@@ -145,7 +145,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        internal static void UnregisterObserver(GsLiveRtObserver observer)
+        internal static void UnregisterObserver(GameServiceMasterObserver observer)
         {
             if (_observerCache == null || _observerEventCache == null) return;
             
@@ -160,7 +160,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         }
 
 
-        internal static GsLiveRtObserver GetGsLiveObserver(byte id,string owner)
+        internal static GameServiceMasterObserver GetGsLiveObserver(byte id,string owner)
         {
             _observerCache.TryGetValue(Tuple.Create(id,owner),out var observer);
             return observer;

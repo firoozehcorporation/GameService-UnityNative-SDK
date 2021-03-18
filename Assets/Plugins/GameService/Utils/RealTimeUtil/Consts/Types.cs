@@ -43,8 +43,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
     
     public enum PropertyAction : byte
     {
-        Apply = 0x0,
-        Remove
+        SetOrUpdateMemberProperty = 0x0,
+        RemoveMemberProperty , 
+        SetOrUpdateRoomProperty,
+        RemoveRoomProperty
     }
     
 }

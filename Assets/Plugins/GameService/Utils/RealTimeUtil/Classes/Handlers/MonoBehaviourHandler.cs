@@ -28,7 +28,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
     internal class MonoBehaviourHandler : IMonoBehaviourHandler
     {
         
-        internal static MonoBehaviourGsLive[] MonoBehaviours;
+        internal static GameServiceMonoBehaviour[] MonoBehaviours;
 
         public void Init()
         {
@@ -45,7 +45,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
         /// </summary>
         public void RefreshMonoBehaviourCache()
         {
-            MonoBehaviours = GameObject.FindObjectsOfType<MonoBehaviourGsLive>();
+            MonoBehaviours = GameObject.FindObjectsOfType<GameServiceMonoBehaviour>();
         }
         
         

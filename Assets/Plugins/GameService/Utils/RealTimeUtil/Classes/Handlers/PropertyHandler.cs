@@ -20,7 +20,6 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FiroozehGameService.Models;
@@ -33,53 +32,84 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
     internal class PropertyHandler : IPropertyHandler
     {
         
-        private Dictionary<string, Dictionary<string, object>> _propertiesCache;
+        private Dictionary<string, Dictionary<string, object>> _memberPropertiesCache;
+        private Dictionary<string, object> _roomPropertiesCache;
         private IMemberHandler _memberHandler;
         
         public void Init(IMemberHandler memberHandler)
         {
             _memberHandler = memberHandler;
-            _propertiesCache = new Dictionary<string, Dictionary<string, object>>();
+            _memberPropertiesCache = new Dictionary<string, Dictionary<string, object>>();
+            _roomPropertiesCache   = new Dictionary<string, object>();
         }
 
         public void Dispose()
         {
-            _propertiesCache?.Clear();
+            _memberPropertiesCache?.Clear();
+            _roomPropertiesCache?.Clear();
         }
 
-        public void ApplyProperty(string memberId,Property property)
+        public void ApplyMemberProperty(string memberId,Property property)
         {
-            if (!_propertiesCache.ContainsKey(memberId))
+            if (!_memberPropertiesCache.ContainsKey(memberId))
             {
-                _propertiesCache.Add(memberId, new Dictionary<string, object>());
-                _propertiesCache[memberId].Add(property.PropertyName,property.PropertyData);
+                _memberPropertiesCache.Add(memberId, new Dictionary<string, object>());
+                _memberPropertiesCache[memberId].Add(property.PropertyName,property.PropertyData);
             }
             else
             {
-                if (_propertiesCache[memberId].ContainsKey(property.PropertyName))
-                    _propertiesCache[memberId][property.PropertyName] = property.PropertyData;
+                if (_memberPropertiesCache[memberId].ContainsKey(property.PropertyName))
+                    _memberPropertiesCache[memberId][property.PropertyName] = property.PropertyData;
                 else
-                    _propertiesCache[memberId].Add(property.PropertyName,property.PropertyData);
+                    _memberPropertiesCache[memberId].Add(property.PropertyName,property.PropertyData);
             }
         }
 
-        public void RemoveProperty(string memberId, string propertyName)
+        public void RemoveMemberProperty(string memberId, string propertyName)
         {
-            if(_propertiesCache.ContainsKey(memberId))
-                _propertiesCache[memberId]?.Remove(propertyName);
+            if(_memberPropertiesCache.ContainsKey(memberId))
+                _memberPropertiesCache[memberId]?.Remove(propertyName);
+        }
+        
+        
+        public void ApplyRoomProperty(Property property)
+        {
+            if (_roomPropertiesCache.ContainsKey(property.PropertyName))
+                _roomPropertiesCache[property.PropertyName] = property.PropertyData;
+            else
+                _roomPropertiesCache.Add(property.PropertyName,property.PropertyData);
+        }
+
+        public void RemoveRoomProperty(string propertyName)
+        {
+            if(_roomPropertiesCache.ContainsKey(propertyName))
+                _roomPropertiesCache?.Remove(propertyName);
         }
 
         public Dictionary<string, object> GetMemberProperties(string memberId)
         {
-            if(!_propertiesCache.ContainsKey(memberId))
+            if(!_memberPropertiesCache.ContainsKey(memberId))
                 throw new GameServiceException("memberId " + memberId + " is Not Exist!");
 
-            return _propertiesCache[memberId];
+            return _memberPropertiesCache[memberId];
+        }
+
+        public Dictionary<string, object> GetRoomProperties()
+        {
+            return _roomPropertiesCache;
+        }
+
+        public object GetRoomProperty(string propertyName)
+        {
+            if(!_roomPropertiesCache.ContainsKey(propertyName))
+                throw new GameServiceException("property with Name " + propertyName + " is Not Exist!");
+
+            return _roomPropertiesCache[propertyName];
         }
 
         public List<Member> GetPropertyMembers(Property property)
         {
-            var ids = _propertiesCache
+            var ids = _memberPropertiesCache
                 .ToList()
                 .FindAll(pc
                     => pc.Value.ContainsKey(property.PropertyName) && pc.Value[property.PropertyName] == property.PropertyData)
@@ -93,7 +123,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
 
         public List<Member> GetPropertyMembers(string propertyName)
         {
-            var ids = _propertiesCache
+            var ids = _memberPropertiesCache
                 .ToList()
                 .FindAll(pc => pc.Value.ContainsKey(propertyName))
                 .Select(pc => pc.Key)
@@ -106,7 +136,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
 
         public List<object> GetPropertyValues(string propertyName)
         {
-            return _propertiesCache
+            return _memberPropertiesCache
                 .ToList()
                 .FindAll(pc => pc.Value.ContainsKey(propertyName))
                 .Select(pc => pc.Value[propertyName])

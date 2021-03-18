@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] Alpha - 2021-02-26
+
+### Added
+
+- Added Room Property Functions
 
 ## [1.2.1] Alpha - 2020-12-19
 
@@ -9,18 +14,11 @@ All notable changes to this project will be documented in this file.
 
 - Fixed Code
 
-
-
-
 ## [1.2.0] Alpha - 2020-08-04
 
 ### Added
 
 - Added Some Array Serializers
-
-
-
-
 
 ## [1.1.0] Alpha - 2020-07-29
 
@@ -29,13 +27,9 @@ All notable changes to this project will be documented in this file.
 - Added Ability To Set Property
 - Added Some Error Handling
 
-
-
 ### Changed
 
-- Changed Unity Serializers Classes  To Improve Performance
-
-
+- Changed Unity Serializers Classes To Improve Performance
 
 ### Fixed
 

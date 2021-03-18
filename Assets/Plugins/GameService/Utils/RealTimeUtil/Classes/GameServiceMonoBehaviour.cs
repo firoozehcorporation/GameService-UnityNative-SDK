@@ -1,4 +1,4 @@
-// <copyright file="MonoBehaviourGsLive.cs" company="Firoozeh Technology LTD">
+// <copyright file="GameServiceMonoBehaviour.cs" company="Firoozeh Technology LTD">
 // Copyright (C) 2020 Firoozeh Technology LTD. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,5 +24,5 @@ using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes
 {
-    public abstract class MonoBehaviourGsLive : MonoBehaviour { }
+    public abstract class GameServiceMonoBehaviour : MonoBehaviour { }
 }

@@ -53,7 +53,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
             if (wasActive) res.SetActive(false);
             
             var instance = GameObject.Instantiate(res, position, rotation);
-            var observer =  instance.GetComponent<GsLiveRtObserver>();
+            var observer =  instance.GetComponent<GameServiceMasterObserver>();
             if (observer != null) observer.RegisterObserver(ownerId,isMe);
             
             if (wasActive) res.SetActive(true);
