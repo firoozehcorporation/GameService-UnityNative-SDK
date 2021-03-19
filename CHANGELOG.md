@@ -11,7 +11,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Added **CloudComputing**
-- Added Description and LeaderboardOrderTypes in LeaderBoard
+- Added Description and LeaderboardOrderTypes To LeaderBoard
+- Added Description To Achievement
 - Added GetVariables and Delete Them By Creator and Admins to Parties
 - Added SaveName To Save System
 
@@ -23,14 +24,17 @@ All notable changes to this project will be documented in this file.
 - Renamed LeftParty To LeaveParty
 - Renamed ChannelsRecentMessages to ChannelRecentMessages in Chat System
 - Renamed SetProperty to SetOrUpdateProperty in TurnBased System
+- Renamed Creator to CreatorId in RoomData Class
 - Removed Deprecated Functions in RealTime
 - Achievements and LeaderBoards **Only Works With ID**
+- Changed Ping System
 
 
 
 ### Fixed
 
 - Update GProtocol
+- Fixed Timeout Misbehaving
 - Fixed Reported Issues
 
 
