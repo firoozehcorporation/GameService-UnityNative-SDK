@@ -328,23 +328,26 @@
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>/Applications/Unity/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="BCCrypto">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/BCCrypto.dll</HintPath>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="FiroozehGameService">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/FiroozehGameService.dll</HintPath>
+ <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/FiroozehGameService.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Newtonsoft.Json.dll</HintPath>
+ <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="GProtocol">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/GProtocol.dll</HintPath>
+ <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/GProtocol.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>
@@ -369,6 +372,12 @@
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Common">
+ <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

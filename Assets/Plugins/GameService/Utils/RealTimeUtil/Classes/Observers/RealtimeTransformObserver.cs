@@ -87,7 +87,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                     }
                     else
                     {
-                        var lag  = (float) GsLiveRealtime.GetPing() / 100;
+                        var lag  = (float) GsLiveRealtime.GetRoundTripTime() / 100;
                         _mNetworkPosition += _mDirection * lag;
                         _mDistance = Vector3.Distance(transform.position, _mNetworkPosition);
                     }

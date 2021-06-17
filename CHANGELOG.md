@@ -6,6 +6,39 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.0.0] Alpha - 2021-06-19
+
+### Added
+
+- Added **Member Tags**
+- Added **Member Label**
+- Added **Member Global Property**
+- Added **RTT (RoundTripTime)** To RealTime
+- Added **PacketLost** To RealTime
+- Added State Check in RealTime and TurnBased
+- Added Encryption System
+
+
+
+### Changed
+
+- Renamed **Complete to AcceptVote** in TurnBased System
+- Upgrade **Max Players** (10 Players For TurnBased and 50 Players For RealTime Systems)
+- Removed Ping From RealTime
+- Removed RoundTripTime(RTT) From MessageInfo Class in RealTime System
+- Update GProtocol to Ver 3
+
+
+
+### Fixed
+
+- Fixed Multiple Connection Issues
+- Fixed Disposing on StopReceiving in GsTcpClient Class
+
+
+
+
+
 ## [7.0.0] Alpha - 2021-03-18
 
 ### Added

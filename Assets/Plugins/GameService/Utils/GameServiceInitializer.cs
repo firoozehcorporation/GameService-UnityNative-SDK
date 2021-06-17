@@ -36,55 +36,56 @@ namespace Plugins.GameService.Utils
 {
     public class GameServiceInitializer : MonoBehaviour
     {
-        private const string DebugPath = "/GameService";
-
-        private const string BeginLog =
-            "\r\n=======================Begin GameService Debugger Logs======================\r\n";
-
-        private const string EndLog =
-            "\r\n=========================End GameService Debugger Logs========================\r\n";
-
         [BoxGroup("Config The GameService Initializer")]
         [ValidateInput("CheckStrings", "The ClientId Must Not Be Null or Empty")]
         public string ClientId;
-
+        
         [BoxGroup("Config The GameService Initializer")]
         [ValidateInput("CheckStrings", "The ClientSecret Must Not Be Null or Empty")]
         public string ClientSecret;
-
+        
         [BoxGroup("Enable this feature only when you need RealTime")]
         public bool RealTimeUtilEnabled;
-
-
-        [BoxGroup("Debug System Configuration")] [OnValueChanged("OnDebugValueChanged")]
+        
+        
+        [BoxGroup("Debug System Configuration")]
+        [OnValueChanged("OnDebugValueChanged")]
         public bool DebugSystemEnabled;
-
-        [BoxGroup("Debug System Configuration Values")] [ShowIf("DebugSystemEnabled")]
+        
+        [BoxGroup("Debug System Configuration Values")]
+        [ShowIf("DebugSystemEnabled")]
         public bool EnableDebugLogger;
 
-        [BoxGroup("Debug System Configuration Values")] [ShowIf("DebugSystemEnabled")]
+        [BoxGroup("Debug System Configuration Values")]
+        [ShowIf("DebugSystemEnabled")]
         public bool EnableErrorLogger;
-
-        [BoxGroup("Debug System Configuration Values")] [ShowIf("DebugSystemEnabled")]
+        
+        [BoxGroup("Debug System Configuration Values")]
+        [ShowIf("DebugSystemEnabled")]
         public bool EnableExceptionLogger;
 
         [BoxGroup("Debug System Configuration Values")]
         [ShowIf("DebugSystemEnabled")]
         [OnValueChanged("OnDebugLocationsValueChanged")]
         public bool EnableDebugLocations;
-
-        [BoxGroup("Debug System Configuration Values")] [ShowIf("EnableDebugLocations")]
+        
+        [BoxGroup("Debug System Configuration Values")]    
+        [ShowIf("EnableDebugLocations")]
         public DebugLocation[] DebugLocations;
-
-
+        
+        
         [BoxGroup("Debug System File")]
-        [InfoBox("NOTE : Disable SaveDebugLogs On Production Release", EInfoBoxType.Warning)]
+        [InfoBox("NOTE : Disable SaveDebugLogs On Production Release",EInfoBoxType.Warning)]
         [ShowIf("DebugSystemEnabled")]
         public bool EnableSaveDebugLogs;
 
 
         private string _appPath;
         private string _logFile;
+        
+        private const string DebugPath = "/GameService";
+        private const string BeginLog = "\r\n=======================Begin GameService Debugger Logs======================\r\n";
+        private const string EndLog = "\r\n=========================End GameService Debugger Logs========================\r\n";
 
 
         private void Awake()
@@ -96,7 +97,7 @@ namespace Plugins.GameService.Utils
 
         private void OnEnable()
         {
-            if (FiroozehGameService.Core.GameService.IsAuthenticated()) return;
+            if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
             var systemInfo = new SystemInfo
             {
                 DeviceUniqueId = UnityEngine.SystemInfo.deviceUniqueIdentifier,
@@ -113,21 +114,20 @@ namespace Plugins.GameService.Utils
                 GraphicsMemorySize = UnityEngine.SystemInfo.graphicsMemorySize
             };
 
-
+            
             if (RealTimeUtilEnabled)
             {
                 // set RealTime Helper Listener & Init GsLiveRealtime
                 GsLiveRealtime.Init();
-                Debug.Log("GsLiveRealtime Version : " + GsLiveRealtime.Version + " Initialized");
+                Debug.Log("GsLiveRealtime Version : "+GsLiveRealtime.Version+" Initialized");
             }
-
+            
             if (DebugSystemEnabled)
             {
-                var debugConfig = new GameServiceDebugConfiguration(EnableExceptionLogger, EnableErrorLogger,
-                    EnableDebugLogger, DebugLocations);
+                var debugConfig = new GameServiceDebugConfiguration(EnableExceptionLogger,EnableErrorLogger,EnableDebugLogger,DebugLocations);
                 FiroozehGameService.Core.GameService.OnDebugReceived += OnDebugReceived;
                 FiroozehGameService.Core.GameService.ConfigurationDebug(debugConfig);
-
+                
                 if (EnableSaveDebugLogs)
                 {
                     if (!Directory.Exists(_appPath + DebugPath))
@@ -137,18 +137,18 @@ namespace Plugins.GameService.Utils
                     }
                     else
                         Debug.Log("GameService Debug Logs Directory Path : " + _appPath + DebugPath);
-
-                    File.AppendAllText(_appPath + DebugPath + _logFile, BeginLog);
+                    
+                    File.AppendAllText(_appPath + DebugPath + _logFile,BeginLog);
                 }
-
+                
                 Debug.Log("GameService Debug System Initialized");
             }
 
 
-            var config = new GameServiceClientConfiguration(ClientId.Trim(), ClientSecret.Trim(), systemInfo);
+            var config = new GameServiceClientConfiguration(ClientId.Trim(),ClientSecret.Trim(),systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
 
-            Debug.Log("GameService Version : " + FiroozehGameService.Core.GameService.Version() + " Initialized");
+            Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initialized");
         }
 
         private void OnDestroy()
@@ -157,12 +157,12 @@ namespace Plugins.GameService.Utils
             Debug.Log("GameService Logout Called");
 
             if (!RealTimeUtilEnabled) return;
-
+            
             GsLiveRealtime.Dispose();
             Debug.Log("GsLiveRealtime Dispose Called");
-
+            
             if (EnableSaveDebugLogs)
-                File.AppendAllText(_appPath + DebugPath + _logFile, EndLog);
+                File.AppendAllText(_appPath + DebugPath + _logFile,EndLog);
         }
 
         private void OnDebugReceived(object sender, FiroozehGameService.Models.EventArgs.Debug debug)
@@ -183,9 +183,9 @@ namespace Plugins.GameService.Utils
             }
 
             if (!EnableSaveDebugLogs) return;
-
+            
             if (Directory.Exists(_appPath + DebugPath))
-                File.AppendAllText(_appPath + DebugPath + _logFile, debug.Data + "\r\n");
+                File.AppendAllText(_appPath + DebugPath + _logFile,debug.Data + "\r\n");
         }
 
 

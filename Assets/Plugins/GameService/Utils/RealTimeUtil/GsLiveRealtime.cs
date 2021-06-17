@@ -54,10 +54,23 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "1.3.0 Alpha";
+        public const string Version = "1.4.0 Alpha";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
-        public static short GetPing() => FiroozehGameService.Core.GameService.GSLive.GetPing();
+
+        public static int GetRoundTripTime()
+        {
+            if(FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+               return FiroozehGameService.Core.GameService.GSLive.RealTime().GetRoundTripTime();
+            return -1;
+        }
+        
+        public static long GetPacketLost()
+        {
+            if(FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
+                return FiroozehGameService.Core.GameService.GSLive.RealTime().GetPacketLost();
+            return -1;
+        }
 
         public static short SerializationRate => 10;
         

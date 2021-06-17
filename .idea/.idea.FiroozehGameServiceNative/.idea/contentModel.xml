@@ -11,8 +11,10 @@
         <e p="Plugins" t="Include">
           <e p="GameService" t="Include">
             <e p="Core" t="Include">
-              <e p="FiroozehGameService.xml" t="Include" />
-              <e p="Newtonsoft.Json.xml" t="Include" />
+              <e p="Managed" t="Include">
+                <e p="FiroozehGameService.xml" t="Include" />
+                <e p="Newtonsoft.Json.xml" t="Include" />
+              </e>
             </e>
             <e p="Tools" t="Include">
               <e p="AsyncAwaitUtil" t="Include">

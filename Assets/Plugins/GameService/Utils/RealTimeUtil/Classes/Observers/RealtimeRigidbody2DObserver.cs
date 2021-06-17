@@ -86,7 +86,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                 
                 if (synchronizeVelocity || synchronizeAngularVelocity)
                 {
-                    var lag  = (float) GsLiveRealtime.GetPing() / 100;
+                    var lag  = (float) GsLiveRealtime.GetRoundTripTime() / 100;
                     
                     if (synchronizeVelocity)
                     {
