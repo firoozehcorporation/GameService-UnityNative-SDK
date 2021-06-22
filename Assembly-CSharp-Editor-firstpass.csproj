@@ -347,7 +347,7 @@
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="GProtocol">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/GProtocol.dll</HintPath>
+ <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/GProtocol/Dynamic/GProtocol.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>

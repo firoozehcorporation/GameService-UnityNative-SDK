@@ -9,14 +9,13 @@
                 Represents ClientConfiguration For Game Service
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Builder.GameServiceClientConfiguration.#ctor(System.String,System.String,FiroozehGameService.Models.Internal.SystemInfo,GProtocol.Models.PlatformType)">
+        <member name="M:FiroozehGameService.Builder.GameServiceClientConfiguration.#ctor(System.String,System.String,FiroozehGameService.Models.Internal.SystemInfo)">
             <summary>
                 Set GameServiceClientConfiguration Values
             </summary>
             <param name="clientId">Set The ClientId From Developers Panel</param>
             <param name="clientSecret">Set The ClientSecret From Developers Panel</param>
             <param name="systemInfo">Set systemInfo</param>
-            <param name="platformType">Set The Type of Running Platform</param>
             <exception cref="T:FiroozehGameService.Models.GameServiceException">May GameServiceException Occur</exception>
         </member>
         <member name="T:FiroozehGameService.Builder.GameServiceDebugConfiguration">
@@ -3879,12 +3878,6 @@
                 Represents Finish Data Model In GameService TurnBased MultiPlayer System
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.TB.Vote.MemberFinish">
-            <summary>
-                Gets Member Data of Has Announced The End Of The Game.
-            </summary>
-            <value>Member Data of Has Announced The End Of The Game</value>
-        </member>
         <member name="F:FiroozehGameService.Models.GSLive.TB.Vote.Outcomes">
             <summary>
                 Gets the Outcomes sent from the player.
@@ -3892,6 +3885,12 @@
                 (Type : Dictionary(MemberID,Outcome))
             </summary>
             <value>the Outcomes sent from the player</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.TB.Vote.Submitter">
+            <summary>
+                Gets Member Data That Submit This Vote
+            </summary>
+            <value>Member Data That Submit This Vote</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.TB.Outcome">
             <summary>

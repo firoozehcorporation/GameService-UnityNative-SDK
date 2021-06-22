@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 
 
-## [8.0.0] Alpha - 2021-06-19
+## [8.0.0] Alpha - 2021-06-22
 
 ### Added
 
@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Renamed **Complete to AcceptVote** in TurnBased System
+- Renamed **MemberFinish To Submitter** in Vote Model in TurnBased System
 - Upgrade **Max Players** (10 Players For TurnBased and 50 Players For RealTime Systems)
 - Removed Ping From RealTime
 - Removed RoundTripTime(RTT) From MessageInfo Class in RealTime System
@@ -34,6 +35,7 @@ All notable changes to this project will be documented in this file.
 
 - Fixed Multiple Connection Issues
 - Fixed Disposing on StopReceiving in GsTcpClient Class
+- Fixed NaughtyAttributes Lib Working With IL2CPP
 
 
 
