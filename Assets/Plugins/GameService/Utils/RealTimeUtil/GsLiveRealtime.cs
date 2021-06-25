@@ -270,14 +270,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             var isOk = _functionHandler.RunFunction(functionName,objType,type,parameters);
             if (!isOk) return;
 
-
             var extraBuffer = GsSerializer.Function.SerializeParams(parameters);
             var functionData = new FunctionData(objType.FullName,functionName,type,extraBuffer);
-           
-            // run on this Client
-            if (type == FunctionType.All || type == FunctionType.Buffered)
-                ActionUtil.ApplyFunction(functionData : functionData,monoBehaviourHandler : _monoBehaviourHandler);
-
+            
             SenderUtil.NetworkRunFunction(functionData);
         }
 

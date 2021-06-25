@@ -78,7 +78,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         private static void ApplyTransform(byte observerId,string ownerId,byte[] buffer)
         {
             var observer = ObjectUtil.GetGsLiveObserver(observerId,ownerId);
-            observer?.ApplyData(ownerId,buffer);
+            observer.ApplyData(ownerId,buffer);
         }
 
         private static void ApplyObject(byte objectAction,byte[] data,string ownerId,IPrefabHandler handler)
@@ -115,8 +115,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null,IMonoBehaviourHandler monoBehaviourHandler =null)
+
+        private static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null,IMonoBehaviourHandler monoBehaviourHandler =null)
         {
             var func = functionData;
             object[] parameters = null;
@@ -127,12 +127,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 GsSerializer.Object.CallReadStream(func,buffer);
             }
             
-            var haveBuffer = func.ExtraData != null;
+            var haveBuffer = func?.ExtraData != null;
             if (haveBuffer)
                 parameters = GsSerializer.Function.DeserializeParams(func.ExtraData);
             
-            monoBehaviourHandler.RefreshMonoBehaviourCache();
-            var (baseObj, info) = ObjectUtil.GetFunction(func.MethodName,func.FullName,parameters);
+            monoBehaviourHandler?.RefreshMonoBehaviourCache();
+            var (baseObj, info) = ObjectUtil.GetFunction(func?.MethodName,func?.FullName,parameters);
             
             info.Invoke(baseObj,parameters);
         }

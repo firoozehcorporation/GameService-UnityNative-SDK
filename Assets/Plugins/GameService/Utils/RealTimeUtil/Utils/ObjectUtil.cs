@@ -38,24 +38,24 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
     internal static class ObjectUtil
     {
         
-        private static Dictionary<Type, List<MethodInfo>> _runableCache;
-        private static Dictionary<Type, MonoBehaviour> _runableCacheMono;
+        private static Dictionary<Type, List<MethodInfo>> _runnableCache;
+        private static Dictionary<Type, MonoBehaviour> _runnableCacheMono;
         private static Dictionary<Tuple<byte,string>, GameServiceMasterObserver> _observerCache;
         private static Dictionary<Tuple<byte,string>, EventUtil> _observerEventCache;
 
 
         internal static void Init()
         {
-            _runableCache = new Dictionary<Type, List<MethodInfo>>();
-            _runableCacheMono = new Dictionary<Type, MonoBehaviour>();
+            _runnableCache = new Dictionary<Type, List<MethodInfo>>();
+            _runnableCacheMono = new Dictionary<Type, MonoBehaviour>();
             _observerCache = new Dictionary<Tuple<byte,string>, GameServiceMasterObserver>();
             _observerEventCache = new Dictionary<Tuple<byte,string>, EventUtil>();
         }
 
         internal static void Dispose()
         {
-            _runableCache?.Clear();
-            _runableCacheMono?.Clear();
+            _runnableCache?.Clear();
+            _runnableCacheMono?.Clear();
         }
         
         private static void UpdateFunctions()
@@ -72,10 +72,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
                 var type = monoBehaviour.GetType();
                 var methods = GetMethods(type, typeof(GsLiveFunction));
                 
-                if (_runableCache.ContainsKey(type)) continue;
+                if (_runnableCache.ContainsKey(type)) continue;
                 
-                _runableCache.Add(type, methods);
-                _runableCacheMono.Add(type, monoBehaviour);
+                _runnableCache.Add(type, methods);
+                _runnableCacheMono.Add(type, monoBehaviour);
             }
         }
 
@@ -84,8 +84,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         internal static bool HaveFunctions(Type from)
         {
             UpdateFunctions();
-            if(_runableCache.Count == 0) return false;
-            _runableCache.TryGetValue(from, out var methodInfos);
+            if(_runnableCache.Count == 0) return false;
+            _runnableCache.TryGetValue(from, out var methodInfos);
             if (methodInfos != null)
                 return methodInfos.Count > 0;
             return false;
@@ -94,9 +94,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
         
         private static Tuple<Type,List<MethodInfo>> GetFunctions(string fullName)
         {
-            if(_runableCache.Count == 0) return null;
+            if(_runnableCache.Count == 0) return null;
             
-            var data = _runableCache
+            var data = _runnableCache
                 .FirstOrDefault(rc => rc.Key.FullName == fullName);
 
             if (data.Key == null || data.Value == null)
@@ -122,7 +122,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             if(method == null)
                 throw new GameServiceException("Function " + methodName + " "+ GsSerializer.Function.GetParameterTypes(parameters) +" Not Found! .You Must Set GsLiveFunction Attribute For Your Function");
             
-            _runableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
+            _runnableCacheMono.TryGetValue(functions.Item1, out var monoBehaviour);
             if(monoBehaviour == null)
                 throw new GameServiceException("no monoBehaviour Exist for Function With Name " + methodName);
 
