@@ -3,15 +3,41 @@
 All notable changes to this project will be documented in this file.
 
 
+
+
+
+## [1.5.0] Alpha - 2021-06-25
+
+### Added
+
+- Added OthersBuffered FunctionType in Remote Function
+- Added AllViaServerFunctionType in Remote Function
+- Added AllBufferedViaServer FunctionType in Remote Function
+
+
+
+### Changed
+
+- Renamed Buffered To AllBuffered FunctionType in Remote Function
+
+
+
+
 ## [1.4.0] Alpha - 2021-04-29
 
 ### Added
 
 - Added Packet Lost
 
+
+
 ### Changed
 
 - Changed Ping To RoundTripTime (RTT)
+
+
+
+
 
 
 ## [1.3.0] Alpha - 2021-02-26

@@ -31,6 +31,23 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
         Others,
         
         /// <summary>Sends the Function to everyone else and executes it immediately on this client. New players get the Function when they join as it's buffered</summary>
-        Buffered,
+        AllBuffered,
+        
+        /// <summary> Sends the Function to everyone. This client does not execute the Function. New players get the Function when they join as it's buffered </summary>
+        OthersBuffered,
+        
+        /// <summary>
+        /// Sends the Function to everyone (including this client) through the server.
+        /// This client executes the Function like any other when it received it from the server.
+        /// Benefit: The server's order of sending the Function is the same on all clients.
+        /// </summary>
+        AllViaServer,
+        
+        /// <summary>
+        /// Sends the Function to everyone (including this client) through the server and buffers it for players joining later.
+        /// This client executes the Function like any other when it received it from the server.
+        /// Benefit: The server's order of sending the Function is the same on all clients.
+        /// </summary>
+        AllBufferedViaServer
     }
 }

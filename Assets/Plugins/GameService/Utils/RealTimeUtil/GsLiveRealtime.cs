@@ -21,7 +21,6 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using FiroozehGameService.Handlers;
 using FiroozehGameService.Models;
@@ -54,7 +53,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "1.4.0 Alpha";
+        public const string Version = "1.5.0 Alpha";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
 
@@ -272,6 +271,10 @@ namespace Plugins.GameService.Utils.RealTimeUtil
 
             var extraBuffer = GsSerializer.Function.SerializeParams(parameters);
             var functionData = new FunctionData(objType.FullName,functionName,type,extraBuffer);
+            
+            // run on this Client
+            if (type == FunctionType.All || type == FunctionType.AllBuffered)
+                ActionUtil.ApplyFunction(functionData : functionData,monoBehaviourHandler : _monoBehaviourHandler);
             
             SenderUtil.NetworkRunFunction(functionData);
         }

@@ -116,7 +116,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             }
         }
 
-        private static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null,IMonoBehaviourHandler monoBehaviourHandler =null)
+        internal static void ApplyFunction(byte[] buffer = null,FunctionData functionData = null,IMonoBehaviourHandler monoBehaviourHandler =null)
         {
             var func = functionData;
             object[] parameters = null;
