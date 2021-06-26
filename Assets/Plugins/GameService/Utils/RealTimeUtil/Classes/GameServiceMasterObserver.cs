@@ -81,6 +81,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes
         private void OnDestroy()
         {
             ObjectUtil.UnregisterObserver(this);
+            _callerEvent?.Dispose();
         }
 
 
