@@ -4093,35 +4093,33 @@
         </member>
         <member name="T:FiroozehGameService.Utils.EventUtil">
             <summary>
-             Represents Event In Game Service
+                Represents Event In Game Service
             </summary>
         </member>
         <member name="F:FiroozehGameService.Utils.EventUtil.EventHandler">
             <summary>
-            Set New EventHandler by Observer
+                Set New EventHandler by Observer
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.EventUtil.Start">
             <summary>
-            Start EventHandler
+                Start EventHandler
             </summary>
         </member>
         <member name="M:FiroozehGameService.Utils.EventUtil.Dispose">
             <summary>
-            Dispose EventHandler
+                Dispose EventHandler
             </summary>
         </member>
         <member name="T:FiroozehGameService.Utils.EventCallerUtil">
             <summary>
-            Represents Event In Game Service Observer
+                Represents Event In Game Service Observer
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Utils.EventCallerUtil.CreateNewEvent(System.Int64)">
+        <member name="M:FiroozehGameService.Utils.EventCallerUtil.CreateNewEvent">
             <summary>
-            CreateNewEvent by Observer
+                CreateNewEvent by Observer
             </summary>
-            <param name="interval">interval time</param>
-            <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Utils.Serializer.Abstracts.BaseSerializer">
             <summary>
@@ -4281,6 +4279,12 @@
         <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetCurrentPlayerMemberId">
             <summary>
                 Get Current Player MemberId
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Utils.Serializer.GsSerializer.Object.GetSerializationRate">
+            <summary>
+                Get Serialization Rate In GProtocol
             </summary>
             <returns></returns>
         </member>

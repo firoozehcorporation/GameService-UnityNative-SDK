@@ -33,11 +33,14 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers
         public bool RunFunction(string methodName,Type from, FunctionType type, params object[] extraData)
         {
             if (string.IsNullOrEmpty(methodName))
-                throw new GameServiceException("Function method name cannot be null or empty.");
+                throw new GameServiceException("Function Method Name Cannot be Null or Empty.");
             
             if(!ObjectUtil.HaveFunctions(from))
                 throw new GameServiceException("No Function Have GsLiveFunction Attribute in Class " + from);
             
+            if(methodName.Length > Sizes.MaxMethodName)
+                throw new GameServiceException("Function Method Name is Too Large! (Max : " + Sizes.MaxMethodName + ")");
+
             return true;
         }
         

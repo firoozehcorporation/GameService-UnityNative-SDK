@@ -82,6 +82,8 @@ namespace Plugins.GameService.Utils
 
         private string _appPath;
         private string _logFile;
+
+        private static bool _isInit;
         
         private const string DebugPath = "/GameService";
         private const string BeginLog = "\r\n=======================Begin GameService Debugger Logs======================\r\n";
@@ -92,12 +94,14 @@ namespace Plugins.GameService.Utils
         {
             _appPath = Application.persistentDataPath;
             _logFile = "/GSLog-" + FiroozehGameService.Core.GameService.Version() + ".log";
+
             DontDestroyOnLoad(this);
         }
 
         private void OnEnable()
         {
-            if(FiroozehGameService.Core.GameService.IsAuthenticated()) return;
+            if(_isInit || FiroozehGameService.Core.GameService.IsAuthenticated()) return;
+            
             var systemInfo = new SystemInfo
             {
                 DeviceUniqueId = UnityEngine.SystemInfo.deviceUniqueIdentifier,
@@ -148,12 +152,17 @@ namespace Plugins.GameService.Utils
             var config = new GameServiceClientConfiguration(ClientId.Trim(),ClientSecret.Trim(),systemInfo);
             FiroozehGameService.Core.GameService.ConfigurationInstance(config);
 
+            _isInit = true;
             Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initialized");
         }
 
         private void OnDestroy()
         {
             FiroozehGameService.Core.GameService.Logout();
+            
+            _isInit = false;
+            FiroozehGameService.Core.GameService.OnDebugReceived = null;
+            
             Debug.Log("GameService Logout Called");
 
             if (!RealTimeUtilEnabled) return;

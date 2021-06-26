@@ -23,12 +23,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Consts
 {
     internal static class Sizes
     {
-        internal const short MaxId = 255;
         internal const short MaxPrefabName = 128;
         internal const short MaxMethodName = 255;
-        
-        
-        internal const short EventInterval = 100;
-
     }
 }

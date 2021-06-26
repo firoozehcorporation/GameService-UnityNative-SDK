@@ -22,6 +22,7 @@
 using FiroozehGameService.Models;
 using FiroozehGameService.Utils.Serializer.Helpers;
 using FiroozehGameService.Utils.Serializer.Interfaces;
+using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
@@ -43,6 +44,9 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Models.SendableObjects
                 throw new GameServiceException("Position Cant Be Null");
             if (Rotation == null)
                 throw new GameServiceException("Rotation Cant Be Null");
+            
+            if(prefabName.Length > Sizes.MaxPrefabName)
+                throw new GameServiceException("PrefabName is Too Large! (MaxSize : " + Sizes.MaxPrefabName + ")");
             
             PrefabName = prefabName;
             Position = position;

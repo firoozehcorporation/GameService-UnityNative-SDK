@@ -53,9 +53,11 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "1.5.0 Alpha";
+        public const string Version = "1.5.1 Stable";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
+        public static int SerializationRate => GsSerializer.Object.GetSerializationRate();
+
 
         public static int GetRoundTripTime()
         {
@@ -70,8 +72,6 @@ namespace Plugins.GameService.Utils.RealTimeUtil
                 return FiroozehGameService.Core.GameService.GSLive.RealTime().GetPacketLost();
             return -1;
         }
-
-        public static short SerializationRate => 10;
         
         public static class Callbacks
         {

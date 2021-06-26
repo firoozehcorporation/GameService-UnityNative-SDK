@@ -137,7 +137,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
             if(_observerCache.ContainsKey(key))
                 throw new GameServiceException("Observer (Id,Owner) Must Be Unique");
 
-            var newEvent = EventCallerUtil.CreateNewEvent(Sizes.EventInterval);
+            var newEvent = EventCallerUtil.CreateNewEvent();
             
             _observerCache.Add(key,observer);
             _observerEventCache.Add(key,newEvent);

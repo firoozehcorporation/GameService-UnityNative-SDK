@@ -6,6 +6,23 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.1.0] Stable - 2021-06-26
+
+### Added
+
+- Added Adaptive Serialization To Work Better On Lossy Networks
+
+
+
+### Fixed
+
+- Fixed LoginOrSignUp in Multiple Times
+- Fixed AutoMatch in Multiple Times
+
+
+
+
+
 ## [8.0.0] Alpha - 2021-06-22
 
 ### Added
