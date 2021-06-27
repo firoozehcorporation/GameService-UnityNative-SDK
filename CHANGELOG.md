@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Added Adaptive Serialization To Work Better On Lossy Networks
+- Added Check CurrentPlayerObserving To Avoid Update In Observer Player
 
 
 
@@ -18,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 - Fixed LoginOrSignUp in Multiple Times
 - Fixed AutoMatch in Multiple Times
+- Fixed Dispose Issue
 
 
 

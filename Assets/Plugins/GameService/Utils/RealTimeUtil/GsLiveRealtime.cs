@@ -29,6 +29,7 @@ using FiroozehGameService.Models.GSLive.Command;
 using FiroozehGameService.Models.GSLive.RT;
 using FiroozehGameService.Utils.Serializer;
 using FiroozehGameService.Utils.Serializer.Models;
+using Plugins.GameService.Utils.RealTimeUtil.Classes;
 using Plugins.GameService.Utils.RealTimeUtil.Classes.Handlers;
 using Plugins.GameService.Utils.RealTimeUtil.Consts;
 using Plugins.GameService.Utils.RealTimeUtil.Interfaces;
@@ -53,7 +54,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "1.5.1 Stable";
+        public const string Version = "1.6.0 Stable";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
         public static int SerializationRate => GsSerializer.Object.GetSerializationRate();
@@ -71,6 +72,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil
             if(FiroozehGameService.Core.GameService.GSLive.IsRealTimeAvailable())
                 return FiroozehGameService.Core.GameService.GSLive.RealTime().GetPacketLost();
             return -1;
+        }
+
+        public static bool IsCurrentPlayerObserving(MonoBehaviour monoBehaviour)
+        {
+            if (monoBehaviour == null) return false;
+            return monoBehaviour.GetComponent<GameServiceMasterObserver>() != null && monoBehaviour.GetComponent<GameServiceMasterObserver>().isMine;
         }
         
         public static class Callbacks

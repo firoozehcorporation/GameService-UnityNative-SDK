@@ -24,6 +24,7 @@ using FiroozehGameService.Utils.Serializer.Helpers;
 using FiroozehGameService.Utils.Serializer.Interfaces;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.MetaAttributes;
 using Plugins.GameService.Tools.NaughtyAttributes.Scripts.Core.Utility;
+using Plugins.GameService.Utils.RealTimeUtil.Utils;
 using UnityEngine;
 
 namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
@@ -90,6 +91,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         public void Update()
         {
+            if(GsLiveRealtime.IsCurrentPlayerObserving(this)) return;
+            
             _transform.position = Vector3.Lerp(_transform.position, _mNetworkPosition, Time.deltaTime * lerpRatePosition);
             _transform.rotation = Quaternion.Lerp(_transform.rotation,_mNetworkRotation, Time.deltaTime * lerpRateRotation);
             _transform.localScale = _mNetworkScale;
@@ -102,6 +105,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
                 if (synchronizePosition) _mNetworkPosition = (Vector3)    readStream.ReadNext();
                 if (synchronizeRotation) _mNetworkRotation = (Quaternion) readStream.ReadNext();
                 if (synchronizeScale)    _mNetworkScale    = (Vector3)    readStream.ReadNext();
+                
+                Debug.Log("OnGsLiveRead");
             }
             catch (Exception e)
             {

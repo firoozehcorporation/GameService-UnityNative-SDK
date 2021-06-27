@@ -65,6 +65,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         public void FixedUpdate()
         {
+            if(GsLiveRealtime.IsCurrentPlayerObserving(this)) return;
+
             _rBody.position = Vector2.MoveTowards(_rBody.position, _mNetworkPosition, _mDistance * (1.0f / GsLiveRealtime.SerializationRate));
             _rBody.rotation = Mathf.MoveTowards(_rBody.rotation, _mNetworkRotation, _mAngle * (1.0f / GsLiveRealtime.SerializationRate));
         }

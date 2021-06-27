@@ -65,6 +65,8 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Classes.Observers
         
         public void Update()
         {
+            if(GsLiveRealtime.IsCurrentPlayerObserving(this)) return;
+
             transform.position = Vector3.MoveTowards(transform.position, _mNetworkPosition, _mDistance * (1.0f / GsLiveRealtime.SerializationRate));
             transform.rotation = Quaternion.RotateTowards(transform.rotation, _mNetworkRotation, _mAngle * (1.0f / GsLiveRealtime.SerializationRate));
         }

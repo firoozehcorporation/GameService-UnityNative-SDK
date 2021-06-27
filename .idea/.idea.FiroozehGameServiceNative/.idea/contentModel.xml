@@ -130,7 +130,7 @@
               <e p="RealTimeUtil" t="Include">
                 <e p="Classes" t="Include">
                   <e p="Attributes" t="Include">
-                    <e p="GsLiveFunction.cs" t="Include" />
+                    <e p="GsLiveRunable.cs" t="Include" />
                   </e>
                   <e p="GameServiceMasterObserver.cs" t="Include" />
                   <e p="GameServiceMonoBehaviour.cs" t="Include" />
