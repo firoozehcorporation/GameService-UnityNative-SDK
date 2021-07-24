@@ -9,13 +9,15 @@
                 Represents ClientConfiguration For Game Service
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Builder.GameServiceClientConfiguration.#ctor(System.String,System.String,FiroozehGameService.Models.Internal.SystemInfo)">
+        <member name="M:FiroozehGameService.Builder.GameServiceClientConfiguration.#ctor(System.String,System.String,FiroozehGameService.Models.Internal.SystemInfo,FiroozehGameService.Models.Enums.ConnectionType,FiroozehGameService.Models.Enums.ConnectionType)">
             <summary>
                 Set GameServiceClientConfiguration Values
             </summary>
             <param name="clientId">Set The ClientId From Developers Panel</param>
             <param name="clientSecret">Set The ClientSecret From Developers Panel</param>
             <param name="systemInfo">Set systemInfo</param>
+            <param name="commandConnectionType">Set Command Connection Type</param>
+            <param name="turnBasedConnectionType">Set TurnBased Connection Type</param>
             <exception cref="T:FiroozehGameService.Models.GameServiceException">May GameServiceException Occur</exception>
         </member>
         <member name="T:FiroozehGameService.Builder.GameServiceDebugConfiguration">
@@ -54,6 +56,12 @@
                 Set configuration For Game Service Debug System
             </summary>
             <param name="configuration">(NOTNULL)configuration For Game Service Debug System</param>
+        </member>
+        <member name="M:FiroozehGameService.Core.GameService.SetEventHandlersType(FiroozehGameService.Models.Enums.EventHandlerType)">
+            <summary>
+               Set Event Handlers Type to Work Chat System with it
+            </summary>
+            <param name="handlerType">Type of Event Handler You Want to Set</param>
         </member>
         <member name="M:FiroozehGameService.Core.GameService.IsAuthenticated">
             <summary>
@@ -279,67 +287,111 @@
                 <param name="logo">(NULLABLE) Specifies the Party Logo (BytesBuffer) </param>
             </summary>
         </member>
-        <member name="T:FiroozehGameService.Core.Socket.ClientHelper.TcpClientWithTimeout">
-            <summary>
-                TcpClientWithTimeout is used to open a TcpClient connection, with a
-                user definable connection timeout in milliseconds (1000=1second)
-                Use it like this:
-                TcpClient connection = new TcpClientWithTimeout('127.0.0.1',80,1000).Connect();
-            </summary>
-        </member>
         <member name="T:FiroozehGameService.Handlers.ChatEventHandlers">
             <summary>
                 Represents ChatEventHandlers
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnChatReceived">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChatReceived">
             <summary>
                 Calls When New Chat Received
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.SendChannelMessage(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String)" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnSubscribeChannel">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.SubscribeChannelReceived">
             <summary>
                 Calls When Current Player Subscribe Channel
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.SubscribeChannel(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SubscribeChannel(System.String)" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.OnUnSubscribeChannel">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.UnSubscribeChannelReceived">
             <summary>
                 Calls When Current Player UnSubscribe Channel
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.UnSubscribeChannel(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.UnSubscribeChannel(System.String)" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelsSubscribed">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChatRemoved">
+            <summary>
+                Calls When a Chat Removed
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMessage(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemovePrivateMessage(System.String,System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChatEdited">
+            <summary>
+                Calls When a Chat Edited
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelChatsRemoved">
+            <summary>
+                Calls When all Chats belong a Channel Removed
+                NOTE : Call With Channel Name that removed all chats belong to it
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMessages(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.AllChannelChatsRemoved">
+            <summary>
+                Calls When all Channel Chats Removed
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveAllChannelMessages" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.MemberChatsRemoved">
+            <summary>
+                Calls When all Chats belong a Member Removed
+                NOTE : Call With Member Id that removed all chats belong to it
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMemberMessages(System.String,System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.PrivateChatsRemoved">
+            <summary>
+                Calls When all Private Chats belong a Member Removed
+                NOTE : Call With MemberID that removed all chats belong to it
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemovePrivateMessages(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.AllPrivateChatsRemoved">
+            <summary>
+                Calls When all Private Chats Removed
+                This Event Handler Called By Following Function :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveAllPrivateMessages" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.SubscribedChannelsReceived">
             <summary>
                 Calls When Current Player Get Channels Subscribed List
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.GetChannelsSubscribed" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelsSubscribed" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelMembers">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelMembersReceived">
             <summary>
                 Calls When Current Player Get Channel Members List
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.GetChannelMembers(System.String,System.Int32,System.Int32)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelMembers(System.String,System.Int32,System.Int32)" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelRecentMessages">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelRecentMessagesReceived">
             <summary>
                 Calls When Current Player Get Channel Recent Messages
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.GetChannelRecentMessages(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelRecentMessages(System.String)" />
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.PendingMessages">
+        <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.PrivateRecentMessagesReceived">
             <summary>
-                Calls When Current Player Get Pending Messages
-                Pending Messages Saved when the Current Player is offline
-                You Can Get Them With this Function
+                Calls When Current Player Get Private Messages
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveChat.GetChannelRecentMessages(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetPrivateRecentMessages" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CoreEventHandlers">
@@ -393,9 +445,9 @@
                 Calls When SomeOne Join To Current Room
                 It Maybe Current Player or Another
                 This Event Handler Called By Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.JoinRoom(System.String,System.String,System.String)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.JoinRoom(System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.Reconnected">
@@ -407,27 +459,27 @@
             <summary>
                 Calls When SomeOne Left the Current Room
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.LeaveRoom" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.LeaveRoom" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.NewMessageReceived">
             <summary>
                 Calls When SomeOne Send Message In Current Room
                 This Event Handler Called By Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.SendPublicMessage(System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.SendPrivateMessage(System.String,System.Byte[])" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.SendPublicMessage(System.Byte[],FiroozehGameService.Models.Enums.GProtocolSendType)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.SendPrivateMessage(System.String,System.Byte[])" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.RoomMembersDetailReceived">
             <summary>
                 Returns Current Room Members Detail  When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.GetRoomMembersDetail" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomMembersDetail" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.CurrentRoomInfoReceived">
             <summary>
                 Returns Room Info When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.GetCurrentRoomInfo" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetCurrentRoomInfo" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.CommandEventHandlers">
@@ -439,8 +491,8 @@
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.AvailableRoomsReceived">
             <summary>
                 Returns Available Rooms When Call The Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.GetAvailableRooms(System.String)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetAvailableRooms(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetAvailableRooms(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetAvailableRooms(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.AutoMatchUpdated">
@@ -451,15 +503,15 @@
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.AutoMatchCanceled">
             <summary>
                 Returns Current AutoMatch Canceled Status
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.CancelAutoMatch" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.CancelAutoMatch" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.CancelAutoMatch" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.CancelAutoMatch" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.InviteInboxReceived">
             <summary>
                 Returns Available Invite , When Call The Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.GetInviteInbox" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetInviteInbox" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetInviteInbox" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetInviteInbox" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.NewInviteReceived">
@@ -470,15 +522,15 @@
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.FindMemberReceived">
             <summary>
                 Returns List of Member , When Call The Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.FindMember(System.String,System.Int32)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.FindMember(System.String,System.Int32)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.FindMember(System.String,System.Int32)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.FindMember(System.String,System.Int32)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.InvitationSent">
             <summary>
                 Calls When Current Invitation Sent Successfully
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveRealTime.InviteUser(System.String,System.String)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.InviteUser(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.InviteUser(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.InviteUser(System.String,System.String)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
@@ -492,9 +544,9 @@
                 Calls When SomeOne Join To Current Room
                 It Maybe Current Player or Another
                 This Event Handler Called By Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.JoinRoom(System.String,System.String,System.String)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.JoinRoom(System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.Reconnected">
@@ -506,64 +558,64 @@
             <summary>
                 Calls When SomeOne Left the Current Room
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.LeaveRoom(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.LeaveRoom(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.TakeTurn">
             <summary>
                 Returns New Turn With Data From Another Players When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.TakeTurn(System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.TakeTurn(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.ChoosedNext">
             <summary>
                 Returns New Turn From Another Players When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.ChooseNext(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.ChooseNext(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.PropertyUpdated">
             <summary>
                 Returns NewOrUpdate Property From Another Players When Call The Following Functions :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.SetOrUpdateProperty(FiroozehGameService.Models.Enums.GSLive.TB.PropertyType,System.Collections.Generic.KeyValuePair{System.String,System.String})" />
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.RemoveProperty(FiroozehGameService.Models.Enums.GSLive.TB.PropertyType,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.SetOrUpdateProperty(FiroozehGameService.Models.Enums.GSLive.TB.PropertyType,System.Collections.Generic.KeyValuePair{System.String,System.String})" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.RemoveProperty(FiroozehGameService.Models.Enums.GSLive.TB.PropertyType,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.MemberPropertiesReceived">
             <summary>
                 Returns Properties From Another Players When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetMemberProperties" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetMemberProperties" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.CurrentRoomInfoReceived">
             <summary>
                 Returns Room Info When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetCurrentRoomInfo" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetCurrentRoomInfo" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.VoteReceived">
             <summary>
                 Calls When SomeOne Announced To Finish Game
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.Vote(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.Vote(System.Collections.Generic.Dictionary{System.String,FiroozehGameService.Models.GSLive.TB.Outcome})" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.AcceptVoteReceived">
             <summary>
                 Calls When Accept Vote Received From Other Players
                 This Event Handler Called By Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.AcceptVote(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.AcceptVote(System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.RoomMembersDetailReceived">
             <summary>
                 Returns Current Room Members Detail  When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetRoomMembersDetail" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetRoomMembersDetail" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.CurrentTurnMemberReceived">
             <summary>
                 Returns Current Turn Member Received When Call The Following Function :
-                <see cref="M:FiroozehGameService.Core.Providers.GSLive.GsLiveTurnBased.GetCurrentTurnMember" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetCurrentTurnMember" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Achievement">
@@ -2072,6 +2124,12 @@
                 Represents User Data Model In Game Service Basic API
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.User.Email">
+            <summary>
+                Gets the User Email.(NULLABLE)
+            </summary>
+            <value>the User Email</value>
+        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.User.Id">
             <summary>
                 Gets the User id.
@@ -2081,7 +2139,7 @@
         <member name="F:FiroozehGameService.Models.BasicApi.User.IsGuest">
             <summary>
                 get this User Is Guest or Not.
-                (Note : Only Works on <see cref="!:GameService.GetCurrentPlayer" />)
+                (Note : Only Works on <see cref="M:FiroozehGameService.Models.BasicApi.Providers.IPlayerProvider.GetCurrentPlayer" />)
             </summary>
             <value>this User Is Guest or Not</value>
         </member>
@@ -2102,12 +2160,6 @@
                 Gets the User Name.
             </summary>
             <value>the User Name</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.User.Email">
-            <summary>
-                Gets the User Email.(NULLABLE)
-            </summary>
-            <value>the User Email</value>
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.User.PhoneNumber">
             <summary>
@@ -2398,6 +2450,12 @@
                 <see cref="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.Chat.UnSubscribeChannel" />
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.Chat.RemoveMessage">
+            <summary>
+                Represents GameService Remove Message Functions Errors
+                Errors that occur in the following Functions:
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.TurnBase">
             <summary>
                 Represents All GameService Errors in TurnBase Requests
@@ -2546,6 +2604,26 @@
                 Represents GameService SetProperty Errors
                 Errors that occur in the following Functions:
                 <see cref="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.Realtime.SetProperty" />
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.ConnectionType">
+            <summary>
+                Represents ConnectionType Class in GameService
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.ConnectionType.NotSet">
+            <summary>
+                Connection Not Set , that's Set Automatically By Server
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.ConnectionType.Native">
+            <summary>
+                Native Connection
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.ConnectionType.WebSocket">
+            <summary>
+                WebSocket Connection
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.DBaaS.ItemOwnershipTypes">
@@ -2701,6 +2779,21 @@
         <member name="F:FiroozehGameService.Models.Enums.EventAction.AddToPartyByFriend">
             <summary>
             Add To Party By Friend Action
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.EventHandlerType">
+            <summary>
+             Represents EventHandlerType Class in GameService
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.EventHandlerType.UnityContext">
+            <summary>
+            Event Handler Working With Unity Context
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.EventHandlerType.NativeContext">
+            <summary>
+            Event Handler Working With Native Context, So Maybe Not Working Well on Unity Context
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GProtocolSendType">
@@ -3015,14 +3108,21 @@
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
             <summary>
-                Represents Chat Data Model In GameService Command System
+                Represents Chat Data Model In GameService Chat System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ChannelName">
             <summary>
                 Gets the Chat Channel Name
+                NOTE : ChannelName Only Have Valid Data When is Not a Private Chat
             </summary>
             <value>the Chat Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Id">
+            <summary>
+                Gets the Chat Id
+            </summary>
+            <value>the Chat Id</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
             <summary>
@@ -3035,6 +3135,13 @@
                 Gets the Chat Message Data
             </summary>
             <value>the Chat Message Data</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Property">
+            <summary>
+                Gets the Chat Property
+                NOTE : Only have valid Data if Sender set it
+            </summary>
+            <value>the Chat Property</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
             <summary>
@@ -3053,6 +3160,40 @@
                 Gets the Chat Message Send Time in Unix Time
             </summary>
             <value>the Chat Message Send Time in Unix Time</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove">
+            <summary>
+                Represents Member Chat Remove Data Model In GameService Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.ChannelName">
+            <summary>
+                Gets the Channel Name That removed All Chats Belong To Current Member id
+            </summary>
+            <value>the Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.MemberId">
+            <summary>
+                Gets Member id That is Removed All Chats Belong To it
+            </summary>
+            <value>The Member id</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Chat.PrivateChat">
+            <summary>
+                Represents Private Chat Data Model In GameService Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.Chats">
+            <summary>
+                Gets the Chats From Current Member Contact
+            </summary>
+            <value>the Chats From Current Member Contact</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.MemberContact">
+            <summary>
+                Gets the Chats Member Contact
+            </summary>
+            <value>the the Chats Member Contact</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent">
             <summary>
@@ -3275,19 +3416,82 @@
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To UnSubscribe</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String)">
             <summary>
-                Send Message In SubscribedChannel.
+                Send Message In Subscribed Channel.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
+            <param name="property">(NULLABLE) Message Extra Property</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendPrivateMessage(System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendPrivateMessage(System.String,System.String,System.String)">
             <summary>
                 Send Message To Member.
             </summary>
             <param name="memberId">(NOTNULL)ID of Member You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
+            <param name="property">(NULLABLE) Message Extra Property</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String)">
+            <summary>
+                Edit Message In Subscribed Channel.
+            </summary>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Edit a Message in it</param>
+            <param name="messageId">(NOTNULL)Id of Message You want To Edit it</param>
+            <param name="message">(NOTNULL)Message Data</param>
+            <param name="property">(NULLABLE) Message Extra Property</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String)">
+            <summary>
+                Edit Message That Sent to a Member.
+            </summary>
+            <param name="memberId">(NOTNULL)ID of Member You want To Edit Message that sent to it</param>
+            <param name="messageId">(NOTNULL)Id of Message You want To Edit it</param>
+            <param name="message">(NOTNULL)Message Data</param>
+            <param name="property">(NULLABLE) Message Extra Property</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMessage(System.String,System.String)">
+            <summary>
+                Remove a Chat In Public Channel
+            </summary>
+            <param name="channelName">(NOTNULL)The Channel Name You want To Remove Message in it</param>
+            <param name="messageId">(NOTNULL)The message Id You Want To Remove It</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMemberMessages(System.String,System.String)">
+            <summary>
+                Remove all a Member Messages in Public Channel
+            </summary>
+            <param name="channelName">(NOTNULL)The Channel Name You want To Remove Messages in it</param>
+            <param name="memberId">(NOTNULL)The Member Id You Want To Remove all Member Messages in Public Channel</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMessages(System.String)">
+            <summary>
+                Remove all Chats In Public Channel
+            </summary>
+            <param name="channelName">(NOTNULL)The Channel Name You want To Remove All Message in it</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveAllChannelMessages">
+            <summary>
+                Remove all Chats In All Public Channels
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemovePrivateMessage(System.String,System.String)">
+            <summary>
+                Remove a Private Chat
+            </summary>
+            <param name="memberId">(NOTNULL)The memberId You want To Remove Message that sent to it before</param>
+            <param name="messageId">(NOTNULL)The message Id You Want To Remove It</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemovePrivateMessages(System.String)">
+            <summary>
+                Remove all Your Messages That Sent them to a Member
+            </summary>
+            <param name="memberId">(NOTNULL)The Member Id You Want To Remove all Your Messages That Sent them to a Member</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveAllPrivateMessages">
+            <summary>
+                Remove all Your Private Messages
+            </summary>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelsSubscribed">
             <summary>
@@ -3296,9 +3500,14 @@
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelRecentMessages(System.String)">
             <summary>
-                Get Channel last 30 Messages
+                Get Channel last 100 Messages
             </summary>
-            <param name="channelName">(NOTNULL)Name of Channel You want To Get last 30 Messages</param>
+            <param name="channelName">(NOTNULL)Name of Channel You want To Get last 100 Messages</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetPrivateRecentMessages">
+            <summary>
+                Get Current Player Private Recent Messages
+            </summary>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetChannelMembers(System.String,System.Int32,System.Int32)">
             <summary>
@@ -3307,11 +3516,6 @@
             <param name="channelName">(NOTNULL)Name of Channel You want To Get Members</param>
             <param name="skip">The skip value</param>
             <param name="limit">(Max = 15) The Limit value</param>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.GetPendingMessages">
-            <summary>
-                Get Your Pending Messages
-            </summary>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider">
             <summary>

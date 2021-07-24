@@ -89,7 +89,6 @@ namespace Plugins.GameService.Utils
         private const string BeginLog = "\r\n=======================Begin GameService Debugger Logs======================\r\n";
         private const string EndLog = "\r\n=========================End GameService Debugger Logs========================\r\n";
 
-
         private void Awake()
         {
             _appPath = Application.persistentDataPath;
@@ -156,22 +155,34 @@ namespace Plugins.GameService.Utils
             Debug.Log("GameService Version : "+FiroozehGameService.Core.GameService.Version()+" Initialized");
         }
 
+
         private void OnDestroy()
         {
-            FiroozehGameService.Core.GameService.Logout();
+            GameServiceDispose();
+        }
+
+        private void OnApplicationQuit()
+        {
+            GameServiceDispose();
+        }
+
+
+        private void GameServiceDispose()
+        {
+            if(!_isInit) return;
             
             _isInit = false;
+            
+            FiroozehGameService.Core.GameService.Logout();
             FiroozehGameService.Core.GameService.OnDebugReceived = null;
             
             Debug.Log("GameService Logout Called");
-
-            if (!RealTimeUtilEnabled) return;
             
+            if (EnableSaveDebugLogs) File.AppendAllText(_appPath + DebugPath + _logFile,EndLog);
+           
+            if (!RealTimeUtilEnabled) return;
             GsLiveRealtime.Dispose();
             Debug.Log("GsLiveRealtime Dispose Called");
-            
-            if (EnableSaveDebugLogs)
-                File.AppendAllText(_appPath + DebugPath + _logFile,EndLog);
         }
 
         private void OnDebugReceived(object sender, FiroozehGameService.Models.EventArgs.Debug debug)

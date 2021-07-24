@@ -4,6 +4,44 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.2.0] Stable - 2021-07-24
+
+### Added
+
+- Added Ability To **Edit a Message in Public Channel **
+- Added Ability To **Remove a Message in Public Channel**
+- Added Ability To **Remove Member Chats in Public Channel**
+- Added Ability To **Remove All Chats in a Public Channel**
+- Added Ability To **Remove All Public Channels Messages**
+- Added Ability To **Edit Chat a Private Message**
+- Added Ability To **Remove a Private Message**
+- Added Ability To **Remove All Private Messages That's Sent To a Member**
+- Added Ability To **Remove All Private Messages**
+- Added Ability To **Get All Private Recent Messages With MemberContact**
+- Added **Chat id** And **Chat Property** To Chat Data Model
+- Added Connectivity Checker in Turn-Based System
+- Added WebSocket ConnectionType Support
+- Added Throw Exception When Send Function Limited in GSLive Systems
+
+
+
+### Changed
+
+- Removed **Async/Await Functions** In Command and Turn-Based and Real-Time Systems To Improve Performance
+- Removed **Pending Messages** and Replaced With **Private Recent Messages**
+- Renamed All **Chats Event Handlers** With Correct Format (Added Received at the End of Names)
+
+
+
+### Fixed
+
+- Fixed Reconnecting Issues
+- Fixed Multiple Auth Issue
+- Fixed Reconnect Event Handler Context Issue
+- Fixed GsTcpClient To Work better on Lossy Network
+
+
+
 
 
 ## [8.1.0] Stable - 2021-06-26
