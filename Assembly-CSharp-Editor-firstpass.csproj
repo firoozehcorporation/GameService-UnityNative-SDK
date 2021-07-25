@@ -338,6 +338,9 @@
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="websocket-sharp">
+ <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/websocket-sharp.dll</HintPath>
+ </Reference>
  <Reference Include="FiroozehGameService">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/FiroozehGameService.dll</HintPath>
  </Reference>
@@ -367,9 +370,6 @@
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
- </Reference>
- <Reference Include="websocket-sharp">
- <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Assets/Plugins/GameService/Core/Managed/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>/Users/alirezaghodrati/UnityProject/FiroozehGameServiceNative/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>

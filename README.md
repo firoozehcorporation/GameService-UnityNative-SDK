@@ -17,22 +17,29 @@
 
 : با استفاده از قابلیت های گیم سرویس می توانید از موارد زیر در بازی خود استفاده کنید
 
-- ذخیره اطلاعات بازیکنان
-- (لیست های مقایسه ای  (لیدربورد
-- (دستاورد ها (اچیومنت
-- میزبانی بسته های داده
-- گروه ها و چالش ها
-- دوستان و پارتی ها
-- (بازی های گروهی (مالتی پلیر
+- ثبت و مدیریت کاربران «User Management»
+- ذخیره اطلاعات بازیکنان «Save»
+- جداول امتیاز «Leaderboard»
+- دستاورد ها «Achievment»
+- جداول داده «DBaaS»
+- میزبانی فایل «CloudStorage»
+- آمار گیری و مانیتورنیگ «Statistics»
+- سرویس گفت و گو کاربران «Chat»
+- رایانش ابری «CloudComputing»
+- بازی های نوبتی «TurnBased»
+- بازی های درلحظه «RealTime»
+- دوستان و پارتی ها «Friend & Party»
 
 
 
 ### راه اندازی گیم سرویس :
 
-برای استفاده از گیم سرویس به [مستندات](https://gamesservice.ir/docs) مراجعه کنید
+برای استفاده از گیم سرویس به [مستندات](https://docs.gamesservice.ir) مراجعه کنید
 
 
 
 ### کتابخانه های استفاده شده :
 - [Async Await Support](https://assetstore.unity.com/packages/tools/integration/async-await-support-101056)
 - [NaughtyAttributes](https://assetstore.unity.com/packages/tools/utilities/naughtyattributes-129996)
+- [Websocket-Sharp](https://github.com/sta/websocket-sharp)
+
