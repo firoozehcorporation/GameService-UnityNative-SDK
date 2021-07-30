@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.3.0] Stable - 2021-07-30
+
+### Added
+
+- Added Ability To **Push an Event By Member Id **
+- Added Ability To **Push a Scheduled Event By Member Id **
+- Added Ability To **Push an Event By Member Tag **
+- Added Ability To **Push a Scheduled Event By Member Tag **
+- Added Ability To **Get Buffered Push Events**
+
+
+
+### Fixed
+
+- Fixed Accessibility In GameService Main Data Models
+- Fixed Accessibility In Configuration Classes
+
+
+
+
+
 ## [8.2.0] Stable - 2021-07-24
 
 ### Added

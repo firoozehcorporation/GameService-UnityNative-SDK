@@ -27,7 +27,7 @@
         </member>
         <member name="M:FiroozehGameService.Builder.GameServiceDebugConfiguration.#ctor(System.Boolean,System.Boolean,System.Boolean,FiroozehGameService.Models.Enums.DebugLocation[])">
             <summary>
-            Set GameServiceDebugConfiguration Values
+                Set GameServiceDebugConfiguration Values
             </summary>
             <param name="enableException">Set Debug Exception Enable</param>
             <param name="enableError">Set Debug Error Enable</param>
@@ -59,7 +59,7 @@
         </member>
         <member name="M:FiroozehGameService.Core.GameService.SetEventHandlersType(FiroozehGameService.Models.Enums.EventHandlerType)">
             <summary>
-               Set Event Handlers Type to Work Chat System with it
+                Set Event Handlers Type to Work Chat System with it
             </summary>
             <param name="handlerType">Type of Event Handler You Want to Set</param>
         </member>
@@ -533,6 +533,22 @@
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.InviteUser(System.String,System.String)" />
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.PushEventReceived">
+            <summary>
+                Calls When Current Push Event Received Successfully
+                <see
+                    cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventById(System.String,System.String,FiroozehGameService.Models.Enums.GSLive.PushEventBufferType)" />
+                <see
+                    cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventByTag(System.String,System.String,FiroozehGameService.Models.Enums.GSLive.PushEventBufferType)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.BufferedPushEventsReceived">
+            <summary>
+                Calls When Current Buffered Push Events Received Successfully
+                <see
+                    cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.GetBufferedPushEvents" />
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
             <inheritdoc />
             <summary>
@@ -617,6 +633,26 @@
                 Returns Current Turn Member Received When Call The Following Function :
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetCurrentTurnMember" />
             </summary>
+        </member>
+        <member name="T:FiroozehGameService.Helpers.Scheduler">
+            <summary>
+                Represents Game Service Time Scheduler Class
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Helpers.Scheduler.Next(System.Int32)">
+            <summary>
+                returns the ScheduleBuilder Of Time to Work With Scheduler Functions
+            </summary>
+            <param name="time"> the Time Value</param>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Helpers.Scheduler.FromDate(System.DateTimeOffset)">
+            <summary>
+                returns next Date Time Offset in Seconds
+                NOTE : Input DateTimeOffset Must Set With UTC Time
+            </summary>
+            <param name="dateTimeOffset">the DateTimeOffset To Schedule</param>
+            <returns></returns>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Achievement">
             <summary>
@@ -703,17 +739,17 @@
             </summary>
             <value>the Device Name</value>
         </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.FirstLoginTime">
+            <summary>
+                Gets the First Login Time
+            </summary>
+            <value>the First Login Time</value>
+        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.GraphicsDeviceName">
             <summary>
                 Gets the Device Graphics Name
             </summary>
             <value>the Device Graphics Name</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.OperatingSystem">
-            <summary>
-                Gets the Device Operating System
-            </summary>
-            <value>the Device Operating System</value>
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.IsCurrentDevice">
             <summary>
@@ -727,11 +763,11 @@
             </summary>
             <value>the Last Login Time</value>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.FirstLoginTime">
+        <member name="F:FiroozehGameService.Models.BasicApi.ActiveDevice.OperatingSystem">
             <summary>
-                Gets the First Login Time
+                Gets the Device Operating System
             </summary>
-            <value>the First Login Time</value>
+            <value>the Device Operating System</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.DBaaS.Aggregations.AggregationCore">
             <summary>
@@ -984,6 +1020,12 @@
                 Represents EditUserProfile In Game Service Basic API
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Email">
+            <summary>
+                Set New Email For CurrentPlayer.
+            </summary>
+            <value> New Email For CurrentPlayer</value>
+        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Logo">
             <summary>
                 Set New ProfileLogo(BytesBuffer) For CurrentPlayer.
@@ -1002,15 +1044,8 @@
             </summary>
             <value> New PhoneNumber For CurrentPlayer</value>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.EditUserProfile.Email">
-            <summary>
-                Set New Email For CurrentPlayer.
-            </summary>
-            <value> New Email For CurrentPlayer</value>
-        </member>
         <member name="M:FiroozehGameService.Models.BasicApi.EditUserProfile.#ctor(System.String,System.Byte[],System.String,System.String)">
             <summary>
-            
                 EditUserProfile Data Model
             </summary>
             <param name="nickName">the value of nickName you want to update</param>
@@ -1054,29 +1089,29 @@
                 Represents Game Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Game.Name">
-            <summary>
-                Gets the Game Name.
-            </summary>
-            <value>the Game Name</value>
-        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Game.Image">
             <summary>
                 Gets the Game Cover URL.
             </summary>
             <value>the Game Cover URL</value>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Game.Publisher">
+        <member name="F:FiroozehGameService.Models.BasicApi.Game.Name">
             <summary>
-                Gets the Game Publisher.
+                Gets the Game Name.
             </summary>
-            <value>the Game Publisher</value>
+            <value>the Game Name</value>
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Game.OnlinePlayers">
             <summary>
                 Gets the Game Online Players.
             </summary>
             <value>the Game Online Players</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Game.Publisher">
+            <summary>
+                Gets the Game Publisher.
+            </summary>
+            <value>the Game Publisher</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.LeaderBoard">
             <summary>
@@ -1605,17 +1640,17 @@
                 Represents Publisher Data Model In Game Service Basic API
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.BasicApi.Publisher.Name">
-            <summary>
-                Gets the Game Name.
-            </summary>
-            <value>the Game Name</value>
-        </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Publisher.Image">
             <summary>
                 Gets the Game Cover URL.
             </summary>
             <value>the Game Cover URL</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.BasicApi.Publisher.Name">
+            <summary>
+                Gets the Game Name.
+            </summary>
+            <value>the Game Name</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Results`1">
             <summary>
@@ -2424,6 +2459,21 @@
                 Represents All GameService Internal Errors in GSLive
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.PushEvent">
+            <summary>
+                Represents All GameService Errors in Push Event Requests
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.PushEvent.PushEventById">
+            <summary>
+                Represents GameService Push Event By Id Errors
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.PushEvent.PushEventByTag">
+            <summary>
+                Represents GameService Push Event By Tag Errors
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.Consts.GameServiceErrors.GSLive.Chat">
             <summary>
                 Represents All GameService Errors in Chat Requests
@@ -2698,87 +2748,92 @@
         </member>
         <member name="T:FiroozehGameService.Models.Enums.DebugLocation">
             <summary>
-             Represents Game Service DebugLocation Class
+                Represents Game Service DebugLocation Class
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.All">
             <summary>
-            Happened In All GameService Systems
+                Happened In All GameService Systems
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Internal">
             <summary>
-            Happened In GameService Core 
+                Happened In GameService Core
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Http">
             <summary>
-            Happened In Http System
+                Happened In Http System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Command">
             <summary>
-            Happened In Command System
+                Happened In Command System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Chat">
             <summary>
-            Happened In Chat System
+                Happened In Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Event">
+            <summary>
+                Happened In Event System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.TurnBased">
             <summary>
-            Happened In TurnBased System
+                Happened In TurnBased System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.RealTime">
             <summary>
-            Happened In RealTime System
+                Happened In RealTime System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Social">
             <summary>
-            Happened In Social System
+                Happened In Social System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Friend">
             <summary>
-            Happened In Friend System
+                Happened In Friend System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Party">
             <summary>
-            Happened In Party System
+                Happened In Party System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.EventAction">
             <summary>
-             Represents EventType Class in GameService
+                Represents EventType Class in GameService
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.EventAction.AcceptFriendRequest">
             <summary>
-            Accept Friend Request Action
+                Accept Friend Request Action
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.EventAction.AcceptJoinPartyRequest">
             <summary>
-            Accept Friend Request Action
+                Accept Friend Request Action
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.EventAction.KickPartyMember">
             <summary>
-            kick Member Action
+                kick Member Action
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.EventAction.ChangePartyMemberRole">
             <summary>
-            Change Member Role Action
+                Change Member Role Action
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.EventAction.AddToPartyByFriend">
             <summary>
-            Add To Party By Friend Action
+                Add To Party By Friend Action
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.EventHandlerType">
@@ -2840,6 +2895,36 @@
         <member name="F:FiroozehGameService.Models.Enums.GSLive.Command.AutoMatchCancel.NotInQueue">
             <summary>
             Set When The Member Not In AutoMatch Queue
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.PushEventSendType">
+            <summary>
+                Represents Push Event Send Type Class in GameService
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.PushEventSendType.MemberId">
+            <summary>
+                Member Id Push Event Send Type
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.PushEventSendType.MemberTag">
+            <summary>
+                Member Tag Push Event Send Type
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.PushEventBufferType">
+            <summary>
+                Represents Push Event Buffer Type Class in GameService
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.PushEventBufferType.NoBuffering">
+            <summary>
+                No Buffering Push Event Buffer Type
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.PushEventBufferType.WithBuffering">
+            <summary>
+                With Buffering Push Event Buffer Type
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.GSLiveType">
@@ -3106,6 +3191,63 @@
                 Represents Game Service Exception
             </summary>
         </member>
+        <member name="M:FiroozehGameService.Models.GameServiceException.#ctor">
+            <summary>
+                the Game Service Exception Main Constructor
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GameServiceException.#ctor(System.String)">
+            <summary>
+                the Game Service Exception Message Constructor
+            </summary>
+            <param name="msg">the Exception Message</param>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.ScheduleBuilder">
+            <summary>
+                Represents ScheduleBuilder Class
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.ScheduleBuilder._value">
+            <summary>
+                the Value Data
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.#ctor(System.Int32)">
+            <summary>
+                Abstract Value Constructor Function
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Seconds">
+            <summary>
+                returns next Seconds Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Minutes">
+            <summary>
+                returns next Minutes Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Hours">
+            <summary>
+                returns next Hours Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Days">
+            <summary>
+                returns next Days Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Weeks">
+            <summary>
+                returns next Weeks Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
             <summary>
                 Represents Chat Data Model In GameService Chat System
@@ -3310,6 +3452,18 @@
                 Represents JoinData Data Model In GameService MultiPlayer System (GSLive)
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
+            <summary>
+                Gets the Player Member Who Joined To Room.
+            </summary>
+            <value>the Player Member Who Joined To Room</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMemberOrder">
+            <summary>
+                Gets the Player Member Order Who Joined To Room.
+            </summary>
+            <value>the Player Member Order Who Joined To Room</value>
+        </member>
         <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinType">
             <summary>
                 Gets the Room Join Type.
@@ -3322,18 +3476,6 @@
                 Gets the Room Join Data.
             </summary>
             <value>the Room Join Data</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
-            <summary>
-                Gets the Player Member Who Joined To Room.
-            </summary>
-            <value>the Player Member Who Joined To Room</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMemberOrder">
-            <summary>
-                Gets the Player Member Order Who Joined To Room.
-            </summary>
-            <value>the Player Member Order Who Joined To Room</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Member">
             <summary>
@@ -3517,6 +3659,50 @@
             <param name="skip">The skip value</param>
             <param name="limit">(Max = 15) The Limit value</param>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider">
+            <summary>
+                Represents Game Service Push Event System
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventById(System.String,System.String,FiroozehGameService.Models.Enums.GSLive.PushEventBufferType)">
+            <summary>
+                Push an Event To Member Id With Data
+            </summary>
+            <param name="memberId">(NOTNULL)ID of Member You Want To Sent an Event to it</param>
+            <param name="data">(NOTNULL)The main Event Data </param>
+            <param name="pushEventBufferType">The Type of Event Buffering</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventById(System.String,System.String,FiroozehGameService.Models.GSLive.SchedulerTime)">
+            <summary>
+                Push an Scheduled Event To Member Id With Data
+                NOTE : The Event will Trigger at the Specified Time.
+            </summary>
+            <param name="memberId">(NOTNULL)ID of Member You Want To Sent an Event to it</param>
+            <param name="data">(NOTNULL)The main Event Data </param>
+            <param name="schedulerTime">(NOTNULL)The Event Scheduler Time Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventByTag(System.String,System.String,FiroozehGameService.Models.Enums.GSLive.PushEventBufferType)">
+            <summary>
+                Push an Event To Member Tag With Data
+            </summary>
+            <param name="memberTag">(NOTNULL)Tag of Member You Want To Sent an Event to it</param>
+            <param name="data">(NOTNULL)The main Event Data </param>
+            <param name="pushEventBufferType">The Type of Event Buffering</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.PushEventByTag(System.String,System.String,FiroozehGameService.Models.GSLive.SchedulerTime)">
+            <summary>
+                Push an Scheduled Event To Member Tag With Data
+                NOTE : The Event will Trigger at the Specified Time.
+            </summary>
+            <param name="memberTag">(NOTNULL)Tag of Member You Want To Sent an Event to it</param>
+            <param name="data">(NOTNULL)The main Event Data </param>
+            <param name="schedulerTime">(NOTNULL)The Event Scheduler Time Data</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.GetBufferedPushEvents">
+            <summary>
+                Get All Buffered Push Events and Remove them in Servers
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider">
             <summary>
                 Represents Game Service Multiplayer Provider (GSLive)
@@ -3535,6 +3721,11 @@
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.Chat">
             <summary>
                 The GameService Chat System Provider
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.Event">
+            <summary>
+                The GameService Event System Provider
             </summary>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.GetPing">
@@ -3797,6 +3988,54 @@
             <param name="query">(NOTNULL) Query </param>
             <param name="limit">(Max = 15) The Result Limits</param>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.PushEvent">
+            <summary>
+                Represents Push Event Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.BufferType">
+            <summary>
+                Gets the Event Buffer Type.
+            </summary>
+            <value>the Event Buffer Type</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.CreateTime">
+            <summary>
+                Gets the Event Create Time in UNIX Time Seconds.
+            </summary>
+            <value>the Event Create Time in UNIX Time Seconds</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.Data">
+            <summary>
+                Gets the Event Data.
+            </summary>
+            <value>the Event Data</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.ReceiverMemberId">
+            <summary>
+                Gets the Event Receiver Member Id
+            </summary>
+            <value>the Event Receiver Member Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.ScheduledTime">
+            <summary>
+                Gets the Event Scheduled Time in UNIX Time Seconds.
+                NOTE : if the Event Not Scheduled , this value is 0
+            </summary>
+            <value>the Event Scheduled Time in UNIX Time Seconds</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.SendType">
+            <summary>
+                Gets the Event Send Type.
+            </summary>
+            <value>the Event Send Type</value>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.PushEvent.IsScheduled">
+            <summary>
+                Gets true when this event Scheduled
+            </summary>
+            <returns>the event Scheduled status</returns>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.Room">
             <summary>
                 Represents Room Data Model In GameService MultiPlayer System (GSLive)
@@ -4058,6 +4297,11 @@
                 Gets the Received Message Info
             </summary>
             <value>the Received Message Info</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.SchedulerTime">
+            <summary>
+                Represents Scheduler Time Class
+            </summary>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.TB.AcceptVote">
             <summary>
