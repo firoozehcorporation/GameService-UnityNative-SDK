@@ -4005,6 +4005,12 @@
             </summary>
             <value>the Event Create Time in UNIX Time Seconds</value>
         </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.CreatorMember">
+            <summary>
+                Gets the Event Creator Member
+            </summary>
+            <value>the Event Creator Member</value>
+        </member>
         <member name="F:FiroozehGameService.Models.GSLive.PushEvent.Data">
             <summary>
                 Gets the Event Data.
@@ -4016,12 +4022,6 @@
                 Gets the Event Receiver Member Id
             </summary>
             <value>the Event Receiver Member Id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.CreatorMember">
-            <summary>
-                Gets the Event Creator Member
-            </summary>
-            <value>the Event Creator Member</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.PushEvent.ScheduledTime">
             <summary>
