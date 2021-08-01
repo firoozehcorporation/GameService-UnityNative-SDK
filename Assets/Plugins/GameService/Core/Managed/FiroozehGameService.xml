@@ -4017,6 +4017,12 @@
             </summary>
             <value>the Event Receiver Member Id</value>
         </member>
+        <member name="F:FiroozehGameService.Models.GSLive.PushEvent.CreatorMember">
+            <summary>
+                Gets the Event Creator Member
+            </summary>
+            <value>the Event Creator Member</value>
+        </member>
         <member name="F:FiroozehGameService.Models.GSLive.PushEvent.ScheduledTime">
             <summary>
                 Gets the Event Scheduled Time in UNIX Time Seconds.

@@ -4,14 +4,30 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.3.1] Stable - 2021-08-01
+
+### Added
+
+- Added **Creator Member** To PushEvent Data Model
+
+
+
+### Fixed
+
+- Fixed Codes
+
+
+
+
+
 ## [8.3.0] Stable - 2021-07-30
 
 ### Added
 
-- Added Ability To **Push an Event By Member Id **
-- Added Ability To **Push a Scheduled Event By Member Id **
-- Added Ability To **Push an Event By Member Tag **
-- Added Ability To **Push a Scheduled Event By Member Tag **
+- Added Ability To **Push an Event By Member Id**
+- Added Ability To **Push a Scheduled Event By Member Id**
+- Added Ability To **Push an Event By Member Tag**
+- Added Ability To **Push a Scheduled Event By Member Tag**
 - Added Ability To **Get Buffered Push Events**
 
 
