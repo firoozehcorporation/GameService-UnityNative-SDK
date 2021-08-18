@@ -295,7 +295,7 @@
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChatReceived">
             <summary>
                 Calls When New Chat Received
-                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.SubscribeChannelReceived">
@@ -324,8 +324,8 @@
             <summary>
                 Calls When a Chat Edited
                 This Event Handler Called By Following Functions :
-                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String)" />
-                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String,System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.ChatEventHandlers.ChannelChatsRemoved">
@@ -575,6 +575,14 @@
                 Calls When SomeOne Left the Current Room
                 This Event Handler Called By Following Function :
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.LeaveRoom(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.NewMessageReceived">
+            <summary>
+                Calls When SomeOne Send Message In Current Room
+                This Event Handler Called By Following Functions :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.SendPublicMessage(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.SendPrivateMessage(System.String,System.String)" />
             </summary>
         </member>
         <member name="F:FiroozehGameService.Handlers.TurnBasedEventHandlers.TakeTurn">
@@ -2897,6 +2905,21 @@
             Set When The Member Not In AutoMatch Queue
             </summary>
         </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.MessageType">
+            <summary>
+                Represents MessageType Of GsLive System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.MessageType.Public">
+            <summary>
+                Set When Message is Public
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.MessageType.Private">
+            <summary>
+                Set When Message is Private
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.PushEventSendType">
             <summary>
                 Represents Push Event Send Type Class in GameService
@@ -2980,21 +3003,6 @@
         <member name="F:FiroozehGameService.Models.Enums.GSLive.ReconnectStatus.Connected">
             <summary>
             The Connected Status, Current Client Connected To Server
-            </summary>
-        </member>
-        <member name="T:FiroozehGameService.Models.Enums.GSLive.RT.MessageType">
-            <summary>
-                Represents MessageType Of RealTime System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.Enums.GSLive.RT.MessageType.Public">
-            <summary>
-            Set When RealTime Message is Public
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.Enums.GSLive.RT.MessageType.Private">
-            <summary>
-            Set When Realtime Message is Private
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.TB.PropertyAction">
@@ -3259,6 +3267,13 @@
                 NOTE : ChannelName Only Have Valid Data When is Not a Private Chat
             </summary>
             <value>the Chat Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.GlobalProperty">
+            <summary>
+                Gets the Chat Global Property
+                NOTE : Only have valid Data if Sender set it
+            </summary>
+            <value>the Chat Global Property</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Id">
             <summary>
@@ -3558,23 +3573,25 @@
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To UnSubscribe</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendChannelMessage(System.String,System.String,System.String,System.String)">
             <summary>
                 Send Message In Subscribed Channel.
             </summary>
             <param name="channelName">(NOTNULL)Name of Channel You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
             <param name="property">(NULLABLE) Message Extra Property</param>
+            <param name="globalProperty">(NULLABLE) Message Extra Global Property (All Subscribers Can Edit it)</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendPrivateMessage(System.String,System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.SendPrivateMessage(System.String,System.String,System.String,System.String)">
             <summary>
                 Send Message To Member.
             </summary>
             <param name="memberId">(NOTNULL)ID of Member You want To Send Message</param>
             <param name="message">(NOTNULL)Message Data</param>
             <param name="property">(NULLABLE) Message Extra Property</param>
+            <param name="globalProperty">(NULLABLE) Message Extra Global Property (All Subscribers Can Edit it)</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditChannelMessage(System.String,System.String,System.String,System.String,System.String)">
             <summary>
                 Edit Message In Subscribed Channel.
             </summary>
@@ -3582,8 +3599,9 @@
             <param name="messageId">(NOTNULL)Id of Message You want To Edit it</param>
             <param name="message">(NOTNULL)Message Data</param>
             <param name="property">(NULLABLE) Message Extra Property</param>
+            <param name="globalProperty">(NULLABLE) Message Extra Global Property (All Subscribers Can Edit it)</param>
         </member>
-        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String)">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.EditPrivateMessage(System.String,System.String,System.String,System.String,System.String)">
             <summary>
                 Edit Message That Sent to a Member.
             </summary>
@@ -3591,6 +3609,7 @@
             <param name="messageId">(NOTNULL)Id of Message You want To Edit it</param>
             <param name="message">(NOTNULL)Message Data</param>
             <param name="property">(NULLABLE) Message Extra Property</param>
+            <param name="globalProperty">(NULLABLE) Message Extra Global Property (All Subscribers Can Edit it)</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider.RemoveChannelMessage(System.String,System.String)">
             <summary>
@@ -3804,7 +3823,7 @@
             <summary>
                 Send A Data To Specific Player in Room.
             </summary>
-            <param name="receiverId">(NOTNULL) (Type : MemberID)Player's ID</param>
+            <param name="receiverMemberId">(NOTNULL) (Type : MemberID)Player's ID</param>
             <param name="data">(NOTNULL) Data for Send</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomMembersDetail">
@@ -3891,6 +3910,19 @@
                 Get Available Rooms According To Room's Role
             </summary>
             <param name="role">(NOTNULL)Room's Role </param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.SendPublicMessage(System.String)">
+            <summary>
+                Send A Data To All Players in Room.
+            </summary>
+            <param name="data">(NOTNULL) Data To BroadCast </param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.SendPrivateMessage(System.String,System.String)">
+            <summary>
+                Send A Data To Specific Player in Room.
+            </summary>
+            <param name="receiverMemberId">(NOTNULL) (Type : MemberID)Player's ID</param>
+            <param name="data">(NOTNULL) Data for Send</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.TakeTurn(System.String,System.String)">
             <summary>
@@ -4326,6 +4358,35 @@
                 (Type : Dictionary(MemberID,Outcome))
             </summary>
             <value>the Game Result(Outcomes)</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.TB.MessageReceiveEvent">
+            <summary>
+                Represents MessageReceiveEvent When Message Received in GSLiveTurnBased
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.TB.MessageReceiveEvent.MessageType">
+            <summary>
+                Gets the Type of Received Message
+            </summary>
+            <value>Type of Received Message</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.TB.MessageReceiveEvent.Data">
+            <summary>
+                Gets the Message Data
+            </summary>
+            <value>the Message Data</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.TB.MessageReceiveEvent.Sender">
+            <summary>
+                Gets the Message Sender
+            </summary>
+            <value>Message Sender</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.TB.MessageReceiveEvent.ReceiverMemberId">
+            <summary>
+                Gets the Message Receiver Member Id
+            </summary>
+            <value>Message Receiver Member Id</value>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.TB.Vote">
             <summary>
