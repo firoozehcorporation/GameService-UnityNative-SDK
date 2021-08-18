@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.4.0] Stable - 2021-08-18
+
+### Added
+
+- Added Ability To **Send Public Message in TurnBased System**
+- Added Ability To **Send Private Message in TurnBased System**
+- Added Ability To **Send Global Property in Chat System**
+
+
+
+### Fixed
+
+- Fixed Codes
+
+
+
+
+
 ## [8.3.1] Stable - 2021-08-01
 
 ### Added
