@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.5.0] Stable - 2021-08-26
+
+### Added
+
+- Added Ability To **Get Rooms Info in TurnBased System**
+- Added Ability To **Get Rooms Info in RealTime System**
+- Added **IsPersist** Property in Room Data Model
+
+
+
+### Fixed
+
+- Fixed Codes
+
+
+
+
+
 ## [8.4.0] Stable - 2021-08-18
 
 ### Added

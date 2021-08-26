@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] Stable - 2021-08-26
+
+### Fixed
+
+- Fixed Call OnProperty Event When Player Join Room
+
 
 ## [1.6.0] Stable - 2021-06-26
 

@@ -549,6 +549,13 @@
                     cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveEventProvider.GetBufferedPushEvents" />
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.RoomsInfoReceived">
+            <summary>
+                Returns Rooms info When Call The Following Functions :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomsInfo(System.String)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetRoomsInfo(System.String)" />
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
             <inheritdoc />
             <summary>
@@ -1631,7 +1638,7 @@
         </member>
         <member name="M:FiroozehGameService.Models.BasicApi.Providers.ISaveProvider.GetSaveGame``1(System.String)">
             <summary>
-                This command will get you save by Name
+                This command restores the saved object with its name.
             </summary>
             <param name="saveName">(NOTNULL)the Name that you want to get it</param>
             <value> return Player Save </value>
@@ -3210,6 +3217,23 @@
             </summary>
             <param name="msg">the Exception Message</param>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RoomsInfo">
+            <summary>
+                Represents Rooms Info Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.ActiveRooms">
+            <summary>
+                Gets Number of Active Rooms
+            </summary>
+            <value>the Number of Active Rooms</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.OnlinePlayers">
+            <summary>
+                Gets Number of Online Players
+            </summary>
+            <value>the Number of Online Players</value>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.ScheduleBuilder">
             <summary>
                 Represents ScheduleBuilder Class
@@ -3875,6 +3899,12 @@
                 NOTE : You Must Join To RealTime Servers To Get Valid Data, Otherwise Return -1
             </summary>
         </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomsInfo(System.String)">
+            <summary>
+                Get Rooms Info According To Room's Role
+            </summary>
+            <param name="role">(NOTNULL)Room's Role </param>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider">
             <summary>
                 Represents Game Service TurnBased MultiPlayer System
@@ -4020,6 +4050,12 @@
             <param name="query">(NOTNULL) Query </param>
             <param name="limit">(Max = 15) The Result Limits</param>
         </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetRoomsInfo(System.String)">
+            <summary>
+                Get Rooms Info According To Room's Role
+            </summary>
+            <param name="role">(NOTNULL)Room's Role </param>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.PushEvent">
             <summary>
                 Represents Push Event Data Model In GameService MultiPlayer System (GSLive)
@@ -4103,6 +4139,13 @@
                 You Can Use it In MultiPlayer Functions that Needs Room id
             </summary>
             <value>the Room id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Room.IsPersist">
+            <summary>
+                Gets the Room Persistant Value.
+                it Set in GSLiveOption <see cref="T:FiroozehGameService.Core.GSLive.GSLiveOption" />
+            </summary>
+            <value>the Room Persistant Value</value>
         </member>
         <member name="F:FiroozehGameService.Models.GSLive.Room.IsPrivate">
             <summary>
@@ -4229,6 +4272,7 @@
         <member name="F:FiroozehGameService.Models.GSLive.RoomData.Properties">
             <summary>
                 Gets the Room Properties.
+                NOTE : Only Available in TurnBased System
             </summary>
             <value>the Room Properties</value>
         </member>

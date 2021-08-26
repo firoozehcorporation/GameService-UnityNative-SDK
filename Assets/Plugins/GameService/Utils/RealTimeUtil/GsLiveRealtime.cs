@@ -54,7 +54,7 @@ namespace Plugins.GameService.Utils.RealTimeUtil
         private static IMemberHandler _memberHandler;
         
         public static bool IsAvailable;
-        public const string Version = "1.6.0 Stable";
+        public const string Version = "1.6.1 Stable";
         
         public static string CurrentPlayerMemberId => GsSerializer.Object.GetCurrentPlayerMemberId();
         public static int SerializationRate => GsSerializer.Object.GetSerializationRate();
