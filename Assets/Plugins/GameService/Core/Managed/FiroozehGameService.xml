@@ -166,17 +166,30 @@
                 Represents GSLive CreateRoomOption
             </summary>
         </member>
-        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption.#ctor(System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.String,System.String)">
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption.#ctor(System.String,System.String,System.Int32,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
                 Specifies the CreateRoom Options
             </summary>
             <param name="roomName">(Not NULL)Specifies the Room Name</param>
             <param name="role">(Not NULL)Specifies the Room Role</param>
-            <param name="minPlayer">Specifies the Room min player limit (MIN=2)</param>
             <param name="maxPlayer">Specifies the Room max player limit</param>
             <param name="isPrivate">Specifies the Room Privacy</param>
             <param name="isPersist">Specifies the Room Persistence</param>
             <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
+            <param name="roomPassword">Specifies the Room Password If the Room is Private</param>
+        </member>
+        <member name="T:FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption">
+            <summary>
+                Represents GSLive EditRoomOption
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption.#ctor(System.String,System.Int32,System.Boolean,System.String)">
+            <summary>
+                Specifies the EditRoom Options
+            </summary>
+            <param name="roomName">(NotNULL)Specifies the Room Name</param>
+            <param name="maxPlayer">Specifies the Room max player limit</param>
+            <param name="isPrivate">Specifies the Room Privacy</param>
             <param name="roomPassword">Specifies the Room Password If the Room is Private</param>
         </member>
         <member name="T:FiroozehGameService.Core.Providers.BasicAPI.AchievementProvider">
@@ -554,6 +567,13 @@
                 Returns Rooms info When Call The Following Functions :
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomsInfo(System.String)" />
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetRoomsInfo(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.CommandEventHandlers.EditCurrentRoomReceived">
+            <summary>
+                Returns New Room Option When Call The Following Functions :
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.EditCurrentRoom(FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption)" />
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.EditCurrentRoom(FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption)" />
             </summary>
         </member>
         <member name="T:FiroozehGameService.Handlers.TurnBasedEventHandlers">
@@ -999,7 +1019,7 @@
                 the Ownership TableOption
             </summary>
             <param name="ownershipTypes">type of ownership</param>
-            <param name="ownerUserId">user id of TableOwnershipTypes.Another type</param>
+            <param name="ownerUserId">user id of ItemOwnershipTypes.Another type</param>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.DBaaS.Options.SortByElement">
             <summary>
@@ -1657,15 +1677,15 @@
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Publisher.Image">
             <summary>
-                Gets the Game Cover URL.
+                Gets the Publisher Cover URL.
             </summary>
-            <value>the Game Cover URL</value>
+            <value>the Publisher Cover URL</value>
         </member>
         <member name="F:FiroozehGameService.Models.BasicApi.Publisher.Name">
             <summary>
-                Gets the Game Name.
+                Gets the Publisher Name.
             </summary>
-            <value>the Game Name</value>
+            <value>the Publisher Name</value>
         </member>
         <member name="T:FiroozehGameService.Models.BasicApi.Results`1">
             <summary>
@@ -3802,7 +3822,7 @@
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)">
             <summary>
-                Create Room With Option Like : Name , Min , Max , Role , IsPrivate
+                Create Room With Option Like : Name , Max , Role , IsPrivate
             </summary>
             <param name="option">(NOTNULL)Create Room Option</param>
         </member>
@@ -3824,6 +3844,13 @@
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
             <param name="extra">Specifies the Extra Data To Send to Other Clients</param>
             <param name="password">(NULLABLE)Specifies the Password if Room is Private</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.EditCurrentRoom(FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption)">
+            <summary>
+                Edit Current Room With Option Like : Name , Min , IsPrivate , ...
+                NOTE : You Must Joined To a Room to Edit it
+            </summary>
+            <param name="option">(NOTNULL)Edit Room Option</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.LeaveRoom">
             <summary>
@@ -3912,13 +3939,13 @@
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.CreateRoom(FiroozehGameService.Core.GSLive.GSLiveOption.CreateRoomOption)">
             <summary>
-                Create Room With Option Like : Name , Min , Max , Role , IsPrivate
+                Create Room With Option Like : Name , Min , Role , IsPrivate , ...
             </summary>
             <param name="option">(NOTNULL)Create Room Option</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.AutoMatch(FiroozehGameService.Core.GSLive.GSLiveOption.AutoMatchOption)">
             <summary>
-                Create AutoMatch With Option Like :  Min , Max , Role
+                Create AutoMatch With Option Like :  Min , Max , Role , ...
             </summary>
             <param name="option">(NOTNULL)AutoMatch Option</param>
         </member>
@@ -3934,6 +3961,13 @@
             <param name="roomId">(NOTNULL)Room's id You Want To Join</param>
             <param name="extra">(NULLABLE)Specifies the Extra Data To Send to Other Clients</param>
             <param name="password">(NULLABLE)Specifies the Password if Room is Private</param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.EditCurrentRoom(FiroozehGameService.Core.GSLive.GSLiveOption.EditRoomOption)">
+            <summary>
+                Edit Current Room With Option Like : Name , Min , IsPrivate , ...
+                NOTE : You Must Joined To a Room to Edit it
+            </summary>
+            <param name="option">(NOTNULL)Edit Room Option</param>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetAvailableRooms(System.String)">
             <summary>

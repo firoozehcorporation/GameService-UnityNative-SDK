@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.6.0] Stable - 2021-08-29
+
+### Added
+
+- Added Ability To **Edit Current Room in TurnBased System**
+- Added Ability To **Edit Current Room in RealTime System**
+
+
+
+### Changed
+
+- Removed Min Player in **Create Room Option ** in TurnBased System
+- Removed Min Player in **Create Room Option ** in RealTime System
+
+
+
+### Fixed
+
+- Fixed PhoneNumber Serialize In MemberInfo class
+- Fixed Label and GlobalProperty Constraints Checks
+
+
+
 ## [8.5.0] Stable - 2021-08-26
 
 ### Added
