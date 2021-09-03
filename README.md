@@ -1,5 +1,5 @@
-- <p align="center">
-  <img src="http://uupload.ir/files/s6eo_img_20200205_213054_702.jpg">
+ <p align="center">
+  <img src="https://cdn.gamesservice.ir/unrealdoc/ue4-sdk.png">
 
 
 
@@ -11,8 +11,8 @@
    همچنین برای معرفی و دیده شدن آن کافیست بازی خود را ثبت کنید </b>
       </p>
   </h4>
-----
 
+----
 
 
 : با استفاده از قابلیت های گیم سرویس می توانید از موارد زیر در بازی خود استفاده کنید
@@ -24,22 +24,9 @@
 - جداول داده «DBaaS»
 - میزبانی فایل «CloudStorage»
 - آمار گیری و مانیتورنیگ «Statistics»
-- سرویس گفت و گو کاربران «Chat»
-- رایانش ابری «CloudComputing»
-- بازی های نوبتی «TurnBased»
-- بازی های درلحظه «RealTime»
-- دوستان و پارتی ها «Friend & Party»
-
 
 
 ### راه اندازی گیم سرویس :
 
 برای استفاده از گیم سرویس به [مستندات](https://docs.gamesservice.ir) مراجعه کنید
-
-
-
-### کتابخانه های استفاده شده :
-- [Async Await Support](https://assetstore.unity.com/packages/tools/integration/async-await-support-101056)
-- [NaughtyAttributes](https://assetstore.unity.com/packages/tools/utilities/naughtyattributes-129996)
-- [Websocket-Sharp](https://github.com/sta/websocket-sharp)
 
