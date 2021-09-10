@@ -192,6 +192,24 @@
             <param name="isPrivate">Specifies the Room Privacy</param>
             <param name="roomPassword">Specifies the Room Password If the Room is Private</param>
         </member>
+        <member name="T:FiroozehGameService.Core.GSLive.GSLiveMediaOption">
+            <summary>
+                Represents GSLive Media Option
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Core.GSLive.GSLiveMediaOption.VoiceOption">
+            <summary>
+                Represents GSLiveMedia VoiceOption
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Core.GSLive.GSLiveMediaOption.VoiceOption.#ctor(System.String,System.String,System.String)">
+            <summary>
+                Specifies the VoiceChannel Options
+            </summary>
+            <param name="uniqueKey">(NOTNULL)Specifies the VoiceChannel Unique Key</param>
+            <param name="channelName">(NOTNULL)Specifies the VoiceChannel Name</param>
+            <param name="channelDescription">Specifies the VoiceChannel Description</param>
+        </member>
         <member name="T:FiroozehGameService.Core.Providers.BasicAPI.AchievementProvider">
             <summary>
                 Represents Achievement Provider Model In Game Service Basic API
@@ -489,6 +507,11 @@
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveRealTimeProvider.GetRoomMembersDetail" />
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.MemberConnectionStateChanged">
+            <summary>
+                Calls When Some Player Connection state Changed in Current Room
+            </summary>
+        </member>
         <member name="F:FiroozehGameService.Handlers.RealTimeEventHandlers.CurrentRoomInfoReceived">
             <summary>
                 Returns Room Info When Call The Following Function :
@@ -667,6 +690,72 @@
             <summary>
                 Returns Current Turn Member Received When Call The Following Function :
                 <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveTurnBasedProvider.GetCurrentTurnMember" />
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Handlers.VoiceEventHandlers">
+            <summary>
+                Represents VoiceEventHandlers
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.CreateChannelReceived">
+            <summary>
+                Calls When Create Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.CreateChannel(FiroozehGameService.Core.GSLive.GSLiveMediaOption.VoiceOption)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.JoinChannelReceived">
+            <summary>
+                Calls When Join Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.JoinChannel(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.LeftMemberReceived">
+            <summary>
+                Calls When Leave Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.LeaveChannel(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.DestroyChannelReceived">
+            <summary>
+                Calls When Destroy Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.DestroyChannel(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.InfoChannelReceived">
+            <summary>
+                Calls When Info Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.GetChannelInfo(System.String)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.MuteMemberReceived">
+            <summary>
+                Calls When Mute Voice Channel Received
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.DeafenMemberReceived">
+            <summary>
+                Calls When Deafen Voice Channel Received
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.KickMemberReceived">
+            <summary>
+                Calls When Kick Voice Channel Received
+                <see cref="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.KickMember(System.String,System.String,System.Boolean)" />
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.ErrorReceived">
+            <summary>
+                Calls When An New Error Received From Server
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.AnswerMemberReceived">
+            <summary>
+                Calls When Offer Voice Channel Received
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Handlers.VoiceEventHandlers.TrickleMemberReceived">
+            <summary>
+                Calls When Trickle Voice Channel Received
             </summary>
         </member>
         <member name="T:FiroozehGameService.Helpers.Scheduler">
@@ -2811,6 +2900,11 @@
                 Happened In Chat System
             </summary>
         </member>
+        <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Voice">
+            <summary>
+                Happened In Voice System
+            </summary>
+        </member>
         <member name="F:FiroozehGameService.Models.Enums.DebugLocation.Event">
             <summary>
                 Happened In Event System
@@ -2984,22 +3078,27 @@
         </member>
         <member name="F:FiroozehGameService.Models.Enums.GSLive.GSLiveType.NotSet">
             <summary>
-            Used No Where
+                Used No Where
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.GSLive.GSLiveType.TurnBased">
             <summary>
-            Used in TurnBased System
+                Used in TurnBased System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.GSLive.GSLiveType.RealTime">
             <summary>
-            Used in RealTime System
+                Used in RealTime System
             </summary>
         </member>
         <member name="F:FiroozehGameService.Models.Enums.GSLive.GSLiveType.Command">
             <summary>
-            Used in Command System
+                Used in Command System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.GSLiveType.Voice">
+            <summary>
+                Used in Voice System
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.JoinType">
@@ -3030,6 +3129,21 @@
         <member name="F:FiroozehGameService.Models.Enums.GSLive.ReconnectStatus.Connected">
             <summary>
             The Connected Status, Current Client Connected To Server
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.Enums.GSLive.RT.ConnectionState">
+            <summary>
+                Represents Connection State Of GSLive Realtime System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.RT.ConnectionState.Connecting">
+            <summary>
+                Member is Connecting To Server
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.Enums.GSLive.RT.ConnectionState.Connected">
+            <summary>
+                Member is Connected To Server
             </summary>
         </member>
         <member name="T:FiroozehGameService.Models.Enums.GSLive.TB.PropertyAction">
@@ -3237,165 +3351,6 @@
             </summary>
             <param name="msg">the Exception Message</param>
         </member>
-        <member name="T:FiroozehGameService.Models.GSLive.RoomsInfo">
-            <summary>
-                Represents Rooms Info Data Model In GameService MultiPlayer System (GSLive)
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.ActiveRooms">
-            <summary>
-                Gets Number of Active Rooms
-            </summary>
-            <value>the Number of Active Rooms</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.OnlinePlayers">
-            <summary>
-                Gets Number of Online Players
-            </summary>
-            <value>the Number of Online Players</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.ScheduleBuilder">
-            <summary>
-                Represents ScheduleBuilder Class
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.ScheduleBuilder._value">
-            <summary>
-                the Value Data
-            </summary>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.#ctor(System.Int32)">
-            <summary>
-                Abstract Value Constructor Function
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Seconds">
-            <summary>
-                returns next Seconds Time in Seconds
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Minutes">
-            <summary>
-                returns next Minutes Time in Seconds
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Hours">
-            <summary>
-                returns next Hours Time in Seconds
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Days">
-            <summary>
-                returns next Days Time in Seconds
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Weeks">
-            <summary>
-                returns next Weeks Time in Seconds
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
-            <summary>
-                Represents Chat Data Model In GameService Chat System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ChannelName">
-            <summary>
-                Gets the Chat Channel Name
-                NOTE : ChannelName Only Have Valid Data When is Not a Private Chat
-            </summary>
-            <value>the Chat Channel Name</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.GlobalProperty">
-            <summary>
-                Gets the Chat Global Property
-                NOTE : Only have valid Data if Sender set it
-            </summary>
-            <value>the Chat Global Property</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Id">
-            <summary>
-                Gets the Chat Id
-            </summary>
-            <value>the Chat Id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
-            <summary>
-                Gets the Chat Privacy.
-            </summary>
-            <value>the Chat Privacy</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Message">
-            <summary>
-                Gets the Chat Message Data
-            </summary>
-            <value>the Chat Message Data</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Property">
-            <summary>
-                Gets the Chat Property
-                NOTE : Only have valid Data if Sender set it
-            </summary>
-            <value>the Chat Property</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
-            <summary>
-                Gets the Chat Receiver Id.
-            </summary>
-            <value>the Chat Receiver Id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Sender">
-            <summary>
-                Gets the Chat Sender Member.
-            </summary>
-            <value>the Chat Sender Member</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.SendTime">
-            <summary>
-                Gets the Chat Message Send Time in Unix Time
-            </summary>
-            <value>the Chat Message Send Time in Unix Time</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove">
-            <summary>
-                Represents Member Chat Remove Data Model In GameService Chat System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.ChannelName">
-            <summary>
-                Gets the Channel Name That removed All Chats Belong To Current Member id
-            </summary>
-            <value>the Channel Name</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.MemberId">
-            <summary>
-                Gets Member id That is Removed All Chats Belong To it
-            </summary>
-            <value>The Member id</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Chat.PrivateChat">
-            <summary>
-                Represents Private Chat Data Model In GameService Chat System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.Chats">
-            <summary>
-                Gets the Chats From Current Member Contact
-            </summary>
-            <value>the Chats From Current Member Contact</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.MemberContact">
-            <summary>
-                Gets the Chats Member Contact
-            </summary>
-            <value>the the Chats Member Contact</value>
-        </member>
         <member name="T:FiroozehGameService.Models.GSLive.Command.AutoMatchEvent">
             <summary>
                 Represents AutoMatchEvent When AutoMatch Update Status in GSLive
@@ -3447,158 +3402,83 @@
             </summary>
             <value>the Join Data</value>
         </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Game">
+        <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider">
             <summary>
-                Represents Game Data Model In GameService MultiPlayer System (GSLive)
+                Represents Game Service Voice System
             </summary>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Game.Id">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.CreateChannel(FiroozehGameService.Core.GSLive.GSLiveMediaOption.VoiceOption)">
             <summary>
-                Gets the Game id.
+                Create Voice Channel With Options
             </summary>
-            <value>the Game id</value>
+            <param name="option">(NOTNULL)Voice Option</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Game.Logo">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.JoinChannel(System.String)">
             <summary>
-                Gets the Game Logo URL.
+                Join Voice Channel With channel Unique Key
             </summary>
-            <value>the Game Logo</value>
+            <param name="channelKey">(NOTNULL)the channel Unique Key</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Game.Name">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.LeaveChannel(System.String)">
             <summary>
-                Gets the Game Name.
+                Leave Voice Channel With channel Id
+                NOTE : You must Joined a Voice Channel Before
             </summary>
-            <value>the Game Name</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
         </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Invite">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.KickMember(System.String,System.String,System.Boolean)">
             <summary>
-                Represents Invite Data Model In GameService MultiPlayer System (GSLive)
+                Kick a Member from channel
+                NOTE : You must Joined a Voice Channel Before, and You Must be Creator
             </summary>
+            <param name="channelId">(NOTNULL)the channel Id</param>
+            <param name="memberId">(NOTNULL)the member id you want to kick it</param>
+            <param name="permanent">kick permanently</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Game">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.DestroyChannel(System.String)">
             <summary>
-                Gets The Game Which You Are Invited.
+                Destroy Voice Channel
+                NOTE : You must Joined a Voice Channel Before, and You Must be Creator
             </summary>
-            <value>The Game Where You Are Invited</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Id">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.GetChannelInfo(System.String)">
             <summary>
-                Gets the Invite id.
-                You Can Use It in Accept Invite
+                Get Voice Channel Info
             </summary>
-            <value>the Invite id</value>
+            <param name="channelKey">(NOTNULL)the channel Unique Key</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Invited">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.MuteSelf(System.String,System.Boolean)">
             <summary>
-                Gets the Invited User Id.
+                Mute Current Player
+                NOTE : You must Joined a Voice Channel Before
             </summary>
-            <value>the Invited User Id</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
+            <param name="isMuted">mute status</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Inviter">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.DeafenSelf(System.String,System.Boolean)">
             <summary>
-                Gets the Inviter Member.
+                Deafen Current Player
+                NOTE : You must Joined a Voice Channel Before
             </summary>
-            <value>the Inviter Member</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
+            <param name="isDeafened">deafen status</param>
         </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Invite.Room">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.Trickle(System.String,System.String)">
             <summary>
-                Gets The Room Where You Are Invited.
+                Trickle Current Player
+                NOTE : You must Joined a Voice Channel Before
             </summary>
-            <value>The Room Where You Are Invited</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
+            <param name="ice">ice data</param>
         </member>
-        <member name="T:FiroozehGameService.Models.GSLive.JoinData">
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveVoiceProvider.Offer(System.String,System.String)">
             <summary>
-                Represents JoinData Data Model In GameService MultiPlayer System (GSLive)
+                Offer Current Player
+                NOTE : You must Joined a Voice Channel Before
             </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
-            <summary>
-                Gets the Player Member Who Joined To Room.
-            </summary>
-            <value>the Player Member Who Joined To Room</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMemberOrder">
-            <summary>
-                Gets the Player Member Order Who Joined To Room.
-            </summary>
-            <value>the Player Member Order Who Joined To Room</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinType">
-            <summary>
-                Gets the Room Join Type.
-            </summary>
-            <value>the Room Join Type</value>
-            <see cref="T:FiroozehGameService.Models.Enums.GSLive.JoinType" />
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.JoinData.RoomData">
-            <summary>
-                Gets the Room Join Data.
-            </summary>
-            <value>the Room Join Data</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.Member">
-            <summary>
-                Represents Member Data Model In GameService MultiPlayer System (GSLive)
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Extra">
-            <summary>
-                Gets the Member Extra Data (NULLABLE).
-                NOTE : The Extra Data Only Available in :
-                1 - AutoMatch
-                2 - Join Room
-                3 - Member Details
-            </summary>
-            <value>the Member Extra</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.GlobalProperty">
-            <summary>
-                Gets the Member Global Property.
-            </summary>
-            <value>the Member Global Property</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Id">
-            <summary>
-                Gets the Member ID
-                You Can Use it In MultiPlayer Functions that Needs Member id
-            </summary>
-            <value>the Member ID</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.IsOnline">
-            <summary>
-                Gets the Member Online Status.
-            </summary>
-            <value>the Member Online Status</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Label">
-            <summary>
-                Gets the Member Label.
-            </summary>
-            <value>the Member Label</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Logo">
-            <summary>
-                Gets the Member Logo URL.
-            </summary>
-            <value>the Member Logo URL</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Name">
-            <summary>
-                Gets the Member Name.
-            </summary>
-            <value>the Member Name</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.Tags">
-            <summary>
-                Gets the Member Tags.
-            </summary>
-            <value>the Member Tags</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.Member.User">
-            <summary>
-                Gets the Member User Data
-            </summary>
-            <value>the Member User Data</value>
+            <param name="channelId">(NOTNULL)the channel Id</param>
+            <param name="sdp">sdp data</param>
         </member>
         <member name="T:FiroozehGameService.Models.GSLive.Providers.GsLiveChatProvider">
             <summary>
@@ -3784,6 +3664,11 @@
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.Chat">
             <summary>
                 The GameService Chat System Provider
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.Voice">
+            <summary>
+                The GameService Voice System Provider
             </summary>
         </member>
         <member name="M:FiroozehGameService.Models.GSLive.Providers.GsLiveProvider.Event">
@@ -4090,6 +3975,432 @@
             </summary>
             <param name="role">(NOTNULL)Room's Role </param>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RoomsInfo">
+            <summary>
+                Represents Rooms Info Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.ActiveRooms">
+            <summary>
+                Gets Number of Active Rooms
+            </summary>
+            <value>the Number of Active Rooms</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RoomsInfo.OnlinePlayers">
+            <summary>
+                Gets Number of Online Players
+            </summary>
+            <value>the Number of Online Players</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.MemberConnectionState">
+            <summary>
+                Represents MemberConnectionState in GSLiveRealTime
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MemberConnectionState.Member">
+            <summary>
+                Gets the Member
+            </summary>
+            <value>the Member</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MemberConnectionState.ConnectionState">
+            <summary>
+                Gets the Member Connection State
+            </summary>
+            <value>the Member Connection State</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.EventData">
+            <summary>
+                Represents Event Data Model In GameService RealTime MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Caller">
+            <summary>
+                Gets the Event Caller Buffer
+            </summary>
+            <value>the Event Caller Buffer</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Data">
+            <summary>
+                Gets the Event Data Buffer
+            </summary>
+            <value>the Event Data Buffer</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.ReceiverId">
+            <summary>
+                the Receiver Id (Current Client Member ID)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.SenderId">
+            <summary>
+                the Sender Id (Owner Member ID)
+            </summary>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.Message">
+            <summary>
+                Represents Message Data Model In GameService RealTime MultiPlayer System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.Data">
+            <summary>
+                Gets the Message Data Buffer
+            </summary>
+            <value>the Message Data Buffer</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
+            <summary>
+                Gets the Receiver Member Id.
+            </summary>
+            <value>the Receiver Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.RoomId">
+            <summary>
+                Gets the RoomId Receive This Message.
+            </summary>
+            <value>the RoomId Receive This Message</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.SenderId">
+            <summary>
+                Gets the Sender Member Id.
+            </summary>
+            <value>the Sender Id</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.MessageInfo">
+            <summary>
+                Represents MessageInfo When Message Received in GSLiveRealTime
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.MessageType">
+            <summary>
+                Gets the Type of Received Message
+            </summary>
+            <value>Type of Received Message</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.SendType">
+            <summary>
+                Gets the Type of Protocol Send Message
+                if is Reliable , the Packet Loss is Minimized.
+            </summary>
+            <value>the Type of Protocol Send Message </value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.ClientReceiveTime">
+            <summary>
+                Gets Client Packet Receive Time in Unix
+            </summary>
+            <value>Client Packet Receive Time</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent">
+            <summary>
+                Represents MessageReceiveEvent When Message Received in GSLiveRealTime
+            </summary>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent.Message">
+            <summary>
+                Gets the Received Message
+            </summary>
+            <value>the Received Message</value>
+        </member>
+        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent.MessageInfo">
+            <summary>
+                Gets the Received Message Info
+            </summary>
+            <value>the Received Message Info</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.ScheduleBuilder">
+            <summary>
+                Represents ScheduleBuilder Class
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.ScheduleBuilder._value">
+            <summary>
+                the Value Data
+            </summary>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.#ctor(System.Int32)">
+            <summary>
+                Abstract Value Constructor Function
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Seconds">
+            <summary>
+                returns next Seconds Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Minutes">
+            <summary>
+                returns next Minutes Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Hours">
+            <summary>
+                returns next Hours Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Days">
+            <summary>
+                returns next Days Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FiroozehGameService.Models.GSLive.ScheduleBuilder.Weeks">
+            <summary>
+                returns next Weeks Time in Seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Chat.Chat">
+            <summary>
+                Represents Chat Data Model In GameService Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ChannelName">
+            <summary>
+                Gets the Chat Channel Name
+                NOTE : ChannelName Only Have Valid Data When is Not a Private Chat
+            </summary>
+            <value>the Chat Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.GlobalProperty">
+            <summary>
+                Gets the Chat Global Property
+                NOTE : Only have valid Data if Sender set it
+            </summary>
+            <value>the Chat Global Property</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Id">
+            <summary>
+                Gets the Chat Id
+            </summary>
+            <value>the Chat Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.IsPrivate">
+            <summary>
+                Gets the Chat Privacy.
+            </summary>
+            <value>the Chat Privacy</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Message">
+            <summary>
+                Gets the Chat Message Data
+            </summary>
+            <value>the Chat Message Data</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Property">
+            <summary>
+                Gets the Chat Property
+                NOTE : Only have valid Data if Sender set it
+            </summary>
+            <value>the Chat Property</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.ReceiverId">
+            <summary>
+                Gets the Chat Receiver Id.
+            </summary>
+            <value>the Chat Receiver Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.Sender">
+            <summary>
+                Gets the Chat Sender Member.
+            </summary>
+            <value>the Chat Sender Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.Chat.SendTime">
+            <summary>
+                Gets the Chat Message Send Time in Unix Time
+            </summary>
+            <value>the Chat Message Send Time in Unix Time</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove">
+            <summary>
+                Represents Member Chat Remove Data Model In GameService Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.ChannelName">
+            <summary>
+                Gets the Channel Name That removed All Chats Belong To Current Member id
+            </summary>
+            <value>the Channel Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.MemberChatRemove.MemberId">
+            <summary>
+                Gets Member id That is Removed All Chats Belong To it
+            </summary>
+            <value>The Member id</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Chat.PrivateChat">
+            <summary>
+                Represents Private Chat Data Model In GameService Chat System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.Chats">
+            <summary>
+                Gets the Chats From Current Member Contact
+            </summary>
+            <value>the Chats From Current Member Contact</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Chat.PrivateChat.MemberContact">
+            <summary>
+                Gets the Chats Member Contact
+            </summary>
+            <value>the the Chats Member Contact</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Game">
+            <summary>
+                Represents Game Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Id">
+            <summary>
+                Gets the Game id.
+            </summary>
+            <value>the Game id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Logo">
+            <summary>
+                Gets the Game Logo URL.
+            </summary>
+            <value>the Game Logo</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Game.Name">
+            <summary>
+                Gets the Game Name.
+            </summary>
+            <value>the Game Name</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Invite">
+            <summary>
+                Represents Invite Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Game">
+            <summary>
+                Gets The Game Which You Are Invited.
+            </summary>
+            <value>The Game Where You Are Invited</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Id">
+            <summary>
+                Gets the Invite id.
+                You Can Use It in Accept Invite
+            </summary>
+            <value>the Invite id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Invited">
+            <summary>
+                Gets the Invited User Id.
+            </summary>
+            <value>the Invited User Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Inviter">
+            <summary>
+                Gets the Inviter Member.
+            </summary>
+            <value>the Inviter Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Invite.Room">
+            <summary>
+                Gets The Room Where You Are Invited.
+            </summary>
+            <value>The Room Where You Are Invited</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.JoinData">
+            <summary>
+                Represents JoinData Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMember">
+            <summary>
+                Gets the Player Member Who Joined To Room.
+            </summary>
+            <value>the Player Member Who Joined To Room</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinedMemberOrder">
+            <summary>
+                Gets the Player Member Order Who Joined To Room.
+            </summary>
+            <value>the Player Member Order Who Joined To Room</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.JoinType">
+            <summary>
+                Gets the Room Join Type.
+            </summary>
+            <value>the Room Join Type</value>
+            <see cref="T:FiroozehGameService.Models.Enums.GSLive.JoinType" />
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.JoinData.RoomData">
+            <summary>
+                Gets the Room Join Data.
+            </summary>
+            <value>the Room Join Data</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Member">
+            <summary>
+                Represents Member Data Model In GameService MultiPlayer System (GSLive)
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Extra">
+            <summary>
+                Gets the Member Extra Data (NULLABLE).
+                NOTE : The Extra Data Only Available in :
+                1 - AutoMatch
+                2 - Join Room
+                3 - Member Details
+            </summary>
+            <value>the Member Extra</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.GlobalProperty">
+            <summary>
+                Gets the Member Global Property.
+            </summary>
+            <value>the Member Global Property</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Id">
+            <summary>
+                Gets the Member ID
+                You Can Use it In MultiPlayer Functions that Needs Member id
+            </summary>
+            <value>the Member ID</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.IsOnline">
+            <summary>
+                Gets the Member Online Status.
+            </summary>
+            <value>the Member Online Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Label">
+            <summary>
+                Gets the Member Label.
+            </summary>
+            <value>the Member Label</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Logo">
+            <summary>
+                Gets the Member Logo URL.
+            </summary>
+            <value>the Member Logo URL</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Name">
+            <summary>
+                Gets the Member Name.
+            </summary>
+            <value>the Member Name</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.Tags">
+            <summary>
+                Gets the Member Tags.
+            </summary>
+            <value>the Member Tags</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Member.User">
+            <summary>
+                Gets the Member User Data
+            </summary>
+            <value>the Member User Data</value>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.PushEvent">
             <summary>
                 Represents Push Event Data Model In GameService MultiPlayer System (GSLive)
@@ -4317,103 +4628,6 @@
             </summary>
             <value>the Room Role Value</value>
         </member>
-        <member name="T:FiroozehGameService.Models.GSLive.RT.EventData">
-            <summary>
-                Represents Event Data Model In GameService RealTime MultiPlayer System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Caller">
-            <summary>
-                Gets the Event Caller Buffer
-            </summary>
-            <value>the Event Caller Buffer</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.Data">
-            <summary>
-                Gets the Event Data Buffer
-            </summary>
-            <value>the Event Data Buffer</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.ReceiverId">
-            <summary>
-                the Receiver Id (Current Client Member ID)
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.EventData.SenderId">
-            <summary>
-                the Sender Id (Owner Member ID)
-            </summary>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.RT.Message">
-            <summary>
-                Represents Message Data Model In GameService RealTime MultiPlayer System
-            </summary>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.Data">
-            <summary>
-                Gets the Message Data Buffer
-            </summary>
-            <value>the Message Data Buffer</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.ReceiverId">
-            <summary>
-                Gets the Receiver Member Id.
-            </summary>
-            <value>the Receiver Id</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.RoomId">
-            <summary>
-                Gets the RoomId Receive This Message.
-            </summary>
-            <value>the RoomId Receive This Message</value>
-        </member>
-        <member name="F:FiroozehGameService.Models.GSLive.RT.Message.SenderId">
-            <summary>
-                Gets the Sender Member Id.
-            </summary>
-            <value>the Sender Id</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.RT.MessageInfo">
-            <summary>
-                Represents MessageInfo When Message Received in GSLiveRealTime
-            </summary>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.MessageType">
-            <summary>
-                Gets the Type of Received Message
-            </summary>
-            <value>Type of Received Message</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.SendType">
-            <summary>
-                Gets the Type of Protocol Send Message
-                if is Reliable , the Packet Loss is Minimized.
-            </summary>
-            <value>the Type of Protocol Send Message </value>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageInfo.ClientReceiveTime">
-            <summary>
-                Gets Client Packet Receive Time in Unix
-            </summary>
-            <value>Client Packet Receive Time</value>
-        </member>
-        <member name="T:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent">
-            <summary>
-                Represents MessageReceiveEvent When Message Received in GSLiveRealTime
-            </summary>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent.Message">
-            <summary>
-                Gets the Received Message
-            </summary>
-            <value>the Received Message</value>
-        </member>
-        <member name="P:FiroozehGameService.Models.GSLive.RT.MessageReceiveEvent.MessageInfo">
-            <summary>
-                Gets the Received Message Info
-            </summary>
-            <value>the Received Message Info</value>
-        </member>
         <member name="T:FiroozehGameService.Models.GSLive.SchedulerTime">
             <summary>
                 Represents Scheduler Time Class
@@ -4580,6 +4794,247 @@
                 Gets The Player Member who has TakeTurn.
             </summary>
             <value>The Player Member who has TakeTurn</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.DeafenMemberVoiceChannel">
+            <summary>
+                Represents DeafenMemberVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.DeafenMemberVoiceChannel.IsDeafened">
+            <summary>
+                Gets the Voice Channel Member Deafen Status
+            </summary>
+            <value> the Voice Channel Member Deafen Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.DeafenMemberVoiceChannel.Member">
+            <summary>
+                Gets the Voice Channel Member
+            </summary>
+            <value>the Voice Channel Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.DeafenMemberVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.DestroyVoiceChannel">
+            <summary>
+                Represents DestroyVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.DestroyVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.IceVoiceChannel">
+            <summary>
+                Represents SdpVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.IceVoiceChannel.Ice">
+            <summary>
+                Gets the Voice Channel ICE
+            </summary>
+            <value> the Voice Channel ICE</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.IceVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.JoinVoiceChannel">
+            <summary>
+                Represents JoinVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.JoinVoiceChannel.JoinedMember">
+            <summary>
+                Gets the Voice Channel Joined Member
+            </summary>
+            <value>the Voice Channel Joined Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.JoinVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.KickMemberVoiceChannel">
+            <summary>
+                Represents KickMemberVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.KickMemberVoiceChannel.IsPermanent">
+            <summary>
+                Gets the Voice Channel Kicked Member Status
+            </summary>
+            <value>the Voice Channel Kicked Member Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.KickMemberVoiceChannel.KickedMember">
+            <summary>
+                Gets the Voice Channel Kicked Member
+            </summary>
+            <value>the Voice Channel Kicked Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.KickMemberVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.LeaveVoiceChannel">
+            <summary>
+                Represents LeaveVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.LeaveVoiceChannel.LeftMember">
+            <summary>
+                Gets the Voice Channel Left Member
+            </summary>
+            <value>the Voice Channel Left Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.LeaveVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.MuteMemberVoiceChannel">
+            <summary>
+                Represents MuteMemberVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.MuteMemberVoiceChannel.IsMuted">
+            <summary>
+                Gets the Voice Channel Member Mute Status
+            </summary>
+            <value> the Voice Channel Member Mute Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.MuteMemberVoiceChannel.Member">
+            <summary>
+                Gets the Voice Channel Member
+            </summary>
+            <value>the Voice Channel Member</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.MuteMemberVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.SdpVoiceChannel">
+            <summary>
+                Represents SdpVoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.SdpVoiceChannel.Sdp">
+            <summary>
+                Gets the Voice Channel Sdp
+            </summary>
+            <value> the Voice Channel Sdp</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.SdpVoiceChannel.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.VoiceChannel">
+            <summary>
+                Represents VoiceChannel Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelCreatedAt">
+            <summary>
+                Gets the Voice Channel Created time
+            </summary>
+            <value>the Voice Channel Created time</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelCreatorMemberId">
+            <summary>
+                Gets the Voice Channel CreatorMemberId
+            </summary>
+            <value>the Voice Channel CreatorMemberId</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelDescription">
+            <summary>
+                Gets the Voice Channel Description
+            </summary>
+            <value>the Voice Channel Description</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelGameId">
+            <summary>
+                Gets the Voice Channel Game Id
+            </summary>
+            <value>the Voice Channel Game Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelId">
+            <summary>
+                Gets the Voice Channel Id
+            </summary>
+            <value>the Voice Channel Id</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelKey">
+            <summary>
+                Gets the Voice Channel Key
+            </summary>
+            <value>the Voice Channel Key</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannel.ChannelName">
+            <summary>
+                Gets the Voice Channel Name
+            </summary>
+            <value>the Voice Channel Name</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.VoiceChannelInfo">
+            <summary>
+                Represents VoiceChannelInfo Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelInfo.VoiceChannel">
+            <summary>
+                Gets the Voice Channel
+            </summary>
+            <value> the Voice Channel</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelInfo.VoiceChannelMembers">
+            <summary>
+                Gets the Voice Channel Members
+            </summary>
+            <value>the Voice Channel Members</value>
+        </member>
+        <member name="T:FiroozehGameService.Models.GSLive.Voice.VoiceChannelMember">
+            <summary>
+                Represents VoiceChannelMember Data Model In GameService Voice System
+            </summary>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelMember.IsDeafen">
+            <summary>
+                Gets the Member Voice Deafen Status
+            </summary>
+            <value>the  Member Voice Deafen Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelMember.IsKickedPermanently">
+            <summary>
+                Gets the Member Kicked Status
+            </summary>
+            <value>the  Member Kicked Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelMember.IsMuted">
+            <summary>
+                Gets the Member Voice Mute Status
+            </summary>
+            <value>the Member Voice Mute Status</value>
+        </member>
+        <member name="F:FiroozehGameService.Models.GSLive.Voice.VoiceChannelMember.Member">
+            <summary>
+                Gets the Member Data
+            </summary>
+            <value>the Member Data</value>
         </member>
         <member name="T:FiroozehGameService.Models.Internal.AssetInfoData">
             <summary>
