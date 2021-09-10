@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.7.0] Stable - 2021-09-10
+
+### Added
+
+- Added Ability To **Get Other Player Connection State in RealTime System**
+
+
+
+### Fixed
+
+- Fixed Check Availability in TurnBased and RealTime Systems
+- Updated GProtocol To Version 3.1.0
+
+
+
+
+
 ## [8.6.0] Stable - 2021-08-29
 
 ### Added
