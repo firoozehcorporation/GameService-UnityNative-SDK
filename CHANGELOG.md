@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fixed Logout Issue
 - Fixed Reconnect in WebSocket Connections
 - Fixed Reconnect in RealTime System
 - Updated GProtocol To Version 3.2.0
