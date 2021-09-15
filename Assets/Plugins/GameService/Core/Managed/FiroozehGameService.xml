@@ -4009,6 +4009,11 @@
             </summary>
             <value>the Member Connection State</value>
         </member>
+        <member name="T:FiroozehGameService.Models.GSLive.RT.PeerConfig">
+            <summary>
+                Represents PeerConfig Data Model In GameService RealTime MultiPlayer System
+            </summary>
+        </member>
         <member name="T:FiroozehGameService.Models.GSLive.RT.EventData">
             <summary>
                 Represents Event Data Model In GameService RealTime MultiPlayer System
