@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 
 
+## [8.8.0] Stable - 2021-09-15
+
+### Changed
+
+- **Increased Min Observer Threshold** From 8 To 12 Per Second in RealTime System
+
+
+
+### Fixed
+
+- Fixed Reconnect in WebSocket Connections
+- Fixed Reconnect in RealTime System
+- Updated GProtocol To Version 3.2.0
+
+
+
+
+
 ## [8.7.0] Stable - 2021-09-10
 
 ### Added
