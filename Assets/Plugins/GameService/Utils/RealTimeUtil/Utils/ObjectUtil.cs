@@ -71,11 +71,12 @@ namespace Plugins.GameService.Utils.RealTimeUtil.Utils
 
                 var type = monoBehaviour.GetType();
                 var methods = GetMethods(type, typeof(GsLiveFunction));
+
+                if (_runnableCache.ContainsKey(type)) _runnableCache[type] = methods;
+                else _runnableCache.Add(type,methods);
                 
-                if (_runnableCache.ContainsKey(type)) continue;
-                
-                _runnableCache.Add(type, methods);
-                _runnableCacheMono.Add(type, monoBehaviour);
+                if (_runnableCacheMono.ContainsKey(type)) _runnableCacheMono[type] = monoBehaviour;
+                else _runnableCacheMono.Add(type,monoBehaviour);
             }
         }
 
