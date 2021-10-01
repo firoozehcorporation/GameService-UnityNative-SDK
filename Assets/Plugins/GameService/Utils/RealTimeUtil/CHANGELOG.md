@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.2] Stable - 2021-10-01
+
+### Fixed
+
+- Fixed Remote Functions
+
+
 ## [1.6.1] Stable - 2021-08-26
 
 ### Fixed
